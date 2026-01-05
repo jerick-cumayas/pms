@@ -1,0 +1,199 @@
+<odoo>
+    <!-- 1. Create the Announcements blog container -->
+    <record id="blog_policies" model="blog.blog">
+        <field name="name">Policies</field>
+        <field name="subtitle">Policies</field>
+        <field name="website_id" ref="website.default_website"/>
+    </record>
+
+    <!-- 2. Announcement: Playground Guidelines -->
+    <record id="policies_cctv" model="blog.post">
+        <field name="name">CCTV Policy</field>
+        <field name="blog_id" ref="blog_policies"/>
+        <field name="website_published">True</field>
+        <field name="content">
+            <![CDATA[
+                <h1>CCTV Policies</h1>
+                <div>
+                    <h2>General Guidelines</h2>
+                    <ul>
+                        <li>Implementation of professional, ethical and legal manner of video monitoring in PHI Building for security purpose. It prohibits in monitoring of individuals based on characteristics of race, gender, ethnicity, sexual orientation, disability, or other protected classifications.</li>
+                        <li>The Building Admin Office can monitor the recorded images captured by the system, twenty-four (24) hours a day and seven (7) days a week. CCTV system installed shall be capable to record and store for at least (30) thirty days.</li>
+                        <li>Access for the CCTV system shall be only limited to the following persons:
+                            <ul>
+                                    <li>Building Administrator/ Enginee</li>
+                                    <li>Admin Assistant</li>
+                                    <li>Authorized Building Technician or Security Personnel</li>
+                                    <li>Department Manager or Supervisor</li>
+                                    <li>Legal, MIS and EHSS Officers</li>
+                                    <li>CCTV technician (supplier)</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div>
+                                CCTV recordings shall only be disclosed to law officers and the extent of the recordings handed to them must pertain only to the following instances:
+                                <ul>
+                                        <li>In an investigation of an offense punishable by law---the manner in which the offense was committed and/or to ascertain the identity of the perpetrator; or</li>
+                                        <li>Used as evidence to criminal, civil or administrative proceedings, subject to court order.</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                                Information received and acquired by the Building Administrator, his/her staff or security personnel, from the police officer or from the complainant regarding the details of the investigation and other information relevant thereto, shall be considered as confidential in nature and the same shall not be divulged to any person except those allowed by the company and this policy.
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Procedures for request to copy or view CCTV recordings</h2>
+                    <div>
+                        <h3>Request by Police Officers</h3>
+                        <ul>
+                            <li>The security guard assigned at the main entrance shall ask for proper identification, before entry of police officers and after stating their purpose of the conduct of investigation, in case, they are in civilian attire.</li>
+                            <li>The security guard shall immediately relay the information to the Building Administrator and shall accompany the police officers to the Administrator’s Office, as the case maybe.</li>
+                            <li>
+                                <div>
+                                    The Building Administrator shall ask for a written request from the most senior police officer who desires to view and/or copy any footage, in aid of investigation of an incident. The written request must contain the following information:
+                                    <ul>
+                                        <li>Name of the police unit and address</li>
+                                        <li>Name of the requesting party</li>
+                                        <li>Contact number of the requesting party</li>
+                                        <li>Date of request</li>
+                                        <li>Purpose of the viewing and/or copying</li>
+                                        <li>Name of the subject</li>
+                                        <li>Approximate dates and time when the subject was spotted</li>
+                                        <li>Complete address and exact location where the subject was spotted</li>
+                                        <li>Name of the complainant</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>The Building Administrator shall keep the written request and submit a copy to Safety Officer for future reference. Moreover, consider the request as highly confidential and any contents not be disclosed to anybody except those persons authorized in this policy.</li>
+                            <li>The Building Administrator, if necessary, may bring in or invite the police officers to his office in order to maintain the confidentiality of the information and to limit the presence of police officers in the lobby that may cause anxiety, distraction or alarm to the occupants of the building.</li>
+                            <li>In the absence of the authorized technician, the Building Engineer shall review and copy the desired footage based on the details indicated on the written request. At the same time, retain a copy of the subject CCTV footage, which must be stored in an appropriate file for company’s use and reference in the future.</li>
+                            <li>The Building Administrator shall accomplish a report, which contains details and circumstances surrounding the event of investigation conducted by the police officers, together with pertinent documents and shall submit the same to his immediate superior and EHSS for their information.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h2>Request by the Complainant</h2>
+                    <ul>
+                        <li>
+                            <div>
+                                Upon receipt of complaint, the Building Administrator or his staff shall require the complainant to fill out the CCTV request form which contains the following details:
+                                <ul>
+                                    <li>Date of request</li>
+                                    <li>Name of tenant/lessee/unit owner</li>
+                                    <li>Unit number or company</li>
+                                    <li>Contact number</li>
+                                    <li>Cause of the complaint</li>
+                                    <li>Description of the properties lost, if any</li>
+                                    <li>Date and the approximate time of the incident</li>
+                                    <li>Time approved</li>
+                                    <li>Other relevant details</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>The CCTV request shall be approved by the Building Administrator’s Supervisor or Manager.</li>
+                        <li>After approval, the Building Engineer or the authorized technician shall review the footages based on the details provided in the CCTV Request Form.</li>
+                        <li>The Building Engineer after having reviewed the footages shall submit to the Building Administrator a written report within 24 hours from the approval of the request form, which shall indicate, among others, his findings on the review of the CCTV recordings. He shall also retain a copy of the subject CCTV footage, which must be stored in an appropriate file for company’s use and reference in the future.</li>
+                        <li>The Building Administrator shall inform the complainant who requested the CCTV footage, within a reasonable time, as to the result of the CCTV footage review based on the written report submitted to him. If the complainant wishes to obtain a copy of the report, prior to the release of report the Building Administrator shall first seek approval from his direct superior.</li>
+                        <li>In case the complainant demands to copy or view the CCTV footages relating to an incident or offense, the Building Administrator shall advise the former to secure a Police Blotter Report or seek assistance from the police authorities for the investigation of the incident. If the latter case shall happen, the Building Administrator shall observe the procedures on “Request by Police Officers” cited in the preceding title.</li>
+                        <li>The Building Administrator shall submit the request form together with the CCTV report to EHSS for information and reference.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>By Court Order</h2>
+                    <ul>
+                        <li>Any person who desires to obtain a copy of the CCTV footages, used as evidence, in relation to an offense already filed in court, shall secure an order for the release of the said footages from the court or any other tribunal, which has jurisdiction or agencies authorized by law to issue subpoena.</li>
+                    </ul>
+                </div>
+            ]]>
+        </field>
+    </record>
+
+    <record id="policies_pet" model="blog.post">
+        <field name="name">Pet Policy</field>
+        <field name="blog_id" ref="blog_policies"/>
+        <field name="website_published">True</field>
+        <field name="content">
+            <![CDATA[
+                <h1>Pet Policies</h1>
+                <ul>
+                    <li>Each unit is allowed a maximum of 2 pets, which may include cats, dogs, or other domesticated animals typically kept as pets. Exotic or large animals may be restricted.</li>
+                    <li>All pets must be registered with the condominium association. Registration requires up-to-date proof of vaccinations, spaying/neutering (if required), and any necessary local pet licenses.</li>
+                    <li>Pets must be on a leash or carried when in common areas such as hallways, elevators, stairwells, and lobbies. Pets must always be under the control of their owner to avoid disturbance or danger to other residents.</li>
+                    <li>Pet owners are responsible for ensuring their pets do not create excessive noise, such as barking, whining, or howling, that could disturb neighbors. Persistent noise complaints may lead to fines or other actions.</li>
+                    <li>Pet owners are required to clean up after their pets immediately. Pet waste must be disposed of in designated waste areas or bins. Failure to comply with this rule may result in fines or other penalties.</li>
+                    <li>Pets that display aggressive behavior toward residents, other pets, or visitors may be required to be removed from the condominium if the behavior poses a risk. The condominium board will review any complaints and take appropriate actions after investigation.</li>
+                    <li>Certain large dog breeds or specific breeds considered aggressive may be restricted. Check the condominium’s list of restricted breeds before acquiring a pet.</li>
+                    <li>All pets must be regularly vaccinated and treated for fleas and ticks. Pets with any contagious health conditions should not be brought into common areas until treated.</li>
+                    <li>Pets are not allowed to be left unsupervised on balconies or near open windows, especially if they could pose a safety risk or become a nuisance to neighbors.</li>
+                    <li>Owners are not permitted to modify their units or common areas to accommodate pets (such as installing pet doors) without approval from the condominium association.</li>
+                    <li>Any pet-related issues or violations of the policy should be reported to the condominium association. Violations may result in warnings, fines, or in severe cases, the removal of the pet from the premises.</li>
+                    <li>In shared amenities like gardens, rooftop spaces, or courtyards, pet owners must ensure their pets do not disturb others. Some areas may have designated pet zones or may restrict pet access entirely.</li>
+                </ul>
+            ]]>
+        </field>
+    </record>
+
+    <record id="policies_noise" model="blog.post">
+        <field name="name">Noise Control Policy</field>
+        <field name="blog_id" ref="blog_policies"/>
+        <field name="website_published">True</field>
+        <field name="content">
+            <![CDATA[
+                <h1>Noise Control Policies</h1>
+                <ul>
+                    <li>Unit owners or tenants shall maintain their respective units in a peaceful and reasonably quiet manner and shall refrain from any noisy or disturbing activities, which will interfere with the rights, comfort, peace and convenience of other occupants of the building.</li>
+                    <li>Playing of loud music is strictly prohibited. Property Manager may regulate the volume of any audio material played within the premises.</li>
+                    <li>Wild parties, jam sessions, and playing of any audio or electronic equipment on high volume which may disturb the relative peace and tranquility of any portion of the condominium is strictly prohibited.</li>
+                    <li>Unit owners and tenants intending to have parties inside their units with guests’ more than five (5) persons shall confer with the Property Management Office in order to set up the necessary arrangement for the proper handling of guests.</li>
+                </ul>
+            ]]>
+        </field>
+    </record>
+
+    <record id="policies_pest" model="blog.post">
+        <field name="name">Pest Control Policy</field>
+        <field name="blog_id" ref="blog_policies"/>
+        <field name="website_published">True</field>
+        <field name="content">
+            <![CDATA[
+                <h1>Pest Control Policies</h1>
+                <ul>
+                    <li>To prevent the presence of any undesirable insects or vermin, as well as to take preventive and protective measures to control or exterminate the same, the Condominium Corporation shall implement a regular pest control program for the common areas of the building.</li>
+                    <li>Unit owners and tenants shall be responsible for implementing pest control programs of their respective condominium units at their own expense.</li>
+                </ul>
+            ]]>
+        </field>
+    </record>
+
+    <record id="policies_garbage" model="blog.post">
+        <field name="name">Garbage Control Policy</field>
+        <field name="blog_id" ref="blog_policies"/>
+        <field name="website_published">True</field>
+        <field name="content">
+            <![CDATA[
+                <h1>Garbage Control Policies</h1>
+                <ul>
+                    <li>The unit owner or tenant shall use disposable garbage plastics or recycled shopping bag to contain garbage from his unit until it is ready for disposal into the MRF.</li>
+                    <li>
+                        <div>
+                            <ul>
+                                <li>Garbage must be segregated inside the unit</li>
+                                <li>Dry garbage (non-food and other non-biodegradable materials) should be securely wrapped or enclosed in the black plastic garbage bag.</li>
+                                <li>Dust and powdered waste must be wrapped in compact packages and placed inside the garbage bag.</li>
+                                <li>Wet garbage (food and other bio-degradable materials) shall be thoroughly drained from solid wastes to liquid wastes and separately wrapped in plastic and placed in the garbage bag and put it in the garbage drum provided inside. Keep the drum closed at all times.</li>
+                                <li>Loose papers shall be crushed into tight bundles.</li>
+                                <li>Disposing of bottles, glassware, sharp or heavy object and hazardous waste into the garbage chute is strictly not allowed as these items may damage the garbage drum, just place these items on the floor inside the MRF.</li>
+                                <li>The burning of garbage or any other waste material inside the unit or in any portion of the building is absolutely prohibited.</li>
+                                <li>Any item constituting a fire hazard such as cigarettes or matches must be properly extinguished and placed in appropriate containers.</li>
+                                <li>Garbage, refuse and waste should not be left outside the unit, inside the fire exit area or in any place of the building. It should be properly disposed of in the MRF.</li>
+                                <li>Units shall be kept clean at all times and in tenable condition. The beating of rugs and/or shaking of dust cloth are prohibited in the unit main door, hallways, balcony, outside of the windows of the unit and promontory. Throwing or sweeping of dirt or any other material out of or from the unit main door, windows, balcony, windows passages or areas of common use is strictly not allowed.</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            ]]>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,58 @@
+<odoo>
+    <record id="helpdesk_team_support" model="helpdesk.team">
+        <field name="name">Support Team</field>
+        <field name="use_sla">True</field>
+        <field name="use_rating">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="helpdesk_team_work_permit" model="helpdesk.team">
+        <field name="name">Work Permit</field>
+        <field name="use_sla">True</field>
+        <field name="use_rating">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="helpdesk_team_construction_entry" model="helpdesk.team">
+        <field name="name">Construction Entry</field>
+        <field name="use_sla">True</field>
+        <field name="use_rating">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="helpdesk_team_pet_registration" model="helpdesk.team">
+        <field name="name">Pet Registration</field>
+        <field name="use_sla">True</field>
+        <field name="use_rating">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="helpdesk_team_cctv" model="helpdesk.team">
+        <field name="name">CCTV</field>
+        <field name="use_sla">True</field>
+        <field name="use_rating">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="helpdesk_team_inspection" model="helpdesk.team">
+        <field name="name">Inspection Report</field>
+        <field name="use_sla">True</field>
+        <field name="use_rating">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="helpdesk_team_tenant_info" model="helpdesk.team">
+        <field name="name">Tenant Information</field>
+        <field name="use_sla">True</field>
+        <field name="use_rating">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="helpdesk_team_owner_info" model="helpdesk.team">
+        <field name="name">Owner Information</field>
+        <field name="use_sla">True</field>
+        <field name="use_rating">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+</odoo>
+

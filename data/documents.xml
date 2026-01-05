@@ -1,0 +1,10 @@
+<odoo>
+    <record id="doc_forms_pdf" model="documents.document">
+        <field name="name">Amenities Reservation Form</field>
+        <field name="datas"
+               type="base64"
+               file="pms/static/documents/AmenityReservationForm.pdf"/>
+        <field name="mimetype">application/pdf</field>
+        <field name="folder_id" ref="documents.documents_folder_company"/>
+    </record>
+</odoo>

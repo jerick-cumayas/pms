@@ -1,0 +1,74 @@
+<odoo>
+    <!-- 1. Create the Announcements blog container -->
+    <record id="blog_amenities" model="blog.blog">
+        <field name="name">Amenities</field>
+        <field name="subtitle">Amenities Guidelines</field>
+        <field name="website_id" ref="website.default_website"/>
+    </record>
+
+    <!-- 2. Announcement: Playground Guidelines -->
+    <record id="amenities_playground" model="blog.post">
+        <field name="name">Playground Guidelines</field>
+        <field name="blog_id" ref="blog_amenities"/>
+        <field name="website_published">True</field>
+        <field name="content">
+            <![CDATA[
+                <h2>Playground Guidelines</h2>
+                <p>The Playground - The outside recreational areas may be used by unit owner , residents and their guests only during hours posted but no later than the onset of darkness.</p>
+                <p>Playground equipment may be used only by children under the age of 12 under adult supervision.</p>
+                <p>Never leave a child in a toddler swing unattended. Parents/Guardian should always have your eye on the kids as they play on playground equipment.</p>
+                <p>Make sure kids are dressed appropriately. Should remove purses, scarves and necklaces that could become caught in playground equipment.</p>
+                <p>Kids should only play on equipment that is safe for them to use given their current age and skill level.</p>
+                <p>Keep your shoes tied and don’t wear any loose strings or clothing on the slide.</p>
+                <p>Take one step at a time and hold the handrails with both hands when climbing the ladder to the top of the slide. Never climb or run up the slide surface or the frame.</p>
+                <p>Slide down feet first and sitting up, never head first or on your back, knees or stomach.</p>
+                <p>Always sit in the center of the swing; don’t stand or kneel. Hold the chains tightly with both hands. Stop the swing completely before getting off.</p>
+                <p>No jumping out of swings, no twisting chains or swinging sideways.</p>
+                <p>Stay a safe distance from other children on swings being careful not to run or walk in front, in back or between them. Walk out around instead.</p>
+                <p>Always play safe by being careful and showing courtesy.</p>
+            ]]>
+        </field>
+    </record>
+
+    <!-- 3. Announcement: Basketball Guidelines -->
+    <record id="amenities_basketball" model="blog.post">
+        <field name="name">Basketball Guidelines</field>
+        <field name="blog_id" ref="blog_amenities"/>
+        <field name="website_published">True</field>
+        <field name="content">
+            <![CDATA[
+                <h2>Basketball Guidelines</h2>
+                <p>The shooting hoops is available for all unit owners/resident and their immediate family members whose names are duly registered in the Roster of Unit Owners and Residents, with the Property Management Office or those persons duly endorsed by the Property Management Office.</p>
+                <p>Only residents and their guests are allowed to play. Guests must be accompanied by a resident, unless prior permission has been received.</p>
+                <p>Shooting hoops available for use from 8:30am to 5:00pm, depends on onset of darkness.</p>
+                <p>Residents are required to wear appropriate clothing when using the basketball court. Sandals, flip-flops, and slippers are not permitted. </p>
+                <p>Items, including baseballs, bats, pets, bicycles, food or drinks, are not allowed on the courts. Smoking is prohibited. Bottled water is permissible on the courts.</p>
+                <p>Players must yield the court after 45 minutes of play if others are waiting.</p>
+                <p>Children under of age 12 must be accompanied by an adult.</p>
+            ]]>
+        </field>
+    </record>
+    
+    <!-- 4. Announcement: Fitness Gym Guidelines -->
+    <record id="amenities_fitness_gym" model="blog.post">
+        <field name="name">Fitness Gym Guidelines</field>
+        <field name="blog_id" ref="blog_amenities"/>
+        <field name="website_published">True</field>
+        <field name="content">
+            <![CDATA[
+                <h2>Fitness Gym Guidelines</h2>
+                <p>Please fill out the necessary guidelines for playground.</p>
+                <p>The Fitness Gym shall be for the exclusive use of unit owners in good standing and their immediate family members whose names are duly registered in the Roster of Unit Owners and Residents.</p>
+                <p>All users will be using the fitness gym must be in proper fitness attire.</p>
+                <p>Do not drop or bang free weights, machine weights or dumbbells.</p>
+                <p>Drinking water and energy drink in a plastic spill proof bottles are permitted.</p>
+                <p>Do not stand on exercise benches, move equipment, and place weights on upholstery.</p>
+                <p>Horse play is strictly prohibited in the gym area.</p>
+                <p>No children under 16 years of age are allowed inside the gym area even if they are accompanied by parents or guardians for the purpose of the children’s safety and of the gym users.</p>
+                <p>The Property Management Office is not responsible for any personal belongings lost or stolen inside the gym area.</p>
+                <p>All users shall comply with the rules and regulations on the use of the Fitness Gym. The Property Management Office staff shall have the exclusive prerogative to remove or disallow the use thereof by violators. Any abuse of use or damage caused to the facility, in part or in whole, shall be considered a major violation and shall be subjected to a fine, the amount of which shall be determined by the Property Management Office depending on the magnitude of the abuse or damage.</p>
+                <p>The Condominium Corporation and/or the Property Management Office is not responsible for any accidents or injuries that may arise from the use of the Fitness Gym. Any incident should immediately be reported to the Security or to the Property Management Office.</p>
+            ]]>
+        </field>
+    </record>
+</odoo>
