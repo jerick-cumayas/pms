@@ -1,10 +1,51 @@
 <odoo>
-    <record id="doc_forms_pdf" model="documents.document">
+    <record id="amenities_reservation_form" model="documents.document">
         <field name="name">Amenities Reservation Form</field>
         <field name="datas"
                type="base64"
-               file="pms/static/documents/AmenityReservationForm.pdf"/>
+               file="pms/static/documents/Amenity_Reservation_Form.pdf"/>
         <field name="mimetype">application/pdf</field>
-        <field name="folder_id" ref="documents.documents_folder_company"/>
+    </record>
+    <record id="construction_bond_refund_form" model="documents.document">
+        <field name="name">Construction Bond Refund Form</field>
+        <field name="datas"
+               type="base64"
+               file="pms/static/documents/Construction_Bond_Refund_Form.pdf"/>
+        <field name="mimetype">application/pdf</field>
+    </record>
+    <record id="fitout_and_renovation_form" model="documents.document">
+        <field name="name">Fitout and Renovation Form</field>
+        <field name="datas"
+               type="base64"
+               file="pms/static/documents/Fit-out_and_Renovation_Form.pdf"/>
+        <field name="mimetype">application/pdf</field>
+    </record>
+    <record id="gate_pass_form" model="documents.document">
+        <field name="name">Gate Pass Form</field>
+        <field name="datas"
+               type="base64"
+               file="pms/static/documents/Gate_Pass_Form.pdf"/>
+        <field name="mimetype">application/pdf</field>
+    </record>
+    <record id="movein_moveout_form" model="documents.document">
+        <field name="name">Move In and Move Out Form</field>
+        <field name="datas"
+               type="base64"
+               file="pms/static/documents/Move-in_and_Move-out_Form.pdf"/>
+        <field name="mimetype">application/pdf</field>
+    </record>
+    <record id="vehicle_pass_form" model="documents.document">
+        <field name="name">Vehicle Pass Form</field>
+        <field name="datas"
+               type="base64"
+               file="pms/static/documents/Vehicle_Pass_Form.pdf"/>
+        <field name="mimetype">application/pdf</field>
+    </record>
+    <record id="work_permit_form" model="documents.document">
+        <field name="name">Work Permit Form</field>
+        <field name="datas"
+               type="base64"
+               file="pms/static/documents/Work_Permit_Form.pdf"/>
+        <field name="mimetype">application/pdf</field>
     </record>
 </odoo>
