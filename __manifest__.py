@@ -6,6 +6,7 @@
         'base', 
         'contacts', 
         'account', 
+        'documents',
         'helpdesk',
         'website', 
         'website_blog',
@@ -16,6 +17,9 @@
         'data/announcements/policies.xml',
         
         'data/teams.xml',
+        'data/documents.xml',
+
+        'views/homepage.xml'
     ],
     'license': 'LGPL-3',
     'author': 'Jerick Cumayas'
