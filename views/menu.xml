@@ -4,4 +4,5 @@
 
     <menuitem id="menu_forms" name="Forms" parent="menu_root"/>
     <menuitem id="menu_forms_amenities" name="Amenities" parent="menu_forms" action="action_amenities_forms" sequence="10"/>
+    <menuitem id="menu_forms_pet_registration" name="Pets" parent="menu_forms" action="action_pet_registration_form" sequence="20"/>
 </odoo>

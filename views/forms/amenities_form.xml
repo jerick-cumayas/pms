@@ -12,7 +12,7 @@
         <field name="model">form.amenities</field>
         <field name="arch" type="xml">
             <list>
-                <field name="date_filed"/>
+                <field name="create_date"/>
                 <field name="requestor_id"/>
             </list>
         </field>
@@ -23,10 +23,9 @@
         <field name="name">form.amenities.form</field>
         <field name="model">form.amenities</field>
         <field name="arch" type="xml">
-            <form string="Website Request">
+            <form string="Amenities Form">
                 <sheet>
                     <group>
-                        <field name="date_filed"/>
                         <field name="requestor_id"/>
                         <field name="activity_type"/>
                         <field name="sponsor_id"/>

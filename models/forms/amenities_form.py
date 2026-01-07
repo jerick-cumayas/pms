@@ -7,10 +7,6 @@ class AmenitiesRequestForm(models.Model):
     # REQUIRED for website forms
     website_form_access = True
     
-    date_filed = fields.Date(
-        string="Date Filed",
-        default=fields.Date.context_today  # Automatically sets to today
-    )
     requestor_id = fields.Many2one(
         'res.partner',
         string="Name of Requestor",
@@ -51,10 +47,3 @@ class AmenitiesRequestForm(models.Model):
         """
         current_partner = self.env.user.partner_id
         return self.env['res.partner'].search([('id', '!=', current_partner.id)])
-    
-    @api.model
-    def create(self, vals):
-        # Set the date_filed to today if not provided
-        if 'date_filed' not in vals or not vals['date_filed']:
-            vals['date_filed'] = fields.Date.today()
-        return super().create(vals)

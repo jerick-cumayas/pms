@@ -28,8 +28,10 @@
         # 'views/sample4.xml',
 
         'views/forms/amenities_form.xml',
+        'views/forms/pet_registration_form.xml',
 
         'views/website/amenities_form_web.xml',
+        'views/website/pet_registration_web.xml',
         'views/website/thank_you.xml',
 
         'views/menu.xml'

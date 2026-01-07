@@ -35,7 +35,6 @@ class AmenitiesFormController(http.Controller):
         guest_ids = [int(g) for g in guest_ids]
         print(f"GUESTIDS {guest_ids}")
         vals = {
-            'date_filed': post.get('date_filed'),
             'requestor_id': post.get('requestor_id'),
             'sponsor_id': post.get('sponsor_id') or False,
             'activity_type': post.get('activity_type'),
@@ -46,7 +45,7 @@ class AmenitiesFormController(http.Controller):
         }
 
         request.env['form.amenities'].sudo().create(vals)
-        return request.redirect('/forms/thank-you')
+        return request.redirect(f'{FORM_THANK_YOU_PATH}')
     
     # | Command       | Meaning                                                       |
     # | ------------- | ------------------------------------------------------------- |
