@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+pms.access_website_request_public,Website Request Public Access,model_website_request,base.group_public,1,1,1,1
+pms.access_website_request_user,Website Request User Access,model_website_request,base.group_user,1,1,1,1
+pms.access_amenities_form,Amenities Form,model_form_amenities,base.group_user,1,1,1,1

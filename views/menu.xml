@@ -1,0 +1,7 @@
+<odoo>
+    <!-- Menu -->
+    <menuitem id="menu_root" name="PMS" sequence="10"/>
+
+    <menuitem id="menu_forms" name="Forms" parent="menu_root"/>
+    <menuitem id="menu_forms_amenities" name="Amenities" parent="menu_forms" action="action_amenities_forms" sequence="10"/>
+</odoo>

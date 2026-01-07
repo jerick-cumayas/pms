@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Action -->
+    <record id="action_website_request" model="ir.actions.act_window">
+        <field name="name">Website Requests</field>
+        <field name="res_model">website.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_website_request_root" name="Website Requests" sequence="10"/>
+    <menuitem id="menu_website_request" name="Requests" parent="menu_website_request_root" action="action_website_request" sequence="10"/>
+
+    <!-- Tree view -->
+    <record id="view_website_request_tree" model="ir.ui.view">
+        <field name="name">website.request.tree</field>
+        <field name="model">website.request</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_website_request_form" model="ir.ui.view">
+        <field name="name">website.request.form</field>
+        <field name="model">website.request</field>
+        <field name="arch" type="xml">
+            <form string="Website Request">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="message"/>
+                        <field name="create_date" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

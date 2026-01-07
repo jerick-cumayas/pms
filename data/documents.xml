@@ -48,4 +48,62 @@
                file="pms/static/documents/Work_Permit_Form.pdf"/>
         <field name="mimetype">application/pdf</field>
     </record>
+
+
+
+    <record id="attach_amenities_reservation" model="ir.attachment">
+            <field name="name">Amenities Reservation Form</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64"
+                   file="pms/static/documents/Amenity_Reservation_Form.pdf"/>
+            <field name="mimetype">application/pdf</field>
+        </record>
+
+        <record id="attach_construction_bond" model="ir.attachment">
+            <field name="name">Construction Bond Refund Form</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64"
+                   file="pms/static/documents/Construction_Bond_Refund_Form.pdf"/>
+            <field name="mimetype">application/pdf</field>
+        </record>
+
+        <record id="attach_fitout_renovation" model="ir.attachment">
+            <field name="name">Fit-out and Renovation Form</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64"
+                   file="pms/static/documents/Fit-out_and_Renovation_Form.pdf"/>
+            <field name="mimetype">application/pdf</field>
+        </record>
+
+        <record id="attach_gate_pass" model="ir.attachment">
+            <field name="name">Gate Pass Form</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64"
+                   file="pms/static/documents/Gate_Pass_Form.pdf"/>
+            <field name="mimetype">application/pdf</field>
+        </record>
+
+        <record id="attach_movein_moveout" model="ir.attachment">
+            <field name="name">Move In / Move Out Form</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64"
+                   file="pms/static/documents/Move-in_and_Move-out_Form.pdf"/>
+            <field name="mimetype">application/pdf</field>
+        </record>
+
+        <record id="attach_vehicle_pass" model="ir.attachment">
+            <field name="name">Vehicle Pass Form</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64"
+                   file="pms/static/documents/Vehicle_Pass_Form.pdf"/>
+            <field name="mimetype">application/pdf</field>
+        </record>
+
+        <record id="attach_work_permit" model="ir.attachment">
+            <field name="name">Work Permit Form</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64"
+                   file="pms/static/documents/Work_Permit_Form.pdf"/>
+            <field name="mimetype">application/pdf</field>
+        </record>
 </odoo>

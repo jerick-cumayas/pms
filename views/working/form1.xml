@@ -1,0 +1,42 @@
+<!-- <template id="website_request_page" name="Website Request Page">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <h1>Send a Request</h1>
+
+                <form class="s_website_form"
+                    data-model="website.request"
+                    data-success-mode="message"
+                    data-success-message="Thank you! Your request was sent."
+                    method="POST">
+
+                    <div class="form-group mb-3">
+                        <input type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder="Your Name"
+                            required="1"/>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <input type="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Your Email"/>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <textarea name="message"
+                                class="form-control"
+                                placeholder="Your Message"></textarea>
+                    </div>
+
+                    <!-- Use button type="submit" instead of <a> -->
+                    <button type="submit"
+                            class="btn btn-primary s_website_form_send">
+                        Submit
+                    </button>
+                </form>
+
+            </div>
+        </t>
+    </template> -->
