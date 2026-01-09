@@ -29,9 +29,18 @@
 
         'views/forms/amenities_form.xml',
         'views/forms/pet_registration_form.xml',
+        'views/forms/unit_owner_info_form.xml',
+        'views/forms/tenant_info_form.xml',
 
+        'views/website/forms_homepage.xml',
         'views/website/amenities_form_web.xml',
         'views/website/pet_registration_web.xml',
+        'views/website/base/person_base_form_web.xml',
+        'views/website/base/spouse_person_base_form_web.xml',
+        'views/website/base/vehicle_base_form_web.xml',
+        'views/website/base/multiple_person_base_form_web.xml',
+        'views/website/unit_owner_info_form_web.xml',
+        'views/website/tenant_info_form_web.xml',
         'views/website/thank_you.xml',
 
         'views/menu.xml'

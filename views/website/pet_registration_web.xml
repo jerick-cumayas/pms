@@ -15,11 +15,11 @@
                     </div>
 
                     <hr/>
-                    <button type="button" id="add-pet" class="btn btn-secondary mb8">Add Another Pet</button>
+                    <button type="button" id="add-pet" class="btn btn-outline-secondary mb8">Add Another Pet</button>
                     <h3>Pet Details</h3>
                    
                     <div id="pet-container">
-                        <div class="pet-entry card p-3 mb-3 position-relative">
+                        <div class="pet-entry card p-3 mb-3 position-relative d-flex flex-column gap-3">
                             <span class="badge bg-primary position-absolute top-0 end-0 m-2">Pet 1</span>
                             <div class="form-group">
                                 <label>Pet Name</label>
@@ -60,7 +60,7 @@
                                     <input type="checkbox" name="pet_is_vaccinated[]"/> Is Vaccinated?
                                 </label>
                             </div>
-                            <button type="button" class="btn btn-secondary remove-pet">Remove</button>
+                            <button type="button" class="btn btn-outline-danger remove-pet">Remove</button>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

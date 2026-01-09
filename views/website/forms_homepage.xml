@@ -1,0 +1,38 @@
+<odoo>
+    <template id="website_form_homepage" name="Form Selection">
+        <t t-call="website.layout">
+            <div class="container mt-5 mb-5">
+                <h1 class="mb-4">Select a Form to Submit</h1>
+                <div class="row">
+                    <!-- Pet Reservation Form Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/your_module/static/src/img/pet_form.png" class="card-img-top" alt="Pet Reservation"/>
+                            <div class="card-body">
+                                <h5 class="card-title">Pet Reservation</h5>
+                                <a href="/forms/pet_reservation" class="text-success font-weight-bold">
+                                    Fill Form →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Amenities Reservation Form Card -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/your_module/static/src/img/amenities_form.png" class="card-img-top" alt="Amenities Reservation"/>
+                            <div class="card-body">
+                                <h5 class="card-title">Amenities Reservation</h5>
+                                <a href="/forms/amenities_reservation" class="text-success font-weight-bold">
+                                    Fill Form →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add more forms here if needed -->
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

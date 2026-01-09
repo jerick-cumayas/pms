@@ -4,3 +4,11 @@ pms.access_website_request_user,Website Request User Access,model_website_reques
 pms.access_amenities_form,Amenities Form,model_form_amenities,base.group_user,1,1,1,1
 pms.access_pet_registration,Pet Registration Form,model_form_pet_registration,base.group_user,1,1,1,1
 pms.access_pet_details,Pet Details,model_pet_details,base.group_user,1,1,1,1
+
+pms.access_building,access_building,pms.model_building,base.group_user,1,1,1,1
+pms.access_building_unit,access_building_unit,pms.model_building_unit,base.group_user,1,1,1,1
+pms.access_form_vehicle_info,access_form_vehicle_info,pms.model_form_vehicle_info,base.group_user,1,1,1,1
+pms.access_form_spouse_info,access_form_spouse_info,pms.model_form_spouse_info,base.group_user,1,1,1,1
+pms.access_form_unit_owner_info,access_form_unit_owner_info,pms.model_form_unit_owner_info,base.group_user,1,1,1,1
+pms.access_form_tenant_info,access_form_tenant_info,pms.model_form_tenant_info,base.group_user,1,1,1,1
+pms.access_form_tenant_house_member,access_form_tenant_house_member,pms.model_form_tenant_house_member,base.group_user,1,1,1,1

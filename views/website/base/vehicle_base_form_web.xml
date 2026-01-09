@@ -1,0 +1,30 @@
+<odoo>
+    <template id="vehicle_base_form">
+        <div id="vehicle_base_form" class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="plate_no">Plate No</label>
+                        <input type="text" name="plate_no" id="plate_no" class="form-control" required="required"/>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="brand">Brand</label>
+                        <input type="text" name="brand" id="brand" class="form-control" required="required"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="type">Type</label>
+                        <input type="text" name="type" id="type" class="form-control" required="required"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mb-3">
+                        <label for="colour">Colour</label>
+                        <input type="text" name="colour" id="colour" class="form-control" required="required"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

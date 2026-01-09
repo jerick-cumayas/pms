@@ -1,0 +1,77 @@
+<odoo>
+    <template id="website_tenant_info_form" name="Tenant Info Form">
+        <t t-call="website.layout">
+            <div class="container mt16 mb16">
+                <h1 class="fs-2">Tenant Information</h1>
+
+                <form
+                    t-att-action="'/forms/tenant_info/submit'"
+                    method="post"
+                    class="o_website_form d-flex flex-column gap-5"
+                    data-model_name="form.unit_owner_info"
+                    data-success_page="/forms/thank-you">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div>
+                        <h2 class="fs-3">Personal Info</h2>
+                        <hr/>
+                        <t t-call="pms.person_base_form"/>
+                    </div>
+
+                    <div>
+                        <h2 class="fs-3">Spouse Info (if married)</h2>
+                        <hr/>
+                        <t t-call="pms.spouse_person_base_form"/>
+                    </div>
+
+                    <div>
+                        <h2 class="fs-3">Vehicle Info</h2>
+                        <hr/>
+                        <t t-call="pms.vehicle_base_form"/>
+                    </div>
+
+                    <div>
+                        <h2 class="fs-3">Tenant Member Info</h2>
+                        <hr/>
+                        <button type="button" id="add-member" class="btn btn-outline-secondary mb8">Add Member</button>
+                        <t t-call="pms.website_multiple_person_base_form"/>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <script>
+                const container = document.getElementById('member-container');
+
+                function updateBadges() {
+                    Array.from(container.children).forEach((card, index) => {
+                        const badge = card.querySelector('.badge');
+                        if (badge) badge.textContent = 'Member ' + (index + 1);
+                    });
+                }
+
+                document.getElementById('add-member').addEventListener('click', () => {
+                    const newMember = container.children[0].cloneNode(true);
+                    newMember.querySelectorAll('input, select, textarea').forEach(el => {
+                        if(el.type === 'checkbox') el.checked = false;
+                        else el.value = '';
+                    });
+                    container.appendChild(newMember);
+                    updateBadges();
+                });
+
+                container.addEventListener('click', e => {
+                    if (e.target.classList.contains('remove-member')) {
+                        const cards = container.children;
+                        if(cards.length > 1){
+                            e.target.closest('.member-entry').remove();
+                            updateBadges();
+                        } else {
+                            alert('At least one person must be entered.');
+                        }
+                    }
+                });
+            </script>
+        </t>
+    </template>
+</odoo>
