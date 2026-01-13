@@ -1,0 +1,12 @@
+<odoo>
+    <record id="action_report_amenities_sign_default" model="ir.actions.report">
+        <field name="name">Amenities Request (Default)</field>
+        <field name="model">form.amenities</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.report_amenities_sign_default</field>
+        <field name="report_file">pms.report_amenities_sign_default</field>
+        <field name="print_report_name">'Amenities_Request_%s' % (object.id)</field>
+    </record>
+</odoo>
+
+

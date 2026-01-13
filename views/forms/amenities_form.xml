@@ -24,7 +24,32 @@
         <field name="model">form.amenities</field>
         <field name="arch" type="xml">
             <form string="Amenities Form">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" 
+                            class="btn-primary"/>
+                    <button name="action_approve" string="Approve" type="object" 
+                            class="btn-primary"/>
+                    <button name="action_create_sign_template" string="Sign Document" type="object" 
+                            class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel" type="object" 
+                            class="btn-secondary"/>
+                    <button name="action_draft" string="Reset to Draft" type="object" 
+                            class="btn-secondary"/>
+                    <field name="state" widget="statusbar" clickable="1"/>
+                </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_sign_request"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                invisible="sign_request_id == False">
+                            <field name="sign_request_id" invisible="1"/>
+                            <div class="o_stat_info o_stat_info_with_icon">
+                                <span class="o_stat_text">Signature Request</span>
+                            </div>
+                        </button>
+                    </div>
                     <group>
                         <field name="requestor_id"/>
                         <field name="activity_type"/>
@@ -33,9 +58,20 @@
                         <field name="date_from"/>
                         <field name="date_to"/>
                     </group>
-                    <group string="Guests">
-                        <field name="guest_ids" widget="many2many_tags"/>
-                    </group>
+                    <notebook>
+                        <page string="Guests">
+                            <field name="guest_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Approver">
+                            <group>
+                                <field name="approver_id"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
