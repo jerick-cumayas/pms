@@ -239,3 +239,61 @@
         </xpath>
     </template>
 </odoo>
+
+<!-- <odoo>
+    <!-- Action -->
+    <record id="action_amenities_forms" model="ir.actions.act_window">
+        <field name="name">Amenities Form</field>
+        <field name="res_model">form.amenities</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Tree view -->
+    <record id="view_amenities_form_list" model="ir.ui.view">
+        <field name="name">form.amenities.list</field>
+        <field name="model">form.amenities</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_date"/>
+                <field name="requestor_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_amenities_form_form" model="ir.ui.view">
+        <field name="name">form.amenities.form</field>
+        <field name="model">form.amenities</field>
+        <field name="arch" type="xml">
+            <form string="Amenities Form">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" 
+                            class="btn-primary"/>
+                    <button name="action_approve" string="Approve" type="object" 
+                            class="btn-primary"/>
+                    <button name="action_sign_document" string="Sign Document" type="object" 
+                            class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel" type="object" 
+                            class="btn-secondary"/>
+                    <button name="action_draft" string="Reset to Draft" type="object" 
+                            class="btn-secondary"/>
+                    <field name="state" widget="statusbar" clickable="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="requestor_id"/>
+                        <field name="activity_type"/>
+                        <field name="sponsor_id"/>
+                        <field name="relation"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group string="Guests">
+                        <field name="guest_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo> -->
+

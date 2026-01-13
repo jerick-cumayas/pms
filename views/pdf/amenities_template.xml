@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_amenities_sign_default">
+        <t t-call="web.external_layout">
+            <main class="o_report_layout">
+                <t t-set="doc" t-value="docs[0]"/>
+
+                <!-- HEADER -->
+                <div style="text-align:center; margin-bottom:20px;">
+                    <h3 style="margin:0;">AMENITY RESERVATION FORM</h3>
+                </div>
+
+                <!-- TOP ROW -->
+                <table style="width:100%; margin-bottom:10px;">
+                    <tr>
+                        <td style="width:50%;">
+                            Date Filed:
+                            <span style="border-bottom:1px solid #000; display:inline-block; width:70%;">
+                                <span t-field="doc.create_date"/>
+                            </span>
+                        </td>
+                        <td style="width:50%; text-align:left0;">
+                            Name of Amenity:
+                            <span style="border-bottom:1px solid #000; display:inline-block; width:60%;">
+                                <span t-esc="doc.amenity_name"/>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- MAIN BOX -->
+                <table style="width:100%; border:1px solid #000; border-collapse: collapse;">
+                    <tr>
+                        <td style="width:55%; vertical-align:top; padding:20px;">
+
+                            <p>
+                                Name of Requestor:
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:60%;">
+                                    <span t-field="doc.requestor_id.name"/>
+                                </span>
+                            </p>
+
+                            <p>
+                                Unit Number:
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:60%;">
+                                    <!-- <span t-esc="doc.unit_number or ''"/> -->
+                                </span>
+                            </p>
+
+                            <p>
+                                Contact Number:
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:60%;">
+                                    <!-- <span t-esc="doc.contact_number or ''"/> -->
+                                </span>
+                            </p>
+
+                        </td>
+
+                        <!-- PAYMENTS -->
+                        <td style="width:45%; vertical-align:top; padding:20px;">
+                            <strong>Payments Made:</strong>
+
+                            <p>
+                                <span style="border:1px solid #000; display:inline-block; width:14px; height:14px;"></span>
+                                50% DP Php
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:80px;"></span>
+                            </p>
+
+                            <p>
+                                <span style="border:1px solid #000; display:inline-block; width:14px; height:14px;"></span>
+                                100% DP Php
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:80px;"></span>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- ACTIVITY -->
+                    <tr>
+                        <td colspan="2" style="padding:20px;">
+                            <p>
+                                Type of Activity:
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:90%;">
+                                    <span t-esc="doc.activity_type or ''"/>
+                                </span>
+                            </p>
+
+                            <p>
+                                If sponsored, unit owner’s name:
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:90%;">
+                                    <span t-field="doc.sponsor_id.name"/>
+                                </span>
+                            </p>
+
+                            <p>
+                                Relation to member/resident:
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:90%;">
+                                    <span t-esc="doc.relation or ''"/>
+                                </span>
+                            </p>
+
+                            <p>
+                                Date of Usage:
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:35%;">
+                                    <span t-field="doc.date_from"/>
+                                </span>
+                                Time (From – To):
+                                <span style="border-bottom:1px solid #000; display:inline-block; width:35%;">
+                                    <span t-esc="doc.date_to or ''"/>
+                                </span>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- TERMS -->
+                <p style="margin-top:20px;">
+                    <span t-esc="doc.amenity_name or '______________________________'"/> and the Management shall not be held liable for any accident,
+                    loss of life, or loss or damages of property of members or harm inflicted on users of the 
+                    <span t-esc="doc.amenity_name or '______________________________'"/>.
+                </p>
+
+                <p>
+                    I, <span t-esc="doc.requestor_id.name or '______________________________'"/> hereby acknowledge that I have read and understood the
+                    guidelines set forth of the said amenity.
+                </p>
+
+                <!-- SIGNATURES -->
+                <table style="width:100%; margin-top:40px; border-collapse: collapse;">
+                    <tr>
+                        <td style="width:50%; text-align:center; padding-top:20px;">
+                            <span t-esc="doc.requestor_id.name or '______________________________'"/><br/>
+                            <strong>CONFORME:</strong><br/>
+                            Requestor<br/>
+                            <small>(Signature over Printed Name)</small>
+                        </td>
+                        <td style="width:50%; text-align:center; padding-top:20px;">
+                            <span t-esc="doc.approver_id.name or '______________________________'"/><br/>
+                            <strong>APPROVED BY:</strong><br/>
+                            Property Management<br/>
+                            <small>(Signature over Printed Name)</small>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- FOOTNOTE -->
+                <p style="margin-top:30px; font-size:10px; font-style:italic;">
+                    Note: For your convenience, please accomplish guest list and submit to Admin Office
+                    24 hours prior to event.
+                </p>
+
+            </main>
+        </t>
+    </template>
+</odoo>
