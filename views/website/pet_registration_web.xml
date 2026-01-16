@@ -8,8 +8,8 @@
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <!-- Owner -->
                     <div class="form-group">
-                        <label for="owner_id">Pet Owner</label>
-                        <input type="hidden" name="owner_id" t-att-value="user.id"/>
+                        <label for="requestor_id">Pet Owner</label>
+                        <input type="hidden" name="requestor_id" t-att-value="user.id"/>
                         <!-- Visible readonly field -->
                         <input type="text" class="form-control" t-att-value="user.name" readonly="readonly"/>
                     </div>

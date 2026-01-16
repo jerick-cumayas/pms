@@ -12,6 +12,7 @@
         'website_blog',
         'web',
         'sign',
+        'portal'
     ],
     'data': [ 
         'security/ir.model.access.csv',
@@ -31,12 +32,23 @@
 
         'views/pdf/amenities_sign.xml',
         'views/pdf/amenities_template.xml',
+        'views/pdf/pet_registration_template.xml',
+        'views/pdf/unit_owner_info_template.xml',
+        'views/pdf/tenant_info_template.xml',
 
         'views/forms/amenities_form.xml',
         'views/forms/pet_registration_form.xml',
         'views/forms/unit_owner_info_form.xml',
         'views/forms/tenant_info_form.xml',
 
+        'views/website/website_modifications.xml',
+        'views/website/portal_modifications.xml',
+        
+        'views/website/homepage/portal_invoices_table.xml',
+        'views/website/homepage/portal_tickets_table.xml',
+        'views/website/homepage/portal_signatures_table.xml',
+
+        'views/website/homepage.xml',
         'views/website/forms_homepage.xml',
         'views/website/amenities_form_web.xml',
         'views/website/pet_registration_web.xml',

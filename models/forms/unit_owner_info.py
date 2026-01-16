@@ -1,4 +1,6 @@
-from odoo import models, fields, api
+import base64
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class VehicleInfoForm(models.Model):
     _name = 'form.vehicle_info'
@@ -18,91 +20,6 @@ class VehicleInfoForm(models.Model):
         string = 'Colour'
     )
 
-
-class PersonBase(models.AbstractModel):
-    _name = 'form.person.base'
-    _description = 'Common Person Fields'
-
-    first_name = fields.Char(
-        string='First Name',
-        required=True
-    )
-    middle_name = fields.Char(
-        string='Middle Name',
-        required=True
-    )
-    last_name = fields.Char(
-        string='Last Name',
-        required=True
-    )
-    full_name = fields.Char(
-        string='Full Name',
-        compute='_compute_full_name',
-        store=True,
-        readonly=True
-    )
-    age = fields.Integer(
-        string="Age",
-        required=True
-    )
-    gender = fields.Selection(
-        [("male", "Male"), ("female", "Female")],
-        string="Gender"
-    )
-    civil_status = fields.Selection(
-        [("single", "Single"), ("married", "Married")],
-        string="Civil Status"
-    )
-    birthday = fields.Date(
-        string='Birthday'
-    )
-    nationality = fields.Char(
-        string='Nationality'
-    )
-    home_mailing_address = fields.Text(
-        string='Home Mailing Address'
-    )
-    home_mailing_address_tel_no = fields.Char(
-        string='Tel No. (Residence)'
-    )
-    abroad_address = fields.Text(
-        string='Address Abroad (If any)'
-    )
-    abroad_address_tel_no = fields.Char(
-        string='Tel No. (Abroad if any)'
-    )
-    office_address = fields.Text(
-        string='Office Address'
-    )
-    office_address_tel_no = fields.Char(
-        string='Tel No. (Office)'
-    )
-    email = fields.Char(
-        string='Email Address'
-    )
-    mobile_number = fields.Char(
-        string='Mobile Number'
-    )
-    office_business = fields.Char(
-        string='Office/Business Name'
-    )
-    position = fields.Char(
-        string='Position'
-    )
-    occupation = fields.Char(
-        string='Occupation'
-    )
-    religion = fields.Char(
-        string='Religion'
-    )
-
-    @api.depends('first_name', 'middle_name', 'last_name')
-    def _compute_full_name(self):
-        for rec in self:
-            rec.full_name = " ".join(
-                filter(None, [rec.first_name, rec.middle_name, rec.last_name])
-            )
-
 class SpouseInfoForm(models.Model):
     _name = 'form.spouse_info'
     _description = 'Spouse Info'
@@ -115,28 +32,142 @@ class UnitOwnerInfoForm(models.Model):
     _description = 'Unit Owner Information Form'
     _rec_name = 'full_name'
 
-    _inherit = 'form.person.base'
+    _inherit = ['form.person.base', 'form.base', 'form.unit_owner_info.base']
 
-    unit_id = fields.Many2one(
-        comodel_name='building.unit',
-        string="Assigned Unit"
-    )
+    owner_id = fields.Many2one("res.partner", string="Owner's name")
 
-    spouse_info_id = fields.Many2one(
-        comodel_name='form.spouse_info',
-        string='Spouse Info'
-    )
-    vehicle_info_id = fields.Many2one(
-        comodel_name='form.vehicle_info',
-        string='Vehicle Info'
-    )
+    def _get_template(self):
+        template_name = f'Unit Owner Information - {self.id} - {self.create_date}.pdf'
+        template = self.env['sign.template'].search([
+            ('name', '=', template_name)
+        ], limit=1)
+        
+        if not template:
+            # Generate PDF
+            pdf_content, _ = self.env['ir.actions.report']._render_qweb_pdf(
+                'pms.action_unit_owner_info_sign_default',
+                [self.id]
+            )
+            # Attachment
+            attachment = self.env['ir.attachment'].create({
+                'name': f'Unit_Owner_Information_Form_{self.id}.pdf',
+                'type': 'binary',
+                'datas': base64.b64encode(pdf_content),
+                'mimetype': 'application/pdf',
+                'res_model': self._name,
+                'res_id': self.id,
+            })
+            template = self.env['sign.template'].create({
+                'name': template_name,
+                'attachment_id': attachment.id,
+            })
+        return template
 
-    spouse_id = fields.Many2one(
-        comodel_name='res.partner',
-        string='Spouse'
-    )
-    vehicle_id = fields.Many2one(
-        comodel_name='res.partner',
-        string='Vehicle'
-    )
+    def _prepare_signature_roles(self, template):
+        roles = []
+
+        requestor_role = self.env['sign.item.role'].search([
+            ('name', '=', 'Requestor'),
+        ], limit=1)
+
+        # If not found, create it
+        if not requestor_role:
+            requestor_role = self.env['sign.item.role'].create({
+                'name': 'Requestor',
+                'template_id': template.id,
+            })
+        
+        roles.append(requestor_role)
+        
+        approver_role = self.env['sign.item.role'].search([
+            ('name', '=', 'Approver'),
+        ], limit=1)
+
+        if not approver_role:
+            approver_role = self.env['sign.item.role'].create({
+                'name': 'Approver',
+                'template_id': template.id,
+            })
+            
+        roles.append(approver_role)
+        
+        return roles
+
+    
+    def action_sign(self):
+        if self.state != 'approved':
+            raise UserError(_("Only approved requests can be signed."))
+        
+        if not self.approver_id:
+            raise UserError(_("Approver is not configured."))
+        try:
+            template = self._get_template()
+            signature_type = super()._get_signature_type()
+            signature_roles = self._prepare_signature_roles(template)
+            request_items = []
+
+            for role in signature_roles:
+                if role.name == 'Requestor':
+                    self.env['sign.item'].sudo().create({
+                        'name': 'Signature',
+                        'type_id': signature_type.id,     # from sign_item_type
+                        'template_id': template.id,       # from sign_template
+                        'responsible_id': role.id,        # from sign_item_role
+                        'page': 1,
+                        'posX': 0.17,
+                        'posY': 0.76,
+                        'width': 0.2,
+                        'height': 0.05,
+                        'alignment': 'center',
+                        'required': True,
+                    })
+                    request_items.append(
+                        (0, 0, {
+                            'partner_id': self.owner_id.id,
+                            'role_id': role.id,
+                        })
+                    )
+                else:
+                    self.env['sign.item'].sudo().create({
+                        'name': 'Signature',
+                        'type_id': signature_type.id,     # from sign_item_type
+                        'template_id': template.id,       # from sign_template
+                        'responsible_id': role.id,        # from sign_item_role
+                        'page': 1,
+                        'posX': 0.63,
+                        'posY': 0.76,
+                        'width': 0.2,
+                        'height': 0.05,
+                        'alignment': 'center',
+                        'required': True,
+                    })
+                    request_items.append(
+                        (0, 0, {
+                            'partner_id': self.approver_id.id,
+                            'role_id': role.id,
+                        })
+                    )
+
+            sign_request = self.env['sign.request'].create({
+                'template_id': template.id,
+                'subject': f"Unit Owner Information Form - {self.full_name}",
+                'reference': f"Unit Owner Information Form - {self.full_name}",
+                'request_item_ids': request_items,
+            })
+
+            self.sign_request_id = sign_request.id
+            
+            super().action_sign()
+
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Signature Request',
+                'res_model': 'sign.request',
+                'res_id': sign_request.id,
+                'view_mode': 'form',
+                'target': 'current',
+            }
+
+        except Exception as e:
+            raise UserError("An error occurred: %s" % str(e))
     

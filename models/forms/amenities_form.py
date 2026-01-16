@@ -8,6 +8,7 @@ _logger = logging.getLogger(__name__)
 class AmenitiesRequestForm(models.Model):
     _name = 'form.amenities'
     _description = 'Amenities Form'
+    _inherit = ['form.base']
 
     # REQUIRED for website forms
     website_form_access = True
@@ -31,10 +32,6 @@ class AmenitiesRequestForm(models.Model):
         'res.partner',
         string="Name of Requestor",
         required=True
-    )
-    approver_id = fields.Many2one(
-        'res.partner',
-        string="Name of Approver",
     )
     activity_type = fields.Text(
         string="Type of Activity",
@@ -64,32 +61,6 @@ class AmenitiesRequestForm(models.Model):
         string="Guest List"
     )
 
-    # Signature fields
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('submitted', 'Submitted'),
-        ('approved', 'Approved'),
-        ('signed', 'Signed'),
-        ('cancelled', 'Cancelled')
-    ], string='Status', default='draft', tracking=True)
-
-    approval_date = fields.Datetime(
-        string='Approval Date',
-        copy=False
-    )
-    
-    approved_by = fields.Many2one(
-        'res.users',
-        string='Approved By',
-        copy=False
-    )
-
-    sign_request_id = fields.Many2one(
-        'sign.request',
-        string="Signature Request",
-        copy=False
-    )
-
     def get_requestors(self):
         """
         Returns a recordset of partners eligible to be requestors,
@@ -98,52 +69,32 @@ class AmenitiesRequestForm(models.Model):
         current_partner = self.env.user.partner_id
         return self.env['res.partner'].search([('id', '!=', current_partner.id)])
     
-    def action_print_pdf(self):
-        self.ensure_one()
-        return self.env.ref(
-            'pms.action_report_amenities_request'
-        ).report_action(self)
-    
     # Action buttons - FIXED version without message_post
-    def action_submit(self):
-        for record in self:
-            if record.state != 'draft':
-                raise UserError(_('Only draft requests can be submitted.'))
-            record.state = 'submitted'
-    
-    def action_approve(self):
-        for record in self:
-            if record.state != 'submitted':
-                raise UserError(_('Only submitted requests can be approved.'))
-            record.state = 'approved'
-            record.approval_date = fields.Datetime.now()
-            record.approved_by = self.env.user
-    
-    def action_cancel(self):
-        for record in self:
-            record.state = 'cancelled'
-    
-    def action_draft(self):
-        for record in self:
-            record.state = 'draft'
-
-    def action_open_sign_request(self):
-        self.ensure_one()
-        if not self.sign_request_id:
-            raise UserError("No signature request linked to this form.")
-
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Signature Request',
-            'res_model': 'sign.request',
-            'res_id': self.sign_request_id.id,
-            'view_mode': 'form',
-            'target': 'current',
-        }
+    # def action_submit(self):
+    #     for record in self:
+    #         if record.state != 'draft':
+    #             raise UserError(_('Only draft requests can be submitted.'))
+    #         record.state = 'submitted'
+    # 
+    # def action_approve(self):
+    #     for record in self:
+    #         if record.state != 'submitted':
+    #             raise UserError(_('Only submitted requests can be approved.'))
+    #         record.state = 'approved'
+    #         record.approval_date = fields.Datetime.now()
+    #         record.approved_by = self.env.user
+    # 
+    # def action_cancel(self):
+    #     for record in self:
+    #         record.state = 'cancelled'
+    # 
+    # def action_draft(self):
+    #     for record in self:
+    #         record.state = 'draft'
     
     def _get_template(self):
         # Try to find an existing template for this record
-        template_name = f'Amenities Request.pdf'
+        template_name = f'Amenities Request - {self.id} - {self.create_date}.pdf'
         template = self.env['sign.template'].search([
             ('name', '=', template_name),
         ], limit=1)
@@ -170,12 +121,6 @@ class AmenitiesRequestForm(models.Model):
                 'attachment_id': attachment.id,
             })
         return template
-    
-    def _get_signature_type(self):
-        signature_type = self.env['sign.item.type'].search([('name', '=', 'Signature')], limit=1)
-        if not signature_type:
-            raise UserError(_("Signature type is not configured."))
-        return signature_type
     
     def _prepare_signature_roles(self, template):
         roles = []
@@ -209,7 +154,7 @@ class AmenitiesRequestForm(models.Model):
         
         return roles
     
-    def action_create_sign_template(self):
+    def action_sign(self):
         self.ensure_one()
 
         if self.state != 'approved':
@@ -220,7 +165,7 @@ class AmenitiesRequestForm(models.Model):
 
         try:
             template = self._get_template()
-            signature_type = self._get_signature_type()
+            signature_type = super()._get_signature_type()
             signature_roles = self._prepare_signature_roles(template)
             request_items = []
 
@@ -275,7 +220,8 @@ class AmenitiesRequestForm(models.Model):
             })
 
             self.sign_request_id = sign_request.id
-            self.state = 'signed'
+            
+            super().action_sign()
 
             return {
                 'type': 'ir.actions.act_window',
@@ -289,3 +235,4 @@ class AmenitiesRequestForm(models.Model):
         except Exception as e:
             _logger.exception("Error creating sign template")
             raise UserError("An error occurred: %s" % str(e))
+        

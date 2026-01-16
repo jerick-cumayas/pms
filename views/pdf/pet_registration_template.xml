@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pet_registration_sign_default">
+        <t t-call="web.external_layout">
+            <main class="o_report_layout">
+                <t t-set="doc" t-value="docs[0]"/>
+                <h2 style="text-align: center;">Pet Registration Form</h2>
+
+                <table style="width: 100%; margin-bottom: 10px;">
+                    <tr>
+                        <td><strong>Owner's Name:</strong> <span t-field="doc.requestor_id.name"/></td>
+                        
+                    </tr>
+                    <tr>
+                        <!-- <td><strong>Unit Number:</strong> <span t-field="doc.unit_number or ''"/></td>
+                        <td><strong>Tower:</strong> <span t-field="doc.tower"/></td> -->
+                    </tr>
+                </table>
+
+                <h3>Pet Details</h3>
+                <table class="table table-sm o_main_table" style="width:100%; border-collapse: collapse;" border="1">
+                    <thead style="background-color:#f2f2f2;">
+                        <tr>
+                            <th style="padding:5px;">Name</th>
+                            <th style="padding:5px;">Species</th>
+                            <th style="padding:5px;">Breed</th>
+                            <th style="padding:5px;">Age</th>
+                            <th style="padding:5px;">Gender</th>
+                            <th style="padding:5px;">Vaccinated (Rabies)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="doc.pet_ids" t-as="pet">
+                            <tr>
+                                <td style="padding:5px;"><span t-field="pet.name"/></td>
+                                <td style="padding:5px;"><span t-field="pet.species"/></td>
+                                <td style="padding:5px;"><span t-field="pet.breed"/></td>
+                                <td style="padding:5px;"><span t-field="pet.age"/></td>
+                                <td style="padding:5px;"><span t-field="pet.gender"/></td>
+                                <td style="padding:5px;">
+                                    <span t-if="pet.is_vaccinated">Yes</span>
+                                    <span t-else="">No</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 20px;">
+                    <strong>Pet owners hereby understand and agree with the Pet Policy imposed by Almond Drive Condominium:</strong>
+                    <ol type="a">
+                        <li>All pets must be registered in the admin office. Pet should be present during registration.</li>
+                        <li>Limited of up to 2 pets per unit only.</li>
+                        <li>No vicious breed is permitted in the condominium.</li>
+                        <li>All pets must be kept indoors at all times unless being walked with a leash by the pet owner.</li>
+                        <li>Pets are not allowed to roam around the property without supervision of the Pet Owner.</li>
+                        <li><strong>Immediate cleanup after the pets is strictly required.</strong></li>
+                    </ol>
+                    <p>Any violations to these rules has a corresponding penalty. For strict implementation.</p>
+                </div>
+
+                <!-- <div style="margin-top: 20px;">
+                    <strong>Unit Owners signature:</strong>
+                    <div style="border-bottom: 1px solid #000; width: 200px; margin-top: 5px;"></div>
+                </div> -->
+                 <table style="width:100%; margin-top:100px; border-collapse: collapse;">
+                    <tr>
+                        <td style="width:50%; text-align:center; padding-top:20px;">
+                            <span t-esc="doc.requestor_id.name or '______________________________'"/><br/>
+                            <strong>CONFORME:</strong><br/>
+                            Requestor<br/>
+                            <small>(Signature over Printed Name)</small>
+                        </td>
+                        <td style="width:50%; text-align:center; padding-top:20px;">
+                            <span t-esc="doc.approver_id.name or '______________________________'"/><br/>
+                            <strong>APPROVED BY:</strong><br/>
+                            Property Management<br/>
+                            <small>(Signature over Printed Name)</small>
+                        </td>
+                    </tr>
+                </table>
+            </main>
+        </t>
+    </template>
+</odoo>

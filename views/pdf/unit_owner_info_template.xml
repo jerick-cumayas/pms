@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="unit_owner_info_sign_default">
+        <t t-call="web.external_layout">
+            <main class="o_report_layout">
+                <t t-set="doc" t-value="docs[0]"/>
+                <!-- HEADER -->
+                <div style="text-align:center;">
+                    <h2 style="margin-bottom:5px;">UNIT OWNER INFORMATION SHEET</h2>
+                </div>
+
+                <!-- UNIT INFO -->
+                <table style="width:100%; border-collapse:collapse;" border="1">
+                    <tr>
+                        <td width="50%" style="padding:8px;">
+                            <strong>Bldg:</strong>
+                        </td>
+                        <td width="50%" style="padding:8px;">
+                            <strong>Unit #:</strong>
+                            <!-- <span t-field="doc.unit_id.name"/> -->
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- OWNER INFORMATION -->
+                <table style="width:100%; border:1px solid #000; border-collapse:collapse; margin-top:10px;">
+                    <tr>
+                        <td colspan="3" style="padding:10px;">
+                            <strong>Name:</strong>
+                            <span t-field="doc.last_name"/>
+                            <span t-field="doc.first_name"/>
+                            <span t-field="doc.middle_name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="33%" style="padding:10px;">
+                            <strong>Age:</strong>
+                            <span t-field="doc.age"/>
+                        </td>
+                        <td width="33%" style="padding:10px;">
+                            <strong>Sex:</strong>
+                            <span t-field="doc.gender"/>
+                        </td>
+                        <td width="34%" style="padding:10px;">
+                            <strong>Civil Status:</strong>
+                            <span t-field="doc.civil_status"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;">
+                            <strong>Birthday:</strong>
+                            <span t-field="doc.birthday"/>
+                        </td>
+                        <td colspan="2" style="padding:10px;">
+                            <strong>Nationality:</strong>
+                            <span t-field="doc.nationality"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding:10px;">
+                            <strong>Home Mailing Address:</strong>
+                            <span t-field="doc.home_mailing_address"/>
+                        </td>
+                        <td style="padding:10px;">
+                            <strong>Tel No. (Residence):</strong>
+                            <span t-field="doc.home_mailing_address_tel_no"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding:10px;">
+                            <strong>Address Abroad (If Any):</strong>
+                            <span t-field="doc.abroad_address"/>
+                        </td>
+                        <td style="padding:10px;">
+                            <strong>Tel No. (Abroad):</strong>
+                            <span t-field="doc.abroad_address_tel_no"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding:10px;">
+                            <strong>Office Address:</strong>
+                            <span t-field="doc.office_address"/>
+                        </td>
+                        <td style="padding:10px;">
+                            <strong>Tel No. (Office):</strong>
+                            <span t-field="doc.office_address_tel_no"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;">
+                            <strong>Email Address:</strong>
+                            <span t-field="doc.email"/>
+                        </td>
+                        <td style="padding:10px;">
+                            <strong>Mobile Number:</strong>
+                            <span t-field="doc.mobile_number"/>
+                        </td>
+                        <td style="padding:10px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px;">
+                            <strong>Office / Business Name:</strong>
+                            <span t-field="doc.office_business"/>
+                        </td>
+                        <td style="padding:10px;">
+                            <strong>Position:</strong>
+                            <span t-field="doc.position"/>
+                        </td>
+                        <td style="padding:10px;">
+                            <strong>Religion:</strong>
+                            <span t-field="doc.religion"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- SPOUSE INFO -->
+                <t t-if="doc.spouse_info_id">
+                    <h4 style="margin-top:15px; font-size: 14px;">Spouse Information (If Married)</h4>
+                    <table style="width:100%; border:1px solid #000; border-collapse:collapse;" border="1">
+                        <tr>
+                            <td colspan="3" style="padding:10px;">
+                                <strong>Name:</strong>
+                                <span t-field="doc.spouse_info_id.last_name"/>,
+                                <span t-field="doc.spouse_info_id.first_name"/>
+                                <span t-field="doc.spouse_info_id.middle_name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;">
+                                <strong>Age:</strong>
+                                <span t-field="doc.spouse_info_id.age"/>
+                            </td>
+                            <td style="padding:10px;">
+                                <strong>Sex:</strong>
+                                <span t-field="doc.spouse_info_id.gender"/>
+                            </td>
+                            <td style="padding:10px;">
+                                <strong>Civil Status:</strong>
+                                <span t-field="doc.spouse_info_id.civil_status"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;">
+                                <strong>Birthday:</strong>
+                                <span t-field="doc.spouse_info_id.birthday"/>
+                            </td>
+                            <td colspan="2" style="padding:10px;">
+                                <strong>Nationality:</strong>
+                                <span t-field="doc.spouse_info_id.nationality"/>
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+
+                <!-- VEHICLE INFO -->
+                <t t-if="doc.vehicle_info_id">
+                    <h4 style="margin-top:15px; font-size: 15px;">Vehicle Information (If Any)</h4>
+                    <table style="width:100%; border:1px solid #000; border-collapse:collapse;" border="1">
+                        <tr>
+                            <td style="padding:10px;">
+                                <strong>Brand:</strong>
+                                <span t-field="doc.vehicle_info_id.brand"/>
+                            </td>
+                            <td style="padding:10px;">
+                                <strong>Type:</strong>
+                                <span t-field="doc.vehicle_info_id.type"/>
+                            </td>
+                            <td style="padding:10px;">
+                                <strong>Plate No.:</strong>
+                                <span t-field="doc.vehicle_info_id.plate_no"/>
+                            </td>
+                            <td style="padding:10px;">
+                                <strong>Colour:</strong>
+                                <span t-field="doc.vehicle_info_id.colour"/>
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+
+                <!-- SIGNATURE -->
+                <div style="margin-top:10px;">
+                    <p>I certify that the information above are true and correct.</p>
+
+                    <table style="width:100%; margin-top:40px; border-collapse: collapse;">
+                        <tr>
+                            <td style="width:50%; text-align:center; padding-top:20px;">
+                                <span t-esc="doc.owner_id.name or '______________________________'"/><br/>
+                                <strong>CONFORME:</strong><br/>
+                                Owner<br/>
+                                <small>(Signature over Printed Name)</small>
+                            </td>
+                            <td style="width:50%; text-align:center; padding-top:20px;">
+                                <span t-esc="doc.approver_id.name or '______________________________'"/><br/>
+                                <strong>APPROVED BY:</strong><br/>
+                                Property Management<br/>
+                                <small>(Signature over Printed Name)</small>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </main>
+        </t>
+    </template>
+</odoo>

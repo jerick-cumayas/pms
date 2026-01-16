@@ -7,6 +7,30 @@
         <field name="report_file">pms.report_amenities_sign_default</field>
         <field name="print_report_name">'Amenities_Request_%s' % (object.id)</field>
     </record>
+    <record id="action_pet_registration_sign_default" model="ir.actions.report">
+        <field name="name">Pet Registration (Default)</field>
+        <field name="model">form.pet_registration</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.pet_registration_sign_default</field>
+        <field name="report_file">pms.pet_registration_sign_default</field>
+        <field name="print_report_name">'Pet_Registration%s' % (object.id)</field>
+    </record>
+    <record id="action_unit_owner_info_sign_default" model="ir.actions.report">
+        <field name="name">Unit Owner Information (Default)</field>
+        <field name="model">form.unit_owner_info</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.unit_owner_info_sign_default</field>
+        <field name="report_file">pms.unit_owner_info_sign_default</field>
+        <field name="print_report_name">'Unit_Owner_Info%s' % (object.id)</field>
+    </record>
+    <record id="action_tenant_info_sign_default" model="ir.actions.report">
+        <field name="name">Tenant Information (Default)</field>
+        <field name="model">form.tenant_info</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pms.tenant_info_sign_default</field>
+        <field name="report_file">pms.tenant_info_sign_default</field>
+        <field name="print_report_name">'Tenant_Info%s' % (object.id)</field>
+    </record>
 </odoo>
 
 

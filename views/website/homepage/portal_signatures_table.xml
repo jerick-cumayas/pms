@@ -1,0 +1,46 @@
+<odoo>
+    <template id="portal_signatures_table" name="Portal Signatures Table">
+        <t t-call="portal.portal_searchbar">
+            <t t-set="title">Signatures</t>
+        </t>
+            <div t-if="not signatures" class="alert alert-warning" role="alert">
+                There are no signatures request.
+            </div>
+        <t t-if="signatures" t-call="portal.portal_table">
+            <thead>
+                <tr>
+                    <th>Document</th>
+                    <th class="text-center">Signature Date</th>
+                    <th class="text-end">Status</th>
+                </tr>
+            </thead>
+            <t t-foreach="signatures" t-as="signature">
+                <tbody>
+                    <tr t-if="not groupby =='none'" class="table-light">
+                        <th t-if="groupby != 'none'" colspan="3">
+                            <span t-field="signature.sudo().state"/>
+                        </th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr t-foreach="signatures" t-as="sign_request_item">
+                        <td>
+                            <a t-attf-href="/my/signature/#{sign_request_item.id}?{{ keep_query() }}">
+                                <t t-esc="sign_request_item.reference"/>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <span t-field="sign_request_item.signing_date"/>
+                        </td>
+                        <td class="text-end lh-1">
+                            <span class="badge rounded-pill text-bg-info" t-field="sign_request_item.sudo().sign_request_id.state"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </t>
+            <div t-if="pager" class="o_portal_pager d-flex justify-content-center my-3">
+                <t t-call="portal.pager"/>
+            </div>
+        </t>
+    </template>
+</odoo>

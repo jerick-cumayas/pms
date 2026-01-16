@@ -25,14 +25,14 @@ class PetRegistrationFormController(http.Controller):
         name='amenities_form_submit'
     )
     def pet_registration_form_submit(self, **post):
-        owner_id = post.get('owner_id')
-        if not owner_id:
+        requestor_id = post.get('requestor_id')
+        if not requestor_id:
             return request.render('website_pet_registration_form', {
                 'error': 'Owner not found.'
             })
 
         registration = request.env['form.pet_registration'].sudo().create({
-            'owner_id': int(owner_id),
+            'requestor_id': int(requestor_id),
         })
 
         pet_names = request.httprequest.form.getlist('pet_name[]')

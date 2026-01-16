@@ -29,7 +29,7 @@
                             class="btn-primary"/>
                     <button name="action_approve" string="Approve" type="object" 
                             class="btn-primary"/>
-                    <button name="action_create_sign_template" string="Sign Document" type="object" 
+                    <button name="action_sign" string="Sign Document" type="object" 
                             class="btn-primary"/>
                     <button name="action_cancel" string="Cancel" type="object" 
                             class="btn-secondary"/>

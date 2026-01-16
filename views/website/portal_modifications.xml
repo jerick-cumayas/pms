@@ -1,0 +1,9 @@
+<odoo>
+    <template id="remove_portal_contact_block" inherit_id="portal.side_content">
+        <!-- Remove the entire div that contains user info + details -->
+        <xpath expr="//div[@class='d-flex justify-content-start align-items-start gap-3 mb-4']" position="replace"/>
+        <xpath expr="//div[@class='o_portal_my_details']" position="replace"/>
+        <xpath expr="//a[@href='/my/account']" position="replace"/>
+        <xpath expr="//div[@name='portal_contact']" position="replace"/>
+    </template>
+</odoo>

@@ -23,7 +23,20 @@
         <field name="name">form.tenant.info.form</field>
         <field name="model">form.tenant_info</field>
         <field name="arch" type="xml">
-            <form string="Amenities Form">
+            <form string="Tenant Form">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" 
+                            class="btn-primary"/>
+                    <button name="action_approve" string="Approve" type="object" 
+                            class="btn-primary"/>
+                    <button name="action_sign" string="Sign Document" type="object" 
+                            class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel" type="object" 
+                            class="btn-secondary"/>
+                    <button name="action_draft" string="Reset to Draft" type="object" 
+                            class="btn-secondary"/>
+                    <field name="state" widget="statusbar" clickable="1"/>
+                </header>
                 <sheet>
                     <group>
                         <h1>
@@ -171,6 +184,12 @@
                             <group>
                                 <field name="spouse_id"/>
                                 <field name="vehicle_id"/>
+                                <field name="tenant_id"/>
+                            </group>
+                        </page>
+                        <page string="Approver">
+                            <group>
+                                <field name="approver_id"/>
                             </group>
                         </page>
                     </notebook>

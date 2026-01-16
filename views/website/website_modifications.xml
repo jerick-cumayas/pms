@@ -1,0 +1,83 @@
+<odoo>
+    <template id="footer_custom_new" inherit_id="website.layout" name="Default" active="True">
+        <!-- Removes footer -->
+        <xpath expr="//div[@id='footer']" position="replace">
+            
+        </xpath>
+        
+        <!-- Removes copyright -->
+        <xpath expr="//div[contains(@class, 'o_footer_copyright') 
+                      and contains(@class, 'o_colored_level') 
+                      and contains(@class, 'o_cc')]" position="replace">
+        </xpath>
+    </template>
+
+    <template id="custom_web_login"
+          inherit_id="web.login"
+          name="Custom Login Page">
+        <xpath expr="//form[contains(@t-attf-class, 'oe_login_form')]" position="replace">
+            <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh; ">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center login-left-panel" style="background-color: #d6fae1;">
+                            <div class="p-5 text-center" style="max-width: 450px;">
+                                <h2 class="fw-bold mb-4" style="color: #000;">Welcome to ROMA User Portal</h2>
+                                <p style="color: #333; font-size: 1rem; line-height: 1.6;">
+                                    Access your account, manage your settings, and stay up to date with all the tools and resources available through the ROMA User Portal. Everything you need is just a click away.
+                                </p>
+                                <!-- <a href="#" class="btn btn-primary mt-3">Get Started</a> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <form t-attf-class="oe_login_form #{'' if login else 'd-none'}" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = '/web/login' + location.hash">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <div class="mb-3" t-if="databases and len(databases) &gt; 1">
+                                    <label for="db" class="col-form-label">Database</label>
+                                    <div class="input-group">
+                                        <input type="text" name="db" t-att-value="request.db" id="db" class="form-control" required="required" readonly="readonly"/>
+                                        <a role="button" href="/web/database/selector" class="btn btn-secondary">Select <i class="fa fa-database" role="img" aria-label="Database" title="Database"/></a>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 field-login">
+                                    <label for="login" class="form-label d-flex justify-content-between">Email</label>
+                                    <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" class="form-control" required="required" autocapitalize="off" autocomplete="username"/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label d-flex justify-content-between">Password</label>
+                                    <input type="password" placeholder="Password" name="password" id="password" class="form-control" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                                </div>
+
+                                <p class="alert alert-danger" t-if="error" role="alert">
+                                    <t t-esc="error"/>
+                                </p>
+                                <p class="alert alert-success" t-if="message" role="status">
+                                    <t t-esc="message"/>
+                                </p>
+
+                                <div class="oe_login_buttons text-center gap-1 d-grid mb-1 pt-3">
+                                    <button type="submit" class="btn btn-primary">Log in</button>
+                                    <t t-if="debug">
+                                        <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm">Log in as superuser</button>
+                                    </t>
+                                    <div class="o_login_auth"/>
+                                </div>
+
+                                <input type="hidden" name="type" value="password"/>
+                                <input type="hidden" name="redirect" t-att-value="redirect"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="portal_breadcrumbs_custom" inherit_id="portal.portal_breadcrumbs">
+        <xpath expr="//a[@href='/my/home']" position="attributes">
+            <attribute name="href">/</attribute>
+        </xpath>
+    </template>
+</odoo>

@@ -7,10 +7,10 @@
                     <!-- Pet Reservation Form Card -->
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
-                            <img src="/your_module/static/src/img/pet_form.png" class="card-img-top" alt="Pet Reservation"/>
+                            <img src="/your_module/static/src/img/pet_form.png" class="card-img-top" alt="Pet Registration"/>
                             <div class="card-body">
-                                <h5 class="card-title">Pet Reservation</h5>
-                                <a href="/forms/pet_reservation" class="text-success font-weight-bold">
+                                <h5 class="card-title">Pet Registration</h5>
+                                <a href="/forms/pet_registration" class="text-success font-weight-bold">
                                     Fill Form →
                                 </a>
                             </div>
@@ -31,6 +31,29 @@
                     </div>
 
                     <!-- Add more forms here if needed -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/your_module/static/src/img/amenities_form.png" class="card-img-top" alt="Unit Owner Information Form"/>
+                            <div class="card-body">
+                                <h5 class="card-title">Amenities Registration</h5>
+                                <a href="/forms/amenities_reservation" class="text-success font-weight-bold">
+                                    Fill Form →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img src="/your_module/static/src/img/amenities_form.png" class="card-img-top" alt="Amenities Reservation"/>
+                            <div class="card-body">
+                                <h5 class="card-title">Amenities Reservation</h5>
+                                <a href="/forms/amenities_reservation" class="text-success font-weight-bold">
+                                    Fill Form →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </t>

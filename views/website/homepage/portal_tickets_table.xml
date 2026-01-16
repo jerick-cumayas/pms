@@ -1,0 +1,65 @@
+<odoo>
+    <template id="portal_tickets_table" name="Portal Tickets Table">
+        <t t-call="portal.portal_searchbar">
+            <t t-set="title">Tickets</t>
+        </t>
+        <div t-if="not tickets" class="alert alert-info">
+            There are currently no Ticket for your account.
+        </div>
+        <t t-else="">
+            <t t-call="portal.portal_table">
+                <thead>
+                    <tr>
+                        <th>Ticket</th>
+                        <th class="text-end" t-if="groupby != 'create_date'">Reported on</th>
+                        <th id="ticket_user_header" t-if="groupby != 'user_id'" class="ps-5">Assigned to</th>
+                        <th t-if="groupby != 'stage_id'" colspan="5" class="text-end">Stage</th>
+                    </tr>
+                </thead>
+                <t t-foreach="tickets" t-as="ticket">
+                    <tbody>
+                        <tr t-if="not groupby =='none'" class="table-light">
+                            <th t-if="groupby == 'stage_id'" colspan="5">
+                                <span t-field="ticket.stage_id.name"/>
+                            </th>
+                            <th t-if="groupby == 'user_id'" colspan="5">
+                                <span t-if="ticket.user_id" t-out="ticket.user_id.name"/>
+                                <span t-else="">Unassigned</span>
+                            </th>
+                            <th t-if="groupby == 'team_id'" colspan="6">
+                                <span t-field="ticket.team_id.name"/>
+                            </th>
+                            <th t-if="groupby == 'create_date'" colspan="5">
+                                <span t-field="ticket.create_date"/>
+                            </th>
+                            <th t-if="groupby == 'kanban_state'" colspan="6">
+                                <span t-if="ticket.kanban_state == 'normal'">In Progress</span>
+                                <span t-elif="ticket.kanban_state == 'blocked'">Blocked</span>
+                                <span t-else="ticket.kanban_state">Ready</span>
+                            </th>
+                            <th t-if="groupby == 'partner_id'" colspan="6">
+                                <span t-if="ticket.partner_id" t-field="ticket.partner_id.name"/>
+                                <span t-else="">No Customer</span>
+                            </th>
+                        </tr>
+                    </tbody>
+                    <t t-foreach="tickets" t-as="ticket">
+                        <tr>
+                            <td class="text-start"><a t-attf-href="/helpdesk/ticket/#{ticket.id}"><small>#</small><t t-out="ticket.ticket_ref"/><span class="ms-2" t-att-title="ticket.name" t-field="ticket.name"/></a></td>
+                            <td class="text-end" t-if="groupby != 'create_date'">
+                                <span t-field="ticket.create_date" t-options="{&quot;widget&quot;: &quot;datetime&quot;, &quot;hide_seconds&quot;: True}"/>
+                            </td>
+                            <td id="ticket_user_body" t-if="groupby != 'user_id'" class="ps-5 lh-1">
+                                <img t-if="ticket.user_id" class="o_avatar o_portal_contact_img rounded" t-attf-src="#{image_data_uri(ticket.user_id.sudo().avatar_128)}" alt="Contact"/>
+                                <span t-field="ticket.user_id"/>
+                            </td>
+                            <td t-if="groupby != 'stage_id'" class="text-end">
+                                <span t-attf-class="badge rounded-pill fw-normal #{'text-bg-success' if ticket.stage_id.fold else 'text-bg-primary'}" t-esc="ticket.stage_id.name"/>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
