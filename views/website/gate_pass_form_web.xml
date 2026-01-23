@@ -1,0 +1,136 @@
+<odoo>
+    <template id="website_gate_pass_form" name="Gate Pass Form">
+        <t t-call="website.layout">
+            <div class="container mt-5 mb-5">
+                <h2 class="mb-4">Gate Pass Form</h2>
+
+                <form action="/forms/gate_pass/submit" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>CN No.</label>
+                            <input type="text" name="cn_no" class="form-control" required="1"/>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Authorized Carrier</label>
+                            <input type="text" name="authorized_carrier" class="form-control"/>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Company</label>
+                            <input type="text" name="company" class="form-control"/>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Nature of Transaction</label>
+                            <select name="transaction" class="form-control">
+                                <option value="pull_out">Pull Out</option>
+                                <option value="delivery">Delivery</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <label>Purpose</label>
+                            <textarea name="purpose" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <hr/>
+                    <h4 class="mb-3">Item List</h4>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-outline-secondary" id="add-item">
+                            + Add Another Item
+                        </button>
+                    </div>
+
+                    <div id="items-container">
+                        <!-- Item Row -->
+                        <div class="item-entry row mb-3">
+                            <div class="col-md-1 d-flex justify-content-center align-items-center">
+                                <span class="line-number fw-bold">1</span>
+                            </div>
+
+                            <div class="col-md-5">
+                                <input type="text"
+                                        name="item_description[]"
+                                        class="form-control"
+                                        placeholder="Item Description"
+                                        />
+                            </div>
+
+                            <!-- Quantity -->
+                            <div class="col-md-2">
+                                <input type="number"
+                                        name="item_quantity[]"
+                                        class="form-control"
+                                        placeholder="Quantity"
+                                        min="1" />
+                            </div>
+
+                            <!-- Remarks -->
+                            <div class="col-md-3">
+                                <input type="text"
+                                        name="item_remarks[]"
+                                        class="form-control"
+                                        placeholder="Remarks" />
+                            </div>
+
+                            <!-- Remove Button -->
+                            <div class="col-md-1 d-flex justify-content-center">
+                                <button type="button"
+                                        class="btn btn-outline-danger btn-sm remove-item"
+                                        title="Remove">
+                                    ✕
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">
+                        Submit Gate Pass
+                    </button>
+                </form>
+                <script>
+                    const container = document.getElementById('items-container');
+
+                    function updateLineNumbers() {
+                        const rows = container.querySelectorAll('.item-entry');
+                        rows.forEach((row, index) => {
+                            row.querySelector('.line-number').textContent = index + 1;
+                        });
+                    }
+
+                    document.getElementById('add-item').addEventListener('click', function() {
+                        const newItem = container.children[0].cloneNode(true);
+
+                        // Clear the values
+                        newItem.querySelectorAll('input, select, textarea').forEach(function(el) {
+                            if (el.type === 'checkbox') el.checked = false;
+                            else el.value = '';
+                        });
+
+                        // Update badge number
+                        container.appendChild(newItem);
+                        updateLineNumbers();
+                    });
+
+                    container.addEventListener('click', function(e) {
+                        if (e.target.classList.contains('remove-item')) {
+                            const cards = container.children;
+                            if (cards.length > 1) {
+                                e.target.closest('.item-entry').remove();
+                                updateLineNumbers();
+                            } else {
+                                alert('At least one item must be entered.');
+                            }
+                        }
+                    });
+
+                    updateLineNumbers();
+                </script>
+            </div>
+        </t>
+    </template>
+</odoo>

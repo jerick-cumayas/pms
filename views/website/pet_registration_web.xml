@@ -17,7 +17,7 @@
                     <hr/>
                     <button type="button" id="add-pet" class="btn btn-outline-secondary mb8">Add Another Pet</button>
                     <h3>Pet Details</h3>
-                   
+
                     <div id="pet-container">
                         <div class="pet-entry card p-3 mb-3 position-relative d-flex flex-column gap-3">
                             <span class="badge bg-primary position-absolute top-0 end-0 m-2">Pet 1</span>

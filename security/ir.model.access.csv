@@ -12,3 +12,7 @@ pms.access_form_spouse_info,access_form_spouse_info,pms.model_form_spouse_info,b
 pms.access_form_unit_owner_info,access_form_unit_owner_info,pms.model_form_unit_owner_info,base.group_user,1,1,1,1
 pms.access_form_tenant_info,access_form_tenant_info,pms.model_form_tenant_info,base.group_user,1,1,1,1
 pms.access_form_tenant_house_member,access_form_tenant_house_member,pms.model_form_tenant_house_member,base.group_user,1,1,1,1
+pms.access_incident_details,access_incident_details,pms.model_incident_details,base.group_user,1,1,1,1
+pms.access_forms_cctv,access_forms_cctv,pms.model_forms_cctv,base.group_user,1,1,1,1
+pms.access_forms_gate_pass_item,access_forms_gate_pass_item,pms.model_forms_gate_pass_item,base.group_user,1,1,1,1
+pms.access_forms_gate_pass,access_forms_gate_pass,pms.model_forms_gate_pass,base.group_user,1,1,1,1

@@ -1,5 +1,9 @@
-from . import base
-from . import amenities_form
-from . import pet_registration_form
-from . import unit_owner_info
-from . import tenant_info_form
+from . import (
+    base_form,
+    form_amenities,
+    form_cctv,
+    form_gate_pass,
+    form_pet_registration,
+    form_tenant_info,
+    form_unit_owner_info,
+)

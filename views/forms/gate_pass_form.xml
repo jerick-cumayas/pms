@@ -1,0 +1,53 @@
+<odoo>
+    <!-- Gate Pass Form View -->
+    <record id="view_gate_pass_form" model="ir.ui.view">
+        <field name="name">forms.gate_pass.form</field>
+        <field name="model">forms.gate_pass</field>
+        <field name="arch" type="xml">
+            <form string="Gate Pass Form">
+                <sheet>
+                    <group>
+                        <field name="cn_no"/>
+                        <field name="authorized_carrier"/>
+                        <field name="company"/>
+                        <field name="transaction"/>
+                        <field name="purpose"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Items">
+                            <field name="item_ids">
+                                <list editable="bottom">
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="remarks"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Gate Pass List View -->
+    <record id="view_gate_pass_tree" model="ir.ui.view">
+        <field name="name">forms.gate_pass.list</field>
+        <field name="model">forms.gate_pass</field>
+        <field name="arch" type="xml">
+            <list string="Gate Passes">
+                <field name="cn_no"/>
+                <field name="company"/>
+                <field name="authorized_carrier"/>
+                <field name="transaction"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_gate_pass_forms" model="ir.actions.act_window">
+        <field name="name">Gate Pass Forms</field>
+        <field name="res_model">forms.gate_pass</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

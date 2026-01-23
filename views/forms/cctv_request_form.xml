@@ -1,0 +1,86 @@
+<odoo>
+    <record id="view_forms_cctv_list" model="ir.ui.view">
+        <field name="name">forms.cctv.list</field>
+        <field name="model">forms.cctv</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="incident_datetime"/>
+                <field name="location"/>
+                <field name="camera_number"/>
+                <field name="review_date"/>
+                <field name="footage_provided"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_cctv_forms_form" model="ir.ui.view">
+        <field name="name">forms.cctv.form</field>
+        <field name="model">forms.cctv</field>
+        <field name="arch" type="xml">
+            <form string="CCTV Request Form">
+                <header>
+                    <button name="action_submit" string="Submit" type="object"
+                            class="btn-primary"/>
+                    <button name="action_approve" string="Approve" type="object"
+                            class="btn-primary"/>
+                    <button name="action_sign" string="Sign Document" type="object"
+                            class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            class="btn-secondary"/>
+                    <button name="action_draft" string="Reset to Draft" type="object"
+                            class="btn-secondary"/>
+                    <field name="state" widget="statusbar" clickable="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_sign_request"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                invisible="sign_request_id == False">
+                            <field name="sign_request_id" invisible="1"/>
+                            <div class="o_stat_info o_stat_info_with_icon">
+                                <span class="o_stat_text">Signature Request</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="incident_datetime"/>
+                            <field name="location"/>
+                            <field name="camera_number"/>
+                        </group>
+                        <group>
+                            <field name="review_date"/>
+                            <field name="footage_provided"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Incident Details">
+                            <group>
+                                <field name="purpose"/>
+                                <field name="description"/>
+                            </group>
+                        </page>
+
+                        <page string="Review / Remarks">
+                            <group>
+                                <field name="remarks"/>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_cctv_forms" model="ir.actions.act_window">
+        <field name="name">CCTV Request Forms</field>
+        <field name="res_model">forms.cctv</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
