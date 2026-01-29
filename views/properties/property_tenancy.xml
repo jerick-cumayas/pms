@@ -1,10 +1,10 @@
-<!-- Property ownership Views -->
+<!-- Property tenancy Views -->
 <odoo>
-    <record id="view_property_ownership_list" model="ir.ui.view">
-        <field name="name">property.ownership.list</field>
-        <field name="model">property.ownership</field>
+    <record id="view_property_tenancy_list" model="ir.ui.view">
+        <field name="name">property.tenancy.list</field>
+        <field name="model">property.tenancy</field>
         <field name="arch" type="xml">
-            <list string="Property ownerships">
+            <list string="Property tenancys">
                 <field name="unit_id"/>
                 <field name="main_partner_id"/>
                 <field name="start_date"/>
@@ -12,11 +12,11 @@
         </field>
     </record>
 
-    <record id="view_property_ownership_form" model="ir.ui.view">
-        <field name="name">property.ownership.form</field>
-        <field name="model">property.ownership</field>
+    <record id="view_property_tenancy_form" model="ir.ui.view">
+        <field name="name">property.tenancy.form</field>
+        <field name="model">property.tenancy</field>
         <field name="arch" type="xml">
-            <form string="Property Ownerships">
+            <form string="Property Tenancy">
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
                 </header>
@@ -32,9 +32,9 @@
         </field>
     </record>
 
-    <record id="action_property_ownership" model="ir.actions.act_window">
-        <field name="name">Property Ownerships</field>
-        <field name="res_model">property.ownership</field>
+    <record id="action_property_tenancy" model="ir.actions.act_window">
+        <field name="name">Property Tenancies</field>
+        <field name="res_model">property.tenancy</field>
         <field name="view_mode">list,form</field>
     </record>
 </odoo>

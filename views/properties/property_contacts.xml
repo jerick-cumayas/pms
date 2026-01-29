@@ -1,0 +1,30 @@
+<odoo>
+    <record id="action_custom_contacts" model="ir.actions.act_window">
+        <field name="name">Contacts</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" eval="False"/>
+        <field name="domain">[]</field> <!-- optional domain filter -->
+    </record>
+    <record id="view_res_partner_form_inherit_units" model="ir.ui.view">
+        <field name="name">res.partner.form.ownership.tenancy.units</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page string="Owned Units" name="units_page">
+                    <group>
+                        <field name="current_owned_unit_ids"
+                                options="{'no_create': True}" placeholder="Units Owned"/>
+                    </group>
+                </page>
+                <page string="Rented Units" name="rented_page">
+                    <group>
+                        <field name="current_tenant_unit_ids"
+                            options="{'no_create': True}" placeholder="Units Rented"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

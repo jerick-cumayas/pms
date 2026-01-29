@@ -1,5 +1,4 @@
 from odoo import api, fields, models
-from odoo.exceptions import UserError
 
 
 class ResPartner(models.Model):
@@ -30,18 +29,40 @@ class ResPartner(models.Model):
     office_address_tel_no = fields.Char(string="Tel No. (Office)")
     occupation = fields.Char(string="Occupation")
     religion = fields.Char(string="Religion")
-    owned_unit_ids = fields.Many2many(
-        "property.unit",
-        compute="_compute_owned_units",
-        string="Owned Units",
-        store=False,
+
+    property_ownership_ids = fields.One2many(
+        "property.ownership", "main_partner_id", string="Ownership Records"
     )
-    rented_unit_ids = fields.Many2many(
-        "property.unit",
-        compute="_compute_rented_units",
-        string="Rented Units",
-        store=False,
+    property_tenancy_ids = fields.One2many(
+        "property.tenancy", "main_partner_id", string="Tenancy Records"
     )
+
+    current_owned_unit_ids = fields.One2many(
+        "property.unit",
+        compute="_compute_current_units",
+        string="Units Owned",
+        readonly=True,  # Important
+    )
+    current_tenant_unit_ids = fields.One2many(
+        "property.unit",
+        compute="_compute_current_units",
+        string="Units Rented",
+        readonly=True,  # Important
+    )
+
+    @api.depends("property_ownership_ids.state", "property_tenancy_ids.state")
+    def _compute_current_units(self):
+        for partner in self:
+            # search units where this partner is the current owner
+            owner_units = self.env["property.unit"].search(
+                [("ownership_partner_id", "=", partner.id)]
+            )
+            # search units where this partner is the current tenant
+            tenant_units = self.env["property.unit"].search(
+                [("tenancy_partner_id", "=", partner.id)]
+            )
+            partner.current_owned_unit_ids = owner_units
+            partner.current_tenant_unit_ids = tenant_units
 
     # Optional: compute full_name
     @api.depends("first_name", "middle_name", "last_name")
@@ -50,17 +71,3 @@ class ResPartner(models.Model):
             rec.full_name = " ".join(
                 filter(None, [rec.first_name, rec.middle_name, rec.last_name])
             )
-
-    def _compute_owned_units(self):
-        for partner in self:
-            units = self.env["property.unit"].search(
-                [("current_owner_ids", "in", partner.id)]
-            )
-            partner.owned_unit_ids = units
-
-    def _compute_rented_units(self):
-        for partner in self:
-            units = self.env["property.unit"].search(
-                [("current_tenant_id", "=", partner.id)]
-            )
-            partner.rented_unit_ids = units

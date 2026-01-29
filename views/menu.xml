@@ -13,6 +13,11 @@
     <menuitem id="menu_vehicle_pass" name="Vehicle Pass" parent="menu_forms" action="action_vehicle_pass_form"/>
 
     <menuitem id="menu_properties" name="Properties" parent="menu_root"/>
-    <menuitem id="menu_properties_units" name="Property Units" parent="menu_properties" action="action_property_unit" sequence="10"/>
+    <menuitem id="menu_property_units" name="Property Units" parent="menu_properties" action="action_property_unit" sequence="10"/>
+    <menuitem id="menu_property_owners" name="Property Ownerships" parent="menu_properties" action="action_property_ownership" sequence="10"/>
+    <menuitem id="menu_property_tenants" name="Property Tenancies" parent="menu_properties" action="action_property_tenancy" sequence="10"/>
     <menuitem id="menu_properties_buildings" name="Property Buildings" parent="menu_properties" action="action_property_building" sequence="20"/>
+
+    <menuitem id="menu_contacts" name="People" parent="menu_root"/>
+    <menuitem id="menu_property_contacts" name="Property Contacts" parent="menu_contacts" action="action_custom_contacts" sequence="10"/>
 </odoo>

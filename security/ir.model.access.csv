@@ -24,10 +24,9 @@ pms.access_form_work_permit_checklist_line,access_form_work_permit_checklist_lin
 pms.access_form_work_permit_personnels,access_form_work_permit_personnels,pms.model_form_work_permit_personnels,base.group_user,1,1,1,1
 pms.access_form_user_info,access_form_user_info,pms.model_form_user_info,base.group_user,1,1,1,1
 
+pms.access_property_owner,access_property_owner,pms.model_property_ownership,base.group_user,1,1,1,1
+pms.access_property_tenant,access_property_tenant,pms.model_property_tenancy,base.group_user,1,1,1,1
 pms.access_property_building,access_property_building,pms.model_property_building,base.group_user,1,1,1,1
 pms.access_property_unit,access_property_unit,pms.model_property_unit,base.group_user,1,1,1,1
-pms.access_property_ownership,access_property_ownership,pms.model_property_ownership,base.group_user,1,1,1,1
-pms.access_property_lease,access_property_lease,pms.model_property_lease,base.group_user,1,1,1,1
-pms.access_property_unit_sale_wizard,access_property_unit_sale_wizard,pms.model_property_unit_sale_wizard,base.group_user,1,1,1,1
-pms.access_property_ownership_wizard,access_property_ownership_wizard,pms.model_property_ownership_wizard,base.group_user,1,1,1,1
-pms.access_property_tenant_wizard,access_property_tenant_wizard,pms.model_property_tenant_wizard,base.group_user,1,1,1,1
+pms.access_property_ownership_history,access_property_ownership_history,pms.model_property_ownership_history,base.group_user,1,1,1,1
+pms.access_property_tenancy_history,access_property_tenancy_history,pms.model_property_tenancy_history,base.group_user,1,1,1,1

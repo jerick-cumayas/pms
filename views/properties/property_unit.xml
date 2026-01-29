@@ -1,0 +1,63 @@
+<!-- Property Unit Views -->
+<odoo>
+    <!-- list view for Property Units -->
+    <record id="view_property_unit_list" model="ir.ui.view">
+        <field name="name">property.unit.list</field>
+        <field name="model">property.unit</field>
+        <field name="arch" type="xml">
+            <list string="Property Units">
+                <field name="name"/>
+                <field name="building_id"/>
+                <field name="price"/>
+                <field name="current_ownership_id"/>
+                <field name="current_tenancy_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view for Property Units -->
+    <record id="view_property_unit_form" model="ir.ui.view">
+        <field name="name">property.unit.form</field>
+        <field name="model">property.unit</field>
+        <field name="arch" type="xml">
+            <form string="Property Unit">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="building_id"/>
+                        <field name="price"/>
+                        <field name="state"/>
+                    </group>
+                    <!-- <group string="Current Occupants">
+                        <field name="current_owner_id"/>
+                        <field name="current_tenant_id"/>
+                    </group> -->
+                    <notebook>
+                        <page string="Property Ownership">
+                            <group>
+                                <field name="current_ownership_id" widget="many2one" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Property Tenancy">
+                            <group>
+                                <field name="current_tenancy_id" widget="many2one" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action & Menu for Property Units -->
+    <record id="action_property_unit" model="ir.actions.act_window">
+        <field name="name">Property Units</field>
+        <field name="res_model">property.unit</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

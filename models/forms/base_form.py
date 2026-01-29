@@ -115,7 +115,7 @@ class UnitOwnerInfoForm(models.AbstractModel):
     _name = "form.unit_owner_info.base"
     _description = "Unit Owner Information Form"
 
-    unit_id = fields.Many2one(comodel_name="building.unit", string="Assigned Unit")
+    unit_id = fields.Many2one(comodel_name="property.unit", string="Assigned Unit")
 
     spouse_info_id = fields.Many2one(
         comodel_name="form.spouse_info", string="Spouse Info"
