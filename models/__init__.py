@@ -1,5 +1,1 @@
-from . import helpdesk_team
-from . import sample
-
-from . import properties
-from . import forms
+from . import account, forms, helpdesk_team, properties, res_partner, sample

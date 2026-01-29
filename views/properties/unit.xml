@@ -1,0 +1,156 @@
+<odoo>
+    <record id="view_property_unit_list" model="ir.ui.view">
+        <field name="name">property.unit.list</field>
+        <field name="model">property.unit</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="building_id"/>
+                <field name="current_owner_ids" widget="many2many_tags"/>
+                <field name="current_tenant_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_property_unit_form" model="ir.ui.view">
+        <field name="name">property.unit.form</field>
+        <field name="model">property.unit</field>
+        <field name="arch" type="xml">
+            <form string="Property Unit">
+                <header>
+                    <!-- Display unit state as colored badge -->
+                    <field name="state" widget="statusbar"/>
+
+                    <!-- Button to create a quotation -->
+                    <button name="action_create_sale_quotation" type="object"
+                        string="Create Quotation" class="oe_highlight"
+                        invisible="state != 'available'"/>
+                    <button name="action_open_ownership_wizard"
+                            string="Assign Owner"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state in ('quotation', 'pending_invoice', 'pending_payment', 'sold')"/>
+
+                    <button name="action_open_tenant_wizard"
+                            string="Assign Tenant"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state == 'available'"/>
+                </header>
+
+                <sheet>
+                    <!-- MAIN INFO -->
+                    <group>
+                        <group>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                            <field name="building_id"/>
+                            <field name="price" string="Default Price"/>
+                        </group>
+
+                        <!-- CURRENT STATUS -->
+                        <group string="Current Status" col="2">
+                            <field name="current_owner_ids" widget="many2many_tags" readonly="1"/>
+                            <!-- <field name="current_owner_ids" readonly="1"/> -->
+                            <field name="current_tenant_id" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <!-- NOTEBOOK -->
+                    <notebook>
+
+                        <!-- OWNERSHIP HISTORY -->
+                        <page string="Ownership History">
+                            <field name="ownership_ids">
+                                <list editable="bottom">
+                                    <field name="owner_id"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- LEASE HISTORY -->
+                        <page string="Lease History">
+                            <field name="lease_ids">
+                                <list editable="bottom">
+                                    <field name="tenant_id"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </list>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_property_unit_sale_wizard_form" model="ir.ui.view">
+        <field name="name">property.unit.sale.wizard.form</field>
+        <field name="model">property.unit.sale.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Sale Quotation">
+                <group>
+                    <field name="unit_id"/>
+                    <field name="partner_id"/>
+                    <field name="price"/>
+                </group>
+                <footer>
+                    <button name="action_confirm"
+                            type="object"
+                            string="Create Quotation"
+                            class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_property_ownership_wizard_form" model="ir.ui.view">
+        <field name="name">property.ownership.wizard.form</field>
+        <field name="model">property.ownership.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Owner">
+                <group>
+                    <field name="unit_id"/>
+                    <field name="owner_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+                <footer>
+                    <button name="action_assign_owner" type="object" string="Assign" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_property_tenant_wizard_form" model="ir.ui.view">
+        <field name="name">property.tenant.wizard.form</field>
+        <field name="model">property.tenant.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Tenant">
+                <group>
+                    <field name="unit_id"/>
+                    <field name="tenant_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+                <footer>
+                    <button name="action_assign_tenant" type="object" string="Assign" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_property_unit" model="ir.actions.act_window">
+        <field name="name">Property Units</field>
+        <field name="res_model">property.unit</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

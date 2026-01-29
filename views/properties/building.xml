@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== -->
+    <!-- BUILDING list VIEW -->
+    <!-- ===================== -->
+    <record id="view_property_building_list" model="ir.ui.view">
+        <field name="name">property.building.list</field>
+        <field name="model">property.building</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- BUILDING FORM VIEW -->
+    <!-- ===================== -->
+    <record id="view_property_building_form" model="ir.ui.view">
+        <field name="name">property.building.form</field>
+        <field name="model">property.building</field>
+        <field name="arch" type="xml">
+            <form string="Building">
+                <sheet>
+
+                    <!-- BASIC INFO -->
+                    <group>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </group>
+
+                    <!-- UNITS -->
+                    <group string="Units">
+                        <field name="unit_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                            </list>
+                        </field>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- ACTION -->
+    <!-- ===================== -->
+    <record id="action_property_building" model="ir.actions.act_window">
+        <field name="name">Buildings</field>
+        <field name="res_model">property.building</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

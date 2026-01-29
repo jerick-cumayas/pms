@@ -1,0 +1,89 @@
+<odoo>
+    <template id="website_vehicle_pass_form" name="Vehicle Pass Request Form">
+        <t t-call="website.layout">
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-12">
+
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
+
+                                <h2 class="card-title text-center mb-3">
+                                    Vehicle Pass Request Form
+                                </h2>
+
+                                <p class="text-muted text-center mb-4">
+                                    Please fill out the details below and attach all necessary documents.
+                                </p>
+
+                                <form t-att-action="'/forms/vehicle-pass/submit'"
+                                      method="post"
+                                      enctype="multipart/form-data"
+                                      class="o_website_form d-flex flex-column gap-3">
+
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                    <!-- Application Type -->
+                                    <section class="border rounded p-3">
+                                        <h4 class="mb-2">Application Details</h4>
+                                        <hr class="mt-0"/>
+                                        <div class="mb-3">
+                                            <label class="form-label">Type of Application</label>
+                                            <select name="application_type" class="form-control">
+                                                <option value="new">New</option>
+                                                <option value="renewal">Renewal</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Ownership of Vehicle</label>
+                                            <select name="vehicle_ownership" class="form-control">
+                                                <option value="owned">Owned</option>
+                                                <option value="company">Company</option>
+                                            </select>
+                                        </div>
+                                    </section>
+
+                                    <!-- Attachments -->
+                                    <section class="border rounded p-3">
+                                        <h4 class="mb-2">Attachments</h4>
+                                        <hr class="mt-0"/>
+                                        <div class="mb-3">
+                                            <label class="form-label">LTO OR / Certificate of Registration</label>
+                                            <input type="file" name="lto_cr_attachment_ids" class="form-control"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Plate Number</label>
+                                            <input type="file" name="plate_no_attachment_ids" class="form-control"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Driver’s License</label>
+                                            <input type="file" name="driver_license_attachment_ids" class="form-control"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Duly Notarized Deed of Sale</label>
+                                            <input type="file" name="deed_of_sale_attachment_ids" class="form-control"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Homeowner Endorsement</label>
+                                            <input type="file" name="homeowner_endorsement_attachment_ids" class="form-control"/>
+                                        </div>
+                                    </section>
+
+                                    <!-- Submit Button -->
+                                    <div class="d-grid mt-3">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            Submit Request
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

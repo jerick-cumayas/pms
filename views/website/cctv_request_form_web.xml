@@ -1,55 +1,102 @@
 <odoo>
     <template id="website_cctv_request_form" name="CCTV Request Form">
         <t t-call="website.layout">
-            <div class="container mt-4 mb-4">
-                <h2 class="mb-4">
-                    CCTV Request Form
-                </h2>
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-10">
 
-                <form action="/forms/cctv_request/submit" method="post" class="o_website_form">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
 
-                    <!-- Incident Details -->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Incident Details</h5>
+                                <h3 class="card-title text-center mb-2">
+                                    CCTV Request Form
+                                </h3>
 
-                            <div class="mb-3">
-                                <label class="form-label">Incident Date</label>
-                                <input type="date" name="incident_datetime" class="form-control" required="required"/>
-                            </div>
+                                <p class="text-muted text-center mb-4">
+                                    Please provide complete details to help us process your CCTV footage request.
+                                </p>
 
-                            <div class="mb-3">
-                                <label class="form-label">Location</label>
-                                <input type="text" name="location" class="form-control" required="required"/>
-                            </div>
+                                <form action="/forms/cctv-request/submit"
+                                      method="post"
+                                      class="o_website_form">
 
-                            <div class="mb-3">
-                                <label class="form-label">Camera Number</label>
-                                <input type="text" name="camera_number" class="form-control"/>
-                            </div>
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
 
-                            <div class="mb-3">
-                                <label class="form-label">Purpose of Request</label>
-                                <textarea name="purpose" class="form-control" rows="3"/>
-                            </div>
+                                    <!-- Incident Details -->
+                                    <div class="border rounded p-3 mb-4">
+                                        <h5 class="mb-3">
+                                            Incident Details
+                                        </h5>
 
-                            <div class="mb-3">
-                                <label class="form-label">Description of Incident</label>
-                                <textarea name="description" class="form-control" rows="4"/>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">
+                                                Incident Date
+                                            </label>
+                                            <input type="date"
+                                                   name="incident_datetime"
+                                                   class="form-control"
+                                                   required="required"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">
+                                                Location
+                                            </label>
+                                            <input type="text"
+                                                   name="location"
+                                                   class="form-control"
+                                                   placeholder="e.g. Lobby, Parking Area"
+                                                   required="required"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">
+                                                Camera Number (optional)
+                                            </label>
+                                            <input type="text"
+                                                   name="camera_number"
+                                                   class="form-control"
+                                                   placeholder="If known"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">
+                                                Purpose of Request
+                                            </label>
+                                            <textarea name="purpose"
+                                                      class="form-control"
+                                                      rows="3"
+                                                      placeholder="e.g. Security review, incident investigation"></textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">
+                                                Description of Incident
+                                            </label>
+                                            <textarea name="description"
+                                                      class="form-control"
+                                                      rows="4"
+                                                      placeholder="Describe what happened, including time and people involved"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit -->
+                                    <div class="d-grid">
+                                        <button type="submit"
+                                                class="btn btn-primary btn-lg">
+                                            Submit Request
+                                        </button>
+                                    </div>
+
+                                </form>
+
                             </div>
                         </div>
+
                     </div>
-
-                    <!-- Submit -->
-                    <div>
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            Submit Request
-                        </button>
-                    </div>
-
-                </form>
-
+                </div>
             </div>
         </t>
     </template>

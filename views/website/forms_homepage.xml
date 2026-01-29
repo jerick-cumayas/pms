@@ -6,7 +6,7 @@
                 <div class="row">
                     <!-- Pet Reservation Form Card -->
                     <div class="col-md-4">
-                        <a href="/forms/pet_registration" class="card h-100 border shadow-sm text-left">
+                        <a href="/forms/pet-registration" class="card h-100 border shadow-sm text-left">
                             <div class="card-body d-flex flex-column align-items-left justify-content-left">
                                 <div class="mb-3" style="height:100px; width:100px">
                                 </div>
@@ -18,7 +18,7 @@
 
                     <!-- Amenities Reservation -->
                     <div class="col-md-4">
-                        <a href="/forms/amenities_reservation" class="card h-100 border shadow-sm text-left">
+                        <a href="/forms/amenities-reservation" class="card h-100 border shadow-sm text-left">
                             <div class="card-body d-flex flex-column align-items-left justify-content-left">
                                 <div class="mb-3" style="height:100px; width:100px">
                                 </div>
@@ -30,7 +30,7 @@
 
                     <!-- Unit Owner Information -->
                     <div class="col-md-4">
-                        <a href="/forms/unit_owner_info" class="card h-100 border shadow-sm text-left">
+                        <a href="/forms/unit-owner-info" class="card h-100 border shadow-sm text-left">
                             <div class="card-body d-flex flex-column align-items-left justify-content-left">
                                 <div class="mb-3" style="height:100px; width:100px">
                                 </div>
@@ -44,7 +44,7 @@
                 <div class="row">
                     <!-- Tenant Information -->
                     <div class="col-md-4">
-                        <a href="/forms/tenant_info" class="card h-100 border shadow-sm text-left">
+                        <a href="/forms/tenant-info" class="card h-100 border shadow-sm text-left">
                             <div class="card-body d-flex flex-column align-items-left justify-content-left">
                                 <div class="mb-3" style="height:100px; width:100px">
                                 </div>
@@ -54,7 +54,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="/forms/unit_owner" class="card h-100 border shadow-sm text-left">
+                        <a href="/forms/unit-owner" class="card h-100 border shadow-sm text-left">
                             <div class="card-body d-flex flex-column align-items-left justify-content-left">
                                 <div class="mb-3" style="height:100px; width:100px">
                                 </div>
@@ -64,7 +64,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="/forms/unit_owner" class="card h-100 border shadow-sm text-left">
+                        <a href="/forms/unit-owner" class="card h-100 border shadow-sm text-left">
                             <div class="card-body d-flex flex-column align-items-left justify-content-left">
                                 <div class="mb-3" style="height:100px; width:100px">
                                 </div>

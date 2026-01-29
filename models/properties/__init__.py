@@ -1,2 +1,1 @@
-from . import building
-from . import unit
+from . import building, unit

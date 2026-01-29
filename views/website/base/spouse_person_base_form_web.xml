@@ -1,119 +1,128 @@
 <odoo>
-    <template id="spouse_person_base_form" name="Spouse Base Form">
-        <div id="base-form-container" class="container">
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <label for="s_first_name">First Name</label>
-                    <input type="text" name="s_first_name" id="s_first_name" class="form-control" required="required"/>
-                </div>
+<template id="spouse_person_base_form">
+    <div id="spouse-person-form-container">
 
-                <div class="col-md-4">
-                    <label for="s_middle_name">Middle Name</label>
-                    <input type="text" name="s_middle_name" id="s_middle_name" class="form-control" required="required"/>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="s_last_name">Last Name</label>
-                    <input type="text" name="s_last_name" id="s_last_name" class="form-control" required="required"/>
-                </div>
+        <!-- Name -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label for="s_first_name" class="form-label fw-semibold">First Name</label>
+                <input type="text" name="s_first_name" id="s_first_name" class="form-control" required="required"/>
             </div>
-
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <label for="s_age">Age</label>
-                    <input type="number" name="s_age" id="s_age" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_gender">Gender</label>
-                    <select name="s_gender" class="form-control">
-                        <option value="">--Select--</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_birthday">Birthday</label>
-                    <input type="date" name="s_birthday" id="s_birthday" class="form-control" required="required"/>
-                </div>
+            <div class="col-md-4">
+                <label for="s_middle_name" class="form-label fw-semibold">Middle Name</label>
+                <input type="text" name="s_middle_name" id="s_middle_name" class="form-control"/>
             </div>
-
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <label for="s_civil_status">Civil Status</label>
-                    <select name="s_civil_status" class="form-control">
-                        <option value="">--Select--</option>
-                        <option value="single">Single</option>
-                        <option value="married">Married</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_religion">Religion</label>
-                    <input type="text" name="s_religion" id="s_religion" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_nationality">Nationality</label>
-                    <input type="text" name="s_nationality" id="s_nationality" class="form-control" required="required"/>
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <label for="s_office_business">Office/Business Name</label>
-                    <input type="text" name="s_office_business" id="s_office_business" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_position">Position</label>
-                    <input type="text" name="s_position" id="s_position" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_occupation">Occupation</label>
-                    <input type="text" name="s_occupation" id="s_occupation" class="form-control" required="required"/>
-                </div>
-            </div>
-
-            <h2 class="fs-4 mt-3">Contact Information</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="s_email">Email Address</label>
-                    <input type="text" name="s_email" id="s_email" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_mobile_number">Mobile Number</label>
-                    <input type="text" name="s_mobile_number" id="s_mobile_number" class="form-control" required="required"/>
-                </div>
-            </div>
-            
-            <h2 class="fs-4 mt-3">Addresses</h2>
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="s_home_mailing_address">Home Mailing Address</label>
-                    <input type="text" name="s_home_mailing_address" id="s_home_mailing_address" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_home_mailing_address_tel_no">Tel No.(Residence)</label>
-                    <input type="text" name="s_home_mailing_address_tel_no" id="s_home_mailing_address_tel_no" class="form-control" required="required"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="s_office_address">Office Address</label>
-                    <input type="text" name="s_office_address" id="s_office_address" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_office_address_tel_no">Tel No.(Office)</label>
-                    <input type="text" name="s_office_address_tel_no" id="s_office_address_tel_no" class="form-control" required="required"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="s_abroad_address">Abroad Address</label>
-                    <input type="text" name="s_abroad_address" id="s_abroad_address" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="s_abroad_address_tel_no">Tel No.(Abroad)</label>
-                    <input type="text" name="s_abroad_address_tel_no" id="s_abroad_address_tel_no" class="form-control" required="required"/>
-                </div>
+            <div class="col-md-4">
+                <label for="s_last_name" class="form-label fw-semibold">Last Name</label>
+                <input type="text" name="s_last_name" id="s_last_name" class="form-control" required="required"/>
             </div>
         </div>
-    </template>
+
+        <!-- Personal Details -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label for="s_age" class="form-label fw-semibold">Age</label>
+                <input type="number" name="s_age" id="s_age" class="form-control" required="required"/>
+            </div>
+            <div class="col-md-4">
+                <label for="s_gender" class="form-label fw-semibold">Gender</label>
+                <select name="s_gender" class="form-select">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="s_birthday" class="form-label fw-semibold">Birthday</label>
+                <input type="date" name="s_birthday" id="s_birthday" class="form-control" required="required"/>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label for="s_civil_status" class="form-label fw-semibold">Civil Status</label>
+                <select name="s_civil_status" class="form-select">
+                    <option value="">Select</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="s_religion" class="form-label fw-semibold">Religion</label>
+                <input type="text" name="s_religion" id="s_religion" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="s_nationality" class="form-label fw-semibold">Nationality</label>
+                <input type="text" name="s_nationality" id="s_nationality" class="form-control"/>
+            </div>
+        </div>
+
+        <!-- Employment -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label for="s_office_business" class="form-label fw-semibold">Office / Business</label>
+                <input type="text" name="s_office_business" id="s_office_business" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="s_position" class="form-label fw-semibold">Position</label>
+                <input type="text" name="s_position" id="s_position" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="s_occupation" class="form-label fw-semibold">Occupation</label>
+                <input type="text" name="s_occupation" id="s_occupation" class="form-control"/>
+            </div>
+        </div>
+
+        <h5 class="mt-4 mb-2">Contact Information</h5>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label for="s_email" class="form-label fw-semibold">Email</label>
+                <input type="s_email" name="s_email" id="s_email" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="s_mobile_number" class="form-label fw-semibold">Mobile Number</label>
+                <input type="text" name="s_mobile_number" id="s_mobile_number" class="form-control"/>
+            </div>
+        </div>
+
+        <h5 class="mt-4 mb-2">Addresses</h5>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-8">
+                <label for="s_home_mailing_address" class="form-label fw-semibold">Home Address</label>
+                <input type="text" name="s_home_mailing_address" id="s_home_mailing_address" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="s_home_mailing_address_tel_no" class="form-label fw-semibold">Tel (Home)</label>
+                <input type="text" name="s_home_mailing_address_tel_no" id="s_home_mailing_address_tel_no" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-8">
+                <label for="s_office_address" class="form-label fw-semibold">Office Address</label>
+                <input type="text" name="s_office_address" id="s_office_address" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="s_office_address_tel_no" class="form-label fw-semibold">Tel (Office)</label>
+                <input type="text" name="s_office_address_tel_no" id="s_office_address_tel_no" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label for="s_abroad_address" class="form-label fw-semibold">Abroad Address</label>
+                <input type="text" name="s_abroad_address" id="s_abroad_address" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="s_abroad_address_tel_no" class="form-label fw-semibold">Tel (Abroad)</label>
+                <input type="text" name="s_abroad_address_tel_no" id="s_abroad_address_tel_no" class="form-control"/>
+            </div>
+        </div>
+
+    </div>
+</template>
+
 </odoo>

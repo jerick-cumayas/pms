@@ -7,5 +7,9 @@ from . import (
     page_controller,
     pet_registration_form_controller,
     tenant_info_form_controller,
+    ticket_controller,
     unit_owner_info_controller,
+    user_info_controller,
+    vehicle_pass_controller,
+    work_permit_controller,
 )

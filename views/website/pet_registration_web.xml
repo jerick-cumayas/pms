@@ -1,75 +1,175 @@
 <odoo>
     <template id="website_pet_registration_form" name="Pet Registration Form">
         <t t-call="website.layout">
-            <div class="container mt16 mb16">
-                <h2>Pet Registration Form</h2>
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-9 col-md-11">
 
-                <form t-att-action="'/forms/pet_registration/submit'" method="post" class="pet-registration-form">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                    <!-- Owner -->
-                    <div class="form-group">
-                        <label for="requestor_id">Pet Owner</label>
-                        <input type="hidden" name="requestor_id" t-att-value="user.id"/>
-                        <!-- Visible readonly field -->
-                        <input type="text" class="form-control" t-att-value="user.name" readonly="readonly"/>
-                    </div>
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
 
-                    <hr/>
-                    <button type="button" id="add-pet" class="btn btn-outline-secondary mb8">Add Another Pet</button>
-                    <h3>Pet Details</h3>
+                                <h3 class="card-title text-center mb-2">
+                                    Pet Registration Form
+                                </h3>
 
-                    <div id="pet-container">
-                        <div class="pet-entry card p-3 mb-3 position-relative d-flex flex-column gap-3">
-                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">Pet 1</span>
-                            <div class="form-group">
-                                <label>Pet Name</label>
-                                <input type="text" class="form-control" name="pet_name[]" required="required"/>
+                                <p class="text-muted text-center mb-4">
+                                    Register your pet(s) by providing the required information below.
+                                </p>
+
+                                <form t-att-action="'/forms/pet-registration/submit'"
+                                      method="post"
+                                      class="pet-registration-form">
+
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+
+                                    <!-- Owner -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold">
+                                            Pet Owner
+                                        </label>
+                                        <input type="hidden"
+                                               name="requestor_id"
+                                               t-att-value="user.id"/>
+                                        <input type="text"
+                                               class="form-control"
+                                               t-att-value="user.name"
+                                               readonly="readonly"/>
+                                    </div>
+
+                                    <hr class="my-4"/>
+
+                                    <!-- Header -->
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4 class="mb-0">Pet Details</h4>
+                                        <button type="button"
+                                                id="add-pet"
+                                                class="btn btn-outline-secondary btn-sm">
+                                            + Add Another Pet
+                                        </button>
+                                    </div>
+
+                                    <!-- Pet Entries -->
+                                    <div id="pet-container">
+
+                                        <div class="pet-entry card border p-3 mb-3 position-relative">
+                                            <span class="badge bg-primary position-absolute top-0 end-0 m-2">
+                                                Pet 1
+                                            </span>
+
+                                            <div class="row g-3">
+
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-semibold">
+                                                        Pet Name
+                                                    </label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="pet_name[]"
+                                                           required="required"/>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-semibold">
+                                                        Species
+                                                    </label>
+                                                    <select name="pet_species[]"
+                                                            class="form-select"
+                                                            required="required">
+                                                        <option value="">Select</option>
+                                                        <option value="dog">Dog</option>
+                                                        <option value="cat">Cat</option>
+                                                        <option value="bird">Bird</option>
+                                                        <option value="other">Other</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <label class="form-label fw-semibold">
+                                                        Breed
+                                                    </label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           name="pet_breed[]"/>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label class="form-label fw-semibold">
+                                                        Age
+                                                    </label>
+                                                    <input type="number"
+                                                           class="form-control"
+                                                           name="pet_age[]"
+                                                           min="0"/>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label class="form-label fw-semibold">
+                                                        Gender
+                                                    </label>
+                                                    <select name="pet_gender[]"
+                                                            class="form-select">
+                                                        <option value="">Select</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label class="form-label fw-semibold">
+                                                        Other Details
+                                                    </label>
+                                                    <textarea name="pet_details[]"
+                                                              class="form-control"
+                                                              rows="2"
+                                                              placeholder="Special notes, behavior, medical conditions"></textarea>
+                                                </div>
+
+                                                <div class="col-md-6 d-flex align-items-center">
+                                                    <div class="form-check mt-2">
+                                                        <input type="checkbox"
+                                                               class="form-check-input"
+                                                               name="pet_is_vaccinated[]"
+                                                               id="pet_is_vaccinated_1"/>
+                                                        <label class="form-check-label">
+                                                            Is Vaccinated?
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 text-end">
+                                                    <button type="button"
+                                                            class="btn btn-outline-danger remove-pet mt-2">
+                                                        Remove Pet
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Submit -->
+                                    <div class="d-grid mt-4">
+                                        <button type="submit"
+                                                class="btn btn-primary btn-lg">
+                                            Submit Registration
+                                        </button>
+                                    </div>
+
+                                </form>
+
                             </div>
-                            <div class="form-group">
-                                <label>Species</label>
-                                <select name="pet_species[]" class="form-control" required="required">
-                                    <option value="">--Select--</option>
-                                    <option value="dog">Dog</option>
-                                    <option value="cat">Cat</option>
-                                    <option value="bird">Bird</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Breed</label>
-                                <input type="text" class="form-control" name="pet_breed[]"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Age</label>
-                                <input type="number" class="form-control" name="pet_age[]" min="0"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Gender</label>
-                                <select name="pet_gender[]" class="form-control">
-                                    <option value="">--Select--</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Other Details</label>
-                                <textarea name="pet_details[]" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>
-                                    <input type="checkbox" name="pet_is_vaccinated[]"/> Is Vaccinated?
-                                </label>
-                            </div>
-                            <button type="button" class="btn btn-outline-danger remove-pet">Remove</button>
                         </div>
+
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                </div>
             </div>
 
+            <!-- JS stays the same -->
             <script>
                 let count = 1;
-
                 const container = document.getElementById('pet-container');
 
                 function updateBadges() {
@@ -82,25 +182,21 @@
                     count = container.children.length;
                 }
 
-                document.getElementById('add-pet').addEventListener('click', function() {
-                    const container = document.getElementById('pet-container');
+                document.getElementById('add-pet').addEventListener('click', function () {
                     const newPet = container.children[0].cloneNode(true);
 
-                    // Clear the values
-                    newPet.querySelectorAll('input, select, textarea').forEach(function(el) {
+                    newPet.querySelectorAll('input, select, textarea').forEach(el => {
                         if (el.type === 'checkbox') el.checked = false;
                         else el.value = '';
                     });
 
-                    // Update badge number
                     container.appendChild(newPet);
                     updateBadges();
                 });
 
-                container.addEventListener('click', function(e) {
+                container.addEventListener('click', function (e) {
                     if (e.target.classList.contains('remove-pet')) {
-                        const cards = container.children;
-                        if (cards.length > 1) {
+                        if (container.children.length > 1) {
                             e.target.closest('.pet-entry').remove();
                             updateBadges();
                         } else {
@@ -109,6 +205,7 @@
                     }
                 });
             </script>
+
         </t>
     </template>
 </odoo>

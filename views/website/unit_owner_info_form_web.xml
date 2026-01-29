@@ -1,36 +1,85 @@
 <odoo>
     <template id="website_unit_owner_info_form" name="Unit Owner Info Form">
         <t t-call="website.layout">
-            <div class="container mt16 mb16">
-                <h1 class="fs-2">Unit Owner Information</h1>
-                <form
-                    t-att-action="'/forms/unit_owner_info/submit'"
-                    method="post"
-                    class="o_website_form d-flex flex-column gap-5"
-                    data-model_name="form.unit_owner_info"
-                    data-success_page="/forms/thank-you">
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 col-md-12">
 
-                    <div>
-                        <h2 class="fs-3">Personal Info</h2>
-                        <hr/>
-                        <t t-call="pms.person_base_form"/>
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
+
+                                <h2 class="card-title text-center mb-2">
+                                    Unit Owner Information
+                                </h2>
+
+                                <p class="text-muted text-center mb-4">
+                                    Please complete all applicable sections below.
+                                </p>
+
+                                <form t-att-action="'/forms/unit-owner-info/submit'"
+                                      method="post"
+                                      class="o_website_form d-flex flex-column gap-4"
+                                      data-model_name="form.unit_owner_info"
+                                      data-success_page="/forms/thank-you">
+
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+
+                                    <!-- Personal Info -->
+                                    <section class="border rounded p-3">
+                                        <h4 class="mb-2">Personal Information</h4>
+                                        <hr class="mt-0"/>
+                                        <t t-call="pms.person_base_form"/>
+                                    </section>
+
+                                    <section class="border rounded p-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h4 class="mb-0">
+                                                Spouse Information
+                                                <span class="text-muted fs-6">(if married)</span>
+                                            </h4>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                                    data-bs-toggle="collapse" data-bs-target="#spouseInfo" aria-expanded="false">
+                                                Toggle
+                                            </button>
+                                        </div>
+                                        <hr class="mt-2"/>
+                                        <div id="spouseInfo" class="collapse">
+                                            <t t-call="pms.spouse_person_base_form"/>
+                                        </div>
+                                    </section>
+
+                                    <!-- Vehicle Info (toggleable) -->
+                                    <section class="border rounded p-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h4 class="mb-0">Vehicle Information</h4>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                                    data-bs-toggle="collapse" data-bs-target="#vehicleInfo" aria-expanded="false">
+                                                Toggle
+                                            </button>
+                                        </div>
+                                        <hr class="mt-2"/>
+                                        <div id="vehicleInfo" class="collapse">
+                                            <t t-call="pms.vehicle_base_form"/>
+                                        </div>
+                                    </section>
+
+                                    <!-- Submit -->
+                                    <div class="d-grid mt-3">
+                                        <button type="submit"
+                                                class="btn btn-primary btn-lg">
+                                            Submit Information
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+
                     </div>
-
-                    <div>
-                        <h2 class="fs-3">Spouse Info (if married)</h2>
-                        <hr/>
-                        <t t-call="pms.spouse_person_base_form"/>
-                    </div>
-
-                    <div>
-                        <h2 class="fs-3">Vehicle Info</h2>
-                        <hr/>
-                        <t t-call="pms.vehicle_base_form"/>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                </div>
             </div>
         </t>
     </template>

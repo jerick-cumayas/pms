@@ -6,7 +6,13 @@
     <menuitem id="menu_forms_amenities" name="Amenities Reservation" parent="menu_forms" action="action_amenities_forms" sequence="10"/>
     <menuitem id="menu_forms_pet_registration" name="Pets Registration" parent="menu_forms" action="action_pet_registration_form" sequence="20"/>
     <menuitem id="menu_forms_unit_owner_info" name="Unit Owners Info" parent="menu_forms" action="action_unit_owner_info_forms" sequence="30"/>
+    <menuitem id="menu_forms_user_info" name="User Info" parent="menu_forms" action="action_user_info_forms" sequence="30"/>
     <menuitem id="menu_forms_tenant_info" name="Tenants Info" parent="menu_forms" action="action_tenant_info_forms" sequence="40"/>
     <menuitem id="menu_forms_cctv" name="CCTV Requests" parent="menu_forms" action="action_cctv_forms"/>
     <menuitem id="menu_gate_pass" name="Gate Pass" parent="menu_forms" action="action_gate_pass_forms"/>
+    <menuitem id="menu_vehicle_pass" name="Vehicle Pass" parent="menu_forms" action="action_vehicle_pass_form"/>
+
+    <menuitem id="menu_properties" name="Properties" parent="menu_root"/>
+    <menuitem id="menu_properties_units" name="Property Units" parent="menu_properties" action="action_property_unit" sequence="10"/>
+    <menuitem id="menu_properties_buildings" name="Property Buildings" parent="menu_properties" action="action_property_building" sequence="20"/>
 </odoo>

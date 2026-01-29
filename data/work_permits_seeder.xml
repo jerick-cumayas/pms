@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- ===================== -->
+    <!-- WORK TYPES -->
+    <!-- ===================== -->
+    <record id="work_type_renovation" model="form.work_types">
+        <field name="name">Renovation</field>
+    </record>
+
+    <record id="work_type_repair" model="form.work_types">
+        <field name="name">Repair</field>
+    </record>
+
+    <record id="work_type_maintenance" model="form.work_types">
+        <field name="name">Maintenance</field>
+    </record>
+
+    <record id="work_type_project" model="form.work_types">
+        <field name="name">Project Work</field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- WORK SCOPES -->
+    <!-- ===================== -->
+    <record id="work_scope_civil" model="form.work_scopes">
+        <field name="name">Civil</field>
+    </record>
+
+    <record id="work_scope_architectural" model="form.work_scopes">
+        <field name="name">Architectural</field>
+    </record>
+
+    <record id="work_scope_carpentry" model="form.work_scopes">
+        <field name="name">Carpentry</field>
+    </record>
+
+    <record id="work_scope_mechanical" model="form.work_scopes">
+        <field name="name">Mechanical</field>
+    </record>
+
+    <record id="work_scope_electrical" model="form.work_scopes">
+        <field name="name">Electrical</field>
+    </record>
+
+    <record id="work_scope_plumbing" model="form.work_scopes">
+        <field name="name">Plumbing</field>
+    </record>
+
+    <record id="work_scope_masonry" model="form.work_scopes">
+        <field name="name">Masonry / Tile Setting</field>
+    </record>
+
+    <record id="work_scope_ac" model="form.work_scopes">
+        <field name="name">Air Conditioning</field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- HOT WORK CHECKLIST -->
+    <!-- ===================== -->
+    <record id="hot_work_fire_extinguisher" model="form.work_permit.checklist.item">
+        <field name="name">Fire extinguisher available at work area</field>
+        <field name="checklist_type">hot_work</field>
+    </record>
+
+    <record id="hot_work_combustibles_removed" model="form.work_permit.checklist.item">
+        <field name="name">Combustible materials removed or protected</field>
+        <field name="checklist_type">hot_work</field>
+    </record>
+
+    <record id="hot_work_fire_watch" model="form.work_permit.checklist.item">
+        <field name="name">Fire watch assigned during hot work</field>
+        <field name="checklist_type">hot_work</field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- CONFINED SPACE: HAZARDS -->
+    <!-- ===================== -->
+    <record id="confined_hazard_oxygen" model="form.work_permit.checklist.item">
+        <field name="name">Oxygen deficiency</field>
+        <field name="checklist_type">confined_hazard</field>
+    </record>
+
+    <record id="confined_hazard_toxic_gas" model="form.work_permit.checklist.item">
+        <field name="name">Presence of toxic gases</field>
+        <field name="checklist_type">confined_hazard</field>
+    </record>
+
+    <record id="confined_hazard_engulfment" model="form.work_permit.checklist.item">
+        <field name="name">Risk of engulfment</field>
+        <field name="checklist_type">confined_hazard</field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- CONFINED SPACE: PRECAUTIONS -->
+    <!-- ===================== -->
+    <record id="confined_precaution_ventilation" model="form.work_permit.checklist.item">
+        <field name="name">Adequate ventilation provided</field>
+        <field name="checklist_type">confined_precaution</field>
+    </record>
+
+    <record id="confined_precaution_gas_test" model="form.work_permit.checklist.item">
+        <field name="name">Atmospheric testing completed</field>
+        <field name="checklist_type">confined_precaution</field>
+    </record>
+
+    <record id="confined_precaution_standby" model="form.work_permit.checklist.item">
+        <field name="name">Standby personnel assigned</field>
+        <field name="checklist_type">confined_precaution</field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- CONFINED SPACE: SAFETY EQUIPMENT -->
+    <!-- ===================== -->
+    <record id="confined_safety_harness" model="form.work_permit.checklist.item">
+        <field name="name">Safety harness</field>
+        <field name="checklist_type">confined_safety</field>
+    </record>
+
+    <record id="confined_safety_respirator" model="form.work_permit.checklist.item">
+        <field name="name">Respirator / breathing apparatus</field>
+        <field name="checklist_type">confined_safety</field>
+    </record>
+
+    <record id="confined_safety_tripod" model="form.work_permit.checklist.item">
+        <field name="name">Tripod and lifeline</field>
+        <field name="checklist_type">confined_safety</field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- WORK AT HEIGHT: PREVENTION -->
+    <!-- ===================== -->
+    <record id="height_prevention_guardrails" model="form.work_permit.checklist.item">
+        <field name="name">Guardrails installed</field>
+        <field name="checklist_type">height_prevention</field>
+    </record>
+
+    <record id="height_prevention_harness" model="form.work_permit.checklist.item">
+        <field name="name">Full body harness used</field>
+        <field name="checklist_type">height_prevention</field>
+    </record>
+
+    <record id="height_prevention_lifeline" model="form.work_permit.checklist.item">
+        <field name="name">Lifeline securely anchored</field>
+        <field name="checklist_type">height_prevention</field>
+    </record>
+
+    <!-- ===================== -->
+    <!-- WORK AT HEIGHT: PROCEDURES -->
+    <!-- ===================== -->
+    <record id="height_procedure_tool_tethering" model="form.work_permit.checklist.item">
+        <field name="name">Tools secured to prevent falling</field>
+        <field name="checklist_type">height_procedure</field>
+    </record>
+
+    <record id="height_procedure_weather" model="form.work_permit.checklist.item">
+        <field name="name">Weather conditions assessed</field>
+        <field name="checklist_type">height_procedure</field>
+    </record>
+
+    <record id="height_procedure_supervision" model="form.work_permit.checklist.item">
+        <field name="name">Work supervised by competent person</field>
+        <field name="checklist_type">height_procedure</field>
+    </record>
+
+</odoo>

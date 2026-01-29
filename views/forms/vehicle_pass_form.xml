@@ -1,0 +1,53 @@
+<odoo>
+    <!-- Action -->
+    <record id="action_vehicle_pass_form" model="ir.actions.act_window">
+        <field name="name">Vehicle Passes</field>
+        <field name="res_model">forms.vehicle_pass</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create vehicle pass applications here.
+            </p>
+        </field>
+    </record>
+
+    <!-- List (list) View -->
+    <record id="view_vehicle_pass_list" model="ir.ui.view">
+        <field name="name">forms.vehicle_pass.list</field>
+        <field name="model">forms.vehicle_pass</field>
+        <field name="arch" type="xml">
+            <list string="Vehicle Passes">
+                <field name="application_type"/>
+                <field name="vehicle_ownership"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_vehicle_pass_form" model="ir.ui.view">
+        <field name="name">forms.vehicle_pass.form</field>
+        <field name="model">forms.vehicle_pass</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle Pass">
+                <sheet>
+                    <group>
+                        <field name="requestor_id"/>
+                        <field name="application_type"/>
+                        <field name="vehicle_ownership"/>
+                    </group>
+                    <notebook>
+                        <page string="Attachments">
+                            <group>
+                                <field name="lto_cr_attachment_ids" widget="many2many_binary"/>
+                                <field name="plate_no_attachment_ids" widget="many2many_binary"/>
+                                <field name="driver_license_attachment_ids" widget="many2many_binary"/>
+                                <field name="deed_of_sale_attachment_ids" widget="many2many_binary"/>
+                                <field name="homeowner_endorsement_attachment_ids" widget="many2many_binary"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

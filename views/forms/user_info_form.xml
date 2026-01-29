@@ -1,0 +1,176 @@
+<odoo>
+    <record id="action_user_info_forms" model="ir.actions.act_window">
+        <field name="name">User Info Form</field>
+        <field name="res_model">form.user_info</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Tree view -->
+    <record id="view_user_info_form_list" model="ir.ui.view">
+        <field name="name">form.user.info.list</field>
+        <field name="model">form.user_info</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="first_name"/>
+                <field name="middle_name"/>
+                <field name="last_name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view -->
+    <record id="view_user_info_form" model="ir.ui.view">
+        <field name="name">form.user.info.form</field>
+        <field name="model">form.user_info</field>
+        <field name="arch" type="xml">
+            <form string="Unit Owner Information Form">
+                <header>
+                    <button name="action_submit" string="Submit" type="object"
+                            class="btn-primary" modifiers='{"invisible": [["state", "!=", "draft"]]}'/>
+                    <button name="action_approve" string="Approve" type="object"
+                            class="btn-primary" modifiers='{"invisible": [["state", "!=", "submitted"]]}'/>
+                    <button name="action_create_portal_user" string="Create User" type="object"
+                            class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            class="btn-secondary"/>
+                    <button name="action_draft" string="Reset to Draft" type="object"
+                            class="btn-secondary"/>
+                    <field name="state" widget="statusbar" clickable="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <!-- Open User button -->
+                        <button name="action_open_user"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-user"
+                                invisible="user_id == False">
+                            <div class="o_stat_info o_stat_info_with_icon">
+                                <span class="o_stat_text">Open User</span>
+                            </div>
+                        </button>
+
+                        <!-- Open Contact button -->
+                        <button name="action_open_partner"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-address-book"
+                                invisible="partner_id == False">
+                            <div class="o_stat_info o_stat_info_with_icon">
+                                <span class="o_stat_text">Open Contact</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <h1>
+                            <field name="full_name"/>
+                        </h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="first_name"/>
+                            <field name="middle_name"/>
+                            <field name="last_name"/>
+                            <field name="gender"/>
+                            <field name="age"/>
+                            <field name="civil_status"/>
+                            <field name="birthday"/>
+                            <field name="unit_id"/>
+                        </group>
+
+                        <group>
+                            <field name="nationality"/>
+                            <field name="religion"/>
+                            <field name="occupation"/>
+                            <field name="position"/>
+                            <field name="office_business"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contact Information">
+                            <group>
+                                <field name="email"/>
+                                <field name="mobile_number"/>
+                            </group>
+                        </page>
+                        <page string="Addresses">
+                            <group>
+                                <field name="home_mailing_address"/>
+                                <field name="home_mailing_address_tel_no"/>
+                                <field name="office_address"/>
+                                <field name="office_address_tel_no"/>
+                                <field name="abroad_address"/>
+                                <field name="abroad_address_tel_no"/>
+                            </group>
+                        </page>
+                        <page string="Spouse">
+                            <group>
+                                <field name="spouse_info_id">
+                                    <group>
+                                        <group>
+                                            <field name="first_name"/>
+                                            <field name="middle_name"/>
+                                            <field name="last_name"/>
+                                            <field name="gender"/>
+                                            <field name="age"/>
+                                            <field name="civil_status"/>
+                                            <field name="birthday"/>
+                                        </group>
+
+                                        <group>
+                                            <field name="nationality"/>
+                                            <field name="religion"/>
+                                            <field name="occupation"/>
+                                            <field name="position"/>
+                                            <field name="office_business"/>
+                                        </group>
+                                    </group>
+
+                                    <group string="Contact Information">
+                                        <field name="email"/>
+                                        <field name="mobile_number"/>
+                                    </group>
+
+                                    <group string="Addresses">
+                                        <field name="home_mailing_address"/>
+                                        <field name="home_mailing_address_tel_no"/>
+                                        <field name="office_address"/>
+                                        <field name="office_address_tel_no"/>
+                                        <field name="abroad_address"/>
+                                        <field name="abroad_address_tel_no"/>
+                                    </group>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Vehicle">
+                            <group>
+                                <field name="vehicle_info_id">
+                                    <!-- Popup Form -->
+                                    <form string="Vehicle Information">
+                                        <group>
+                                            <field name="brand"/>
+                                            <field name="type"/>
+                                            <field name="plate_no"/>
+                                            <field name="colour"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Extra">
+                            <group>
+                                <field name="spouse_id"/>
+                                <field name="vehicle_id"/>
+                            </group>
+                        </page>
+                        <page string="Approver">
+                            <group>
+                                <field name="approver_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
