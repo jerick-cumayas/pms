@@ -35,7 +35,6 @@ class PropertyOccupancyAbstract(models.AbstractModel):
         ],
         default="draft",
         required=True,
-        tracking=True,
     )
 
     start_date = fields.Date(

@@ -13,4 +13,4 @@ class FormController(http.Controller):
     @http.route(f"{FORM_THANK_YOU_PATH}", auth="public", website=True)
     def display_thankyou_page(self, **kwargs):
         # Display the thank-you page
-        return request.render("pms.website_request_thankyou", {})
+        return request.render("website_helpdesk.ticket_submited", {})

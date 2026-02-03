@@ -30,3 +30,4 @@ pms.access_property_building,access_property_building,pms.model_property_buildin
 pms.access_property_unit,access_property_unit,pms.model_property_unit,base.group_user,1,1,1,1
 pms.access_property_ownership_history,access_property_ownership_history,pms.model_property_ownership_history,base.group_user,1,1,1,1
 pms.access_property_tenancy_history,access_property_tenancy_history,pms.model_property_tenancy_history,base.group_user,1,1,1,1
+pms.access_form_base,access_form_base,pms.model_form_base,base.group_user,1,1,1,1

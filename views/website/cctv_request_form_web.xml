@@ -18,7 +18,8 @@
 
                                 <form action="/forms/cctv-request/submit"
                                       method="post"
-                                      class="o_website_form">
+                                      class="o_website_form"
+                                      data-success-page="/ticket_submited">
 
                                     <input type="hidden"
                                            name="csrf_token"

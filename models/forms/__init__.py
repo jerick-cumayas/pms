@@ -9,4 +9,5 @@ from . import (
     form_user_info,
     form_vehicle_pass,
     form_work_permit,
+    helpdesk,
 )

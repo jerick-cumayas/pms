@@ -65,7 +65,7 @@
         "views/website/work_permit_form_web.xml",
         "views/website/ticket_submission_web.xml",
         "views/website/user_info_form_web.xml",
-        "views/website/thank_you.xml",
+        # "views/website/thank_you.xml",
         "views/menu.xml",
     ],
     "license": "LGPL-3",

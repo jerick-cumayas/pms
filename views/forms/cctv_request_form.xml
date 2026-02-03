@@ -20,17 +20,42 @@
         <field name="arch" type="xml">
             <form string="CCTV Request Form">
                 <header>
-                    <button name="action_submit" string="Submit" type="object"
-                            class="btn-primary"/>
-                    <button name="action_approve" string="Approve" type="object"
-                            class="btn-primary"/>
-                    <button name="action_sign" string="Sign Document" type="object"
-                            class="btn-primary"/>
-                    <button name="action_cancel" string="Cancel" type="object"
-                            class="btn-secondary"/>
-                    <button name="action_draft" string="Reset to Draft" type="object"
-                            class="btn-secondary"/>
-                    <field name="state" widget="statusbar" clickable="1"/>
+                    <button name="action_submit"
+                        string="Submit"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not can_submit"/>
+
+                    <button name="action_under_review"
+                            string="Under Review"
+                            type="object"
+                            class="btn-primary"
+                            invisible="not can_under_review"/>
+
+                    <button name="action_complete"
+                            string="Complete"
+                            type="object"
+                            class="btn-primary"
+                            invisible="not can_complete"/>
+
+                    <button name="action_reject"
+                            string="Reject"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="not can_reject"/>
+
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="not can_cancel"/>
+
+                    <button name="action_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="not can_draft"/>
+                    <field name="state" widget="statusbar" clickable="1" statusbar_visible="draft,submitted,under_review,completed,rejected,cancelled"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -47,27 +72,26 @@
                     </div>
                     <group>
                         <group>
-                            <field name="incident_datetime"/>
-                            <field name="location"/>
-                            <field name="camera_number"/>
-                        </group>
-                        <group>
-                            <field name="review_date"/>
-                            <field name="footage_provided"/>
+                            <field name="incident_datetime" readonly="is_locked"/>
+                            <field name="location" readonly="is_locked"/>
+                            <field name="camera_number" readonly="is_locked"/>
                         </group>
                     </group>
 
                     <notebook>
                         <page string="Incident Details">
                             <group>
-                                <field name="purpose"/>
-                                <field name="description"/>
+                                <field name="purpose" readonly="is_locked"/>
+                                <field name="description" readonly="is_locked"/>
                             </group>
                         </page>
 
                         <page string="Review / Remarks">
                             <group>
-                                <field name="remarks"/>
+                                <field name="review_date" readonly="is_locked"/>
+                                <field name="review_by" readonly="is_locked"/>
+                                <field name="footage_provided" readonly="review_section_locked"/>
+                                <field name="remarks" readonly="review_section_locked"/>
                             </group>
                         </page>
                     </notebook>

@@ -19,19 +19,44 @@
         <field name="model">form.pet_registration</field>
         <field name="arch" type="xml">
             <form string="Pet Registration">
-                <header>
-                    <button name="action_submit" string="Submit" type="object" 
-                            class="btn-primary"/>
-                    <button name="action_approve" string="Approve" type="object" 
-                            class="btn-primary"/>
-                    <button name="action_sign" string="Sign Document" type="object" 
-                            class="btn-primary"/>
-                    <button name="action_cancel" string="Cancel" type="object" 
-                            class="btn-secondary"/>
-                    <button name="action_draft" string="Reset to Draft" type="object" 
-                            class="btn-secondary"/>
-                    <field name="state" widget="statusbar" clickable="1"/>
-                </header>
+            <header>
+                <button name="action_submit"
+                    string="Submit"
+                    type="object"
+                    class="btn-primary"
+                    invisible="not can_submit"/>
+
+                <button name="action_under_review"
+                        string="Under Review"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not can_under_review"/>
+
+                <button name="action_complete"
+                        string="Complete"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not can_complete"/>
+
+                <button name="action_reject"
+                        string="Reject"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not can_reject"/>
+
+                <button name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not can_cancel"/>
+
+                <button name="action_draft"
+                        string="Reset to Draft"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not can_draft"/>
+                <field name="state" widget="statusbar" clickable="1" statusbar_visible="draft,submitted,under_review,completed,rejected,cancelled"/>
+            </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_open_sign_request"
@@ -46,38 +71,42 @@
                         </button>
                     </div>
                     <group>
-                        <field name="requestor_id"/>
-                    </group>
-                    <notebook>
-                        <page string="Pet Details">
-                            <field name="pet_ids">
-                                <list editable="bottom">
-                                    <field name="name"/>
-                                    <field name="species"/>
-                                    <field name="breed"/>
-                                    <field name="age"/>
-                                    <field name="gender"/>
-                                    <field name="is_vaccinated"/>
-                                </list>
-                                <form>
-                                    <group>
-                                        <field name="name"/>
-                                        <field name="species"/>
-                                        <field name="breed"/>
-                                        <field name="age"/>
-                                        <field name="gender"/>
-                                        <field name="details"/>
-                                        <field name="is_vaccinated"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </page>
-                        <page string="Approver">
-                            <group>
-                                <field name="approver_id" />
-                            </group>
-                        </page>
-                    </notebook>
+                            <!-- Make requestor_id readonly if the form is locked -->
+                            <field name="requestor_id" readonly="is_locked"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Pet Details">
+                                <field name="pet_ids">
+                                    <list editable="bottom">
+                                        <field name="name" readonly="context.get('parent_is_locked', False)"/>
+                                        <field name="species" readonly="context.get('parent_is_locked', False)"/>
+                                        <field name="breed" readonly="context.get('parent_is_locked', False)"/>
+                                        <field name="age" readonly="context.get('parent_is_locked', False)"/>
+                                        <field name="gender" readonly="context.get('parent_is_locked', False)"/>
+                                        <field name="is_vaccinated" readonly="context.get('parent_is_locked', False)"/>
+                                    </list>
+                                    <form>
+                                        <group>
+                                            <field name="name" readonly="context.get('parent_is_locked', False)"/>
+                                            <field name="species" readonly="context.get('parent_is_locked', False)"/>
+                                            <field name="breed" readonly="context.get('parent_is_locked', False)"/>
+                                            <field name="age" readonly="context.get('parent_is_locked', False)"/>
+                                            <field name="gender" readonly="context.get('parent_is_locked', False)"/>
+                                            <field name="details" readonly="context.get('parent_is_locked', False)"/>
+                                            <field name="is_vaccinated" readonly="context.get('parent_is_locked', False)"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="Review / Remarks">
+                                <group>
+                                    <field name="review_date" readonly="is_locked"/>
+                                    <field name="review_by" readonly="is_locked"/>
+                                </group>
+                            </page>
+                        </notebook>
                 </sheet>
             </form>
         </field>

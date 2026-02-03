@@ -165,7 +165,7 @@
                         </page>
                         <page string="Approver">
                             <group>
-                                <field name="approver_id"/>
+                                <field name="approved_by"/>
                             </group>
                         </page>
                     </notebook>
