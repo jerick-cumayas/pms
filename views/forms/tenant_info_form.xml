@@ -187,11 +187,6 @@
                                 <field name="tenant_id"/>
                             </group>
                         </page>
-                        <page string="Approver">
-                            <group>
-                                <field name="approved_by"/>
-                            </group>
-                        </page>
                     </notebook>
                 </sheet>
             </form>

@@ -7,7 +7,6 @@
                 <field name="incident_datetime"/>
                 <field name="location"/>
                 <field name="camera_number"/>
-                <field name="review_date"/>
                 <field name="footage_provided"/>
             </list>
         </field>
@@ -58,18 +57,16 @@
                     <field name="state" widget="statusbar" clickable="1" statusbar_visible="draft,submitted,under_review,completed,rejected,cancelled"/>
                 </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="action_open_sign_request"
-                                type="object"
-                                class="oe_stat_button"
-                                icon="fa-pencil-square-o"
-                                invisible="sign_request_id == False">
-                            <field name="sign_request_id" invisible="1"/>
-                            <div class="o_stat_info o_stat_info_with_icon">
-                                <span class="o_stat_text">Signature Request</span>
-                            </div>
-                        </button>
+                    <widget name="web_ribbon" invisible="not state in ('draft')" title="Draft" bg_color="text-bg-secondary"/>
+                    <widget name="web_ribbon" invisible="not state in ('submitted')" title="Submitted" bg_color="text-bg-primary"/>
+                    <widget name="web_ribbon" invisible="not state in ('under_review')" title="Under Review" bg_color="text-bg-warning"/>
+                    <widget name="web_ribbon" invisible="not state in ('completed')" title="Completed" bg_color="text-bg-success"/>
+                    <widget name="web_ribbon" invisible="not state in ('rejected')" title="Rejected" bg_color="text-bg-dark"/>
+                    <widget name="web_ribbon" invisible="not state in ('cancelled')" title="Cancelled" bg_color="text-bg-danger"/>
+                    <div class="alert alert-warning" invisible="reviewer_ids">
+                        ⚠ Please assign at least one reviewer before moving to next phase.
                     </div>
+
                     <group>
                         <group>
                             <field name="incident_datetime" readonly="is_locked"/>
@@ -86,16 +83,20 @@
                             </group>
                         </page>
 
-                        <page string="Review / Remarks">
+                        <page string="Reviews / Remarks">
                             <group>
-                                <field name="review_date" readonly="is_locked"/>
-                                <field name="review_by" readonly="is_locked"/>
-                                <field name="footage_provided" readonly="review_section_locked"/>
-                                <field name="remarks" readonly="review_section_locked"/>
+                                <field name="reviewer_ids"
+                                       nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="review_for" readonly="parent.review_section_locked"/>
+                                        <field name="reviewer_id" readonly="parent.review_section_locked"/>
+                                        <field name="state" readonly="parent.review_section_locked"/>
+                                        <field name="remarks" readonly="parent.review_section_locked"/>
+                                    </list>
+                                </field>
                             </group>
                         </page>
                     </notebook>
-
                 </sheet>
             </form>
         </field>

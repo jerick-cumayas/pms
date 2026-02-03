@@ -38,7 +38,7 @@
                     <field name="state" widget="statusbar" clickable="1"/>
                 </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
+                    <!-- <div class="oe_button_box" name="button_box">
                         <button name="action_open_sign_request"
                                 type="object"
                                 class="oe_stat_button"
@@ -49,7 +49,7 @@
                                 <span class="o_stat_text">Signature Request</span>
                             </div>
                         </button>
-                    </div>
+                    </div> -->
                     <group>
                         <h1>
                             <field name="full_name"/>
@@ -151,11 +151,6 @@
                                 <field name="spouse_id"/>
                                 <field name="vehicle_id"/>
                                 <field name="owner_id"/>
-                            </group>
-                        </page>
-                        <page string="Approver">
-                            <group>
-                                <field name="approved_by"/>
                             </group>
                         </page>
                     </notebook>

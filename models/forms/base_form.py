@@ -2,6 +2,30 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
+class FormReviewer(models.Model):
+    _name = "form.reviewer"
+    _description = "Form Reviewer"
+
+    form_id = fields.Many2one(
+        "forms.cctv", string="Form", required=True, ondelete="cascade"
+    )
+    reviewer_id = fields.Many2one("res.users", string="Reviewer", required=True)
+    review_for = fields.Char(
+        string="Review For", help="Purpose or role of the reviewer for this form."
+    )
+    state = fields.Selection(
+        [
+            ("pending", "Pending"),
+            ("in_progress", "In Progress"),
+            ("completed", "Completed"),
+        ],
+        string="Status",
+        default="pending",
+    )
+    review_date = fields.Datetime(string="Review Date", default=fields.Datetime.now)
+    remarks = fields.Text(string="Remarks")
+
+
 class FormBase(models.AbstractModel):
     _name = "form.base"
     _description = "Base Model"
@@ -34,25 +58,31 @@ class FormBase(models.AbstractModel):
     )
 
     # ---------- SIGNATURE FIELDS ----------
-    approval_date = fields.Datetime(string="Approval Date", copy=False)
-    approved_by = fields.Many2one("res.users", string="Approved By", copy=False)
-    sign_request_id = fields.Many2one(
-        "sign.request", string="Signature Request", copy=False
+    reviewer_ids = fields.One2many(
+        "form.reviewer",
+        "form_id",
+        string="Reviewers",
     )
 
-    reject_date = fields.Datetime(string="Reject Date")
-    rejected_by = fields.Many2one("res.users", string="Rejected By", copy=False)
+    # approval_date = fields.Datetime(string="Approval Date", copy=False)
+    # approved_by = fields.Many2one("res.users", string="Approved By", copy=False)
+    # sign_request_id = fields.Many2one(
+    #     "sign.request", string="Signature Request", copy=False
+    # )
 
-    review_date = fields.Datetime(string="Review Date")
-    review_by = fields.Many2one("res.users", string="Reviewed By", copy=False)
+    # reject_date = fields.Datetime(string="Reject Date")
+    # rejected_by = fields.Many2one("res.users", string="Rejected By", copy=False)
 
-    completed_date = fields.Datetime(string="Completed Date")
-    completed_by = fields.Many2one("res.users", string="Completed By", copy=False)
+    # review_date = fields.Datetime(string="Review Date")
+    # review_by = fields.Many2one("res.users", string="Reviewed By", copy=False)
+
+    # completed_date = fields.Datetime(string="Completed Date")
+    # completed_by = fields.Many2one("res.users", string="Completed By", copy=False)
 
     # ---------- COMPUTED PERMISSIONS FOR BUTTONS ----------
     can_submit = fields.Boolean(compute="_compute_allowed_actions", store=False)
     can_under_review = fields.Boolean(compute="_compute_allowed_actions", store=False)
-    can_complete = fields.Boolean(compute="_compute_allowed_actions", store=False)
+    can_complete = fields.Boolean(compute="_compute_can_complete", store=False)
     can_reject = fields.Boolean(compute="_compute_allowed_actions", store=False)
     can_approve = fields.Boolean(compute="_compute_allowed_actions", store=False)
     can_cancel = fields.Boolean(compute="_compute_allowed_actions", store=False)
@@ -60,6 +90,7 @@ class FormBase(models.AbstractModel):
     can_sign = fields.Boolean(compute="_compute_allowed_actions", store=False)
 
     is_locked = fields.Boolean(compute="_compute_is_locked")
+    is_assigned = fields.Boolean(compute="_compute_show_assign_reviewer_btn")
     review_section_locked = fields.Boolean(compute="_compute_is_locked")
 
     @api.depends("state")
@@ -81,13 +112,37 @@ class FormBase(models.AbstractModel):
         for rec in self:
             transitions = self.STATE_TRANSITIONS.get(rec.state, [])
             rec.can_submit = "submitted" in transitions
-            rec.can_under_review = "under_review" in transitions
-            rec.can_complete = "completed" in transitions
+            rec.can_under_review = (
+                "under_review" in transitions
+            ) and not rec.is_assigned
+            rec.can_complete = (
+                "completed" in transitions
+                and bool(rec.reviewer_ids)
+                and all(r.state == "completed" for r in rec.reviewer_ids)
+            )
             rec.can_reject = "rejected" in transitions
             rec.can_approve = "approved" in transitions
             rec.can_cancel = "cancelled" in transitions
             rec.can_draft = "draft" in transitions
             rec.can_sign = "signed" in transitions
+
+    def _compute_show_assign_reviewer_btn(self):
+        for rec in self:
+            rec.is_assigned = not bool(rec.reviewer_ids)
+
+    def _compute_can_complete(self):
+        for rec in self:
+            # First, check if 'completed' is allowed by state transitions
+            if "completed" in rec.STATE_TRANSITIONS.get(rec.state, []):
+                # Only allow if all reviewers are completed
+                if rec.reviewer_ids:
+                    rec.can_complete = all(
+                        r.state == "completed" for r in rec.reviewer_ids
+                    )
+                else:
+                    rec.can_complete = False  # No reviewers, cannot complete
+            else:
+                rec.can_complete = False
 
     # ---------- HELPER METHODS ----------
     def _check_transition(self, target_state, text=None):
@@ -125,8 +180,6 @@ class FormBase(models.AbstractModel):
     def action_approve(self):
         self.action_set_state(
             "approved",
-            approval_date=fields.Datetime.now(),
-            approved_by=self.env.user.id,
         )
 
     def action_cancel(self):
@@ -141,22 +194,16 @@ class FormBase(models.AbstractModel):
     def action_under_review(self):
         self.action_set_state(
             "under_review",
-            review_date=fields.Datetime.now(),
-            review_by=self.env.user.id,
         )
 
     def action_complete(self):
         self.action_set_state(
             "completed",
-            completed_date=fields.Datetime.now(),
-            completed_by=self.env.user.id,
         )
 
     def action_reject(self):
         self.action_set_state(
             "rejected",
-            reject_date=fields.Datetime.now(),
-            rejected_by=self.env.user.id,
         )
 
     # ---------- OPEN SIGN REQUEST ----------
