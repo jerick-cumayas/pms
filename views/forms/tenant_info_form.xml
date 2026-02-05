@@ -25,15 +25,15 @@
         <field name="arch" type="xml">
             <form string="Tenant Form">
                 <header>
-                    <button name="action_submit" string="Submit" type="object" 
+                    <button name="action_submit" string="Submit" type="object"
                             class="btn-primary"/>
-                    <button name="action_approve" string="Approve" type="object" 
+                    <button name="action_approve" string="Approve" type="object"
                             class="btn-primary"/>
-                    <button name="action_sign" string="Sign Document" type="object" 
+                    <button name="action_sign" string="Sign Document" type="object"
                             class="btn-primary"/>
-                    <button name="action_cancel" string="Cancel" type="object" 
+                    <button name="action_cancel" string="Cancel" type="object"
                             class="btn-secondary"/>
-                    <button name="action_draft" string="Reset to Draft" type="object" 
+                    <button name="action_draft" string="Reset to Draft" type="object"
                             class="btn-secondary"/>
                     <field name="state" widget="statusbar" clickable="1"/>
                 </header>
@@ -185,11 +185,6 @@
                                 <field name="spouse_id"/>
                                 <field name="vehicle_id"/>
                                 <field name="tenant_id"/>
-                            </group>
-                        </page>
-                        <page string="Approver">
-                            <group>
-                                <field name="approver_id"/>
                             </group>
                         </page>
                     </notebook>

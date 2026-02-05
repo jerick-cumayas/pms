@@ -34,6 +34,7 @@ class CCTVRequestFormController(http.Controller):
             "camera_number": post.get("camera_number"),
             "purpose": post.get("purpose"),
             "description": post.get("description"),
+            "state": "submitted",
         }
 
         request.env["forms.cctv"].sudo().create(values)

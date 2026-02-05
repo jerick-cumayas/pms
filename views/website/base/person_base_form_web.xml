@@ -1,119 +1,128 @@
 <odoo>
-    <template id="person_base_form">
-        <div id="person-form-container" class="container">
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <label for="first_name">First Name</label>
-                    <input type="text" name="first_name" id="first_name" class="form-control" required="required"/>
-                </div>
+<template id="person_base_form">
+    <div id="person-form-container">
 
-                <div class="col-md-4">
-                    <label for="middle_name">Middle Name</label>
-                    <input type="text" name="middle_name" id="middle_name" class="form-control" required="required"/>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" name="last_name" id="last_name" class="form-control" required="required"/>
-                </div>
+        <!-- Name -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label for="first_name" class="form-label fw-semibold">First Name</label>
+                <input type="text" name="first_name" id="first_name" class="form-control" required="required"/>
             </div>
-
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <label for="age">Age</label>
-                    <input type="number" name="age" id="age" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="gender">Gender</label>
-                    <select name="gender" class="form-control">
-                        <option value="">--Select--</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="birthday">Birthday</label>
-                    <input type="date" name="birthday" id="birthday" class="form-control" required="required"/>
-                </div>
+            <div class="col-md-4">
+                <label for="middle_name" class="form-label fw-semibold">Middle Name</label>
+                <input type="text" name="middle_name" id="middle_name" class="form-control"/>
             </div>
-
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <label for="civil_status">Civil Status</label>
-                    <select name="civil_status" class="form-control">
-                        <option value="">--Select--</option>
-                        <option value="single">Single</option>
-                        <option value="married">Married</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="religion">Religion</label>
-                    <input type="text" name="religion" id="religion" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="nationality">Nationality</label>
-                    <input type="text" name="nationality" id="nationality" class="form-control" required="required"/>
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-md-4">
-                    <label for="office_business">Office/Business Name</label>
-                    <input type="text" name="office_business" id="office_business" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="position">Position</label>
-                    <input type="text" name="position" id="position" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="occupation">Occupation</label>
-                    <input type="text" name="occupation" id="occupation" class="form-control" required="required"/>
-                </div>
-            </div>
-
-            <h2 class="fs-4 mt-3">Contact Information</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="email">Email Address</label>
-                    <input type="text" name="email" id="email" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="mobile_number">Mobile Number</label>
-                    <input type="text" name="mobile_number" id="mobile_number" class="form-control" required="required"/>
-                </div>
-            </div>
-            
-            <h2 class="fs-4 mt-3">Addresses</h2>
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="home_mailing_address">Home Mailing Address</label>
-                    <input type="text" name="home_mailing_address" id="home_mailing_address" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="home_mailing_address_tel_no">Tel No.(Residence)</label>
-                    <input type="text" name="home_mailing_address_tel_no" id="home_mailing_address_tel_no" class="form-control" required="required"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="office_address">Office Address</label>
-                    <input type="text" name="office_address" id="office_address" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="office_address_tel_no">Tel No.(Office)</label>
-                    <input type="text" name="office_address_tel_no" id="office_address_tel_no" class="form-control" required="required"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8">
-                    <label for="abroad_address">Abroad Address</label>
-                    <input type="text" name="abroad_address" id="abroad_address" class="form-control" required="required"/>
-                </div>
-                <div class="col-md-4">
-                    <label for="abroad_address_tel_no">Tel No.(Abroad)</label>
-                    <input type="text" name="abroad_address_tel_no" id="abroad_address_tel_no" class="form-control" required="required"/>
-                </div>
+            <div class="col-md-4">
+                <label for="last_name" class="form-label fw-semibold">Last Name</label>
+                <input type="text" name="last_name" id="last_name" class="form-control" required="required"/>
             </div>
         </div>
-    </template>
+
+        <!-- Personal Details -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label for="age" class="form-label fw-semibold">Age</label>
+                <input type="number" name="age" id="age" class="form-control" required="required"/>
+            </div>
+            <div class="col-md-4">
+                <label for="gender" class="form-label fw-semibold">Gender</label>
+                <select name="gender" class="form-select">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="birthday" class="form-label fw-semibold">Birthday</label>
+                <input type="date" name="birthday" id="birthday" class="form-control" required="required"/>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label for="civil_status" class="form-label fw-semibold">Civil Status</label>
+                <select name="civil_status" class="form-select">
+                    <option value="">Select</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="religion" class="form-label fw-semibold">Religion</label>
+                <input type="text" name="religion" id="religion" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="nationality" class="form-label fw-semibold">Nationality</label>
+                <input type="text" name="nationality" id="nationality" class="form-control"/>
+            </div>
+        </div>
+
+        <!-- Employment -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label for="office_business" class="form-label fw-semibold">Office / Business</label>
+                <input type="text" name="office_business" id="office_business" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="position" class="form-label fw-semibold">Position</label>
+                <input type="text" name="position" id="position" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="occupation" class="form-label fw-semibold">Occupation</label>
+                <input type="text" name="occupation" id="occupation" class="form-control"/>
+            </div>
+        </div>
+
+        <h5 class="mt-4 mb-2">Contact Information</h5>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label for="email" class="form-label fw-semibold">Email</label>
+                <input type="email" name="email" id="email" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label for="mobile_number" class="form-label fw-semibold">Mobile Number</label>
+                <input type="text" name="mobile_number" id="mobile_number" class="form-control"/>
+            </div>
+        </div>
+
+        <h5 class="mt-4 mb-2">Addresses</h5>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-8">
+                <label class="form-label fw-semibold">Home Address</label>
+                <input type="text" name="home_mailing_address" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Tel (Home)</label>
+                <input type="text" name="home_mailing_address_tel_no" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-8">
+                <label class="form-label fw-semibold">Office Address</label>
+                <input type="text" name="office_address" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Tel (Office)</label>
+                <input type="text" name="office_address_tel_no" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label class="form-label fw-semibold">Abroad Address</label>
+                <input type="text" name="abroad_address" class="form-control"/>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Tel (Abroad)</label>
+                <input type="text" name="abroad_address_tel_no" class="form-control"/>
+            </div>
+        </div>
+
+    </div>
+</template>
+
 </odoo>

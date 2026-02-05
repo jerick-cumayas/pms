@@ -4,7 +4,7 @@
             <div class="container mt-5 mb-5">
                 <h2 class="mb-4">Gate Pass Form</h2>
 
-                <form action="/forms/gate_pass/submit" method="post">
+                <form action="/forms/gate-pass/submit" method="post">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
                     <div class="row">

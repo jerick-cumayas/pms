@@ -1,0 +1,90 @@
+<odoo>
+<template id="website_ticket_submission" name="Ticket Submission Form">
+    <t t-call="website.layout">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-md-9">
+
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+
+                            <h3 class="card-title mb-3 text-center">
+                                Submit a Support Ticket
+                            </h3>
+
+                            <p class="text-muted text-center mb-4">
+                                Please provide details about your issue and our support team will assist you shortly.
+                            </p>
+
+                            <form t-att-action="'/tickets/submit'" method="post">
+                                <input type="hidden" name="csrf_token"
+                                       t-att-value="request.csrf_token()"/>
+
+                                <!-- Subject -->
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label fw-semibold">
+                                        Subject
+                                    </label>
+                                    <input type="text"
+                                           name="subject"
+                                           id="subject"
+                                           class="form-control"
+                                           placeholder="Short summary of your issue"
+                                           required="required"/>
+                                </div>
+
+                                <!-- Team -->
+                                <div class="mb-3">
+                                    <label for="team_id" class="form-label fw-semibold">
+                                        Support Team
+                                    </label>
+                                    <select name="team_id"
+                                            id="team_id"
+                                            class="form-select"
+                                            required="required">
+                                        <option value="" disabled="disabled" selected="selected">
+                                            Select a team
+                                        </option>
+
+                                        <t t-foreach="teams" t-as="team">
+                                            <option t-att-value="team.id">
+                                                <t t-esc="team.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                    <div class="form-text">
+                                        Choose the team that best matches your concern.
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="mb-4">
+                                    <label for="description" class="form-label fw-semibold">
+                                        Description
+                                    </label>
+                                    <textarea name="description"
+                                              id="description"
+                                              class="form-control"
+                                              rows="5"
+                                              placeholder="Describe the problem in detail"
+                                              required="required"></textarea>
+                                </div>
+
+                                <!-- Submit -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        Submit Ticket
+                                    </button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </t>
+    </template>
+</odoo>

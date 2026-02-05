@@ -1,0 +1,31 @@
+<odoo>
+    <!-- Wizard Form View -->
+    <record id="view_assign_reviewers_wizard_form" model="ir.ui.view">
+        <field name="name">assign.reviewers.wizard.form</field>
+        <field name="model">assign.reviewers.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Reviewer">
+                <group>
+                    <field name="reviewer_id"/>
+                    <field name="review_for"/>
+                    <field name="state"/>
+                    <field name="review_date"/>
+                    <field name="remarks"/>
+                </group>
+                <footer>
+                    <button string="Assign" type="object" name="action_assign_reviewer" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard Action -->
+    <record id="action_assign_reviewers_wizard" model="ir.actions.act_window">
+        <field name="name">Assign Reviewer</field>
+        <field name="res_model">assign.reviewers.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

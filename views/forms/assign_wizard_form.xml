@@ -1,0 +1,30 @@
+<odoo>
+    <record id="view_form_assign_reviewer_wizard" model="ir.ui.view">
+        <field name="name">form.assign.reviewer.wizard.form</field>
+        <field name="model">form.assign.reviewer.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Assign Reviewers">
+                <group>
+                    <field name="form_id"/>
+                </group>
+
+                <field name="reviewer_line_ids">
+                    <list editable="bottom">
+                        <field name="review_for"/>
+                        <field name="reviewer_id"/>
+                    </list>
+                </field>
+
+                <footer>
+                    <button name="action_assign_reviewers"
+                            string="Assign"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -48,6 +48,22 @@ class AmenitiesRequestForm(models.Model):
         "partner_id",
         string="Guest List",
     )
+    reviewer_ids = fields.One2many(
+        "form.reviewer",
+        "form_id",
+        string="Reviewers",
+        compute="_compute_reviewers",
+        store=True,
+    )
+
+    def _compute_reviewers(self):
+        for rec in self:
+            rec.reviewer_ids = self.env["form.reviewer"].search(
+                [
+                    ("form_model", "=", rec._name),
+                    ("form_id", "=", rec.id),
+                ]
+            )
 
     def get_requestors(self):
         """

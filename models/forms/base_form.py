@@ -1,32 +1,165 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
+from .form_constants import (
+    STATE_APPROVED,
+    STATE_CANCELLED,
+    STATE_COMPLETED,
+    STATE_DRAFT,
+    STATE_IN_PROGRESS,
+    STATE_PENDING,
+    STATE_REJECTED,
+    STATE_SIGNED,
+    STATE_SUBMITTED,
+    STATE_UNDER_REVIEW,
+)
+
+
+class FormReviewer(models.Model):
+    _name = "form.reviewer"
+    _description = "Base Form Reviewer"
+
+    form_model = fields.Char(
+        string="Form Model", required=True
+    )  # model name, e.g., 'form.purchase'
+    form_id = fields.Integer(string="Form Record ID", required=True)
+    reviewer_id = fields.Many2one("res.users", string="Reviewer", required=True)
+    review_for = fields.Char(string="Review For")
+    state = fields.Selection(
+        [
+            ("pending", "Pending"),
+            ("in_progress", "In Progress"),
+            ("completed", "Completed"),
+        ],
+        string="Status",
+        default="pending",
+    )
+    review_date = fields.Datetime(default=fields.Datetime.now)
+    remarks = fields.Text(string="Remarks")
+
 
 class FormBase(models.AbstractModel):
     _name = "form.base"
     _description = "Base Model"
 
-    # Signature fields
+    # ---------- STATES ----------
+    STATE_TRANSITIONS = {
+        STATE_DRAFT: [STATE_SUBMITTED, STATE_CANCELLED],
+        STATE_SUBMITTED: [STATE_APPROVED, STATE_UNDER_REVIEW, STATE_REJECTED],
+        STATE_APPROVED: [STATE_SIGNED, STATE_REJECTED],
+        STATE_UNDER_REVIEW: [STATE_COMPLETED, STATE_CANCELLED],
+        STATE_COMPLETED: [STATE_DRAFT],
+        STATE_SIGNED: [],
+        STATE_REJECTED: [STATE_DRAFT],
+        STATE_CANCELLED: [STATE_DRAFT],
+    }
+
     state = fields.Selection(
         [
-            ("draft", "Draft"),
-            ("submitted", "Submitted"),
-            ("approved", "Approved"),
-            ("signed", "Signed"),
-            ("cancelled", "Cancelled"),
+            (STATE_DRAFT, "Draft"),
+            (STATE_SUBMITTED, "Submitted"),
+            (STATE_UNDER_REVIEW, "Under Review"),
+            (STATE_APPROVED, "Approved"),
+            (STATE_SIGNED, "Signed"),
+            (STATE_COMPLETED, "Completed"),
+            (STATE_REJECTED, "Rejected"),
+            (STATE_CANCELLED, "Cancelled"),
         ],
         string="Status",
-        default="draft",
+        default=STATE_DRAFT,
     )
-    approval_date = fields.Datetime(string="Approval Date", copy=False)
-    approver_id = fields.Many2one(
-        "res.partner",
-        string="Name of Approver",
+
+    reviewer_ids = fields.One2many(
+        "form.reviewer",
+        "form_id",
+        string="Reviewers",
+        store=False,  # Must be stored so other computed fields can track changes
     )
-    approved_by = fields.Many2one("res.users", string="Approved By", copy=False)
-    sign_request_id = fields.Many2one(
-        "sign.request", string="Signature Request", copy=False
+
+    # ---------- COMPUTED PERMISSIONS FOR BUTTONS ----------
+    can_submit = fields.Boolean(compute="_compute_allowed_actions", store=False)
+    can_under_review = fields.Boolean(compute="_compute_allowed_actions", store=False)
+    can_complete = fields.Boolean(compute="_compute_can_complete", store=False)
+    can_reject = fields.Boolean(compute="_compute_allowed_actions", store=False)
+    can_approve = fields.Boolean(compute="_compute_allowed_actions", store=False)
+    can_cancel = fields.Boolean(compute="_compute_allowed_actions", store=False)
+    can_draft = fields.Boolean(compute="_compute_allowed_actions", store=False)
+    can_sign = fields.Boolean(compute="_compute_allowed_actions", store=False)
+    review_incomplete = fields.Boolean(
+        compute="_compute_review_incomplete",
+        store=False,
     )
+
+    is_locked = fields.Boolean(compute="_compute_is_locked")
+    is_assigned = fields.Boolean(compute="_compute_show_assign_reviewer_btn")
+    review_section_locked = fields.Boolean(compute="_compute_is_locked")
+
+    @api.depends("state")
+    def _compute_is_locked(self):
+        for rec in self:
+            # The whole form is locked if completed or cancelled
+            rec.is_locked = rec.state in [
+                STATE_COMPLETED,
+                STATE_UNDER_REVIEW,
+                STATE_CANCELLED,
+                STATE_SIGNED,
+                STATE_REJECTED,
+            ]
+
+            # Review section is editable only in under_review
+            rec.review_section_locked = rec.state not in [
+                STATE_SUBMITTED,
+                STATE_UNDER_REVIEW,
+            ]
+
+    def _compute_allowed_actions(self):
+        for rec in self:
+            transitions = self.STATE_TRANSITIONS.get(rec.state, [])
+            rec.can_submit = STATE_SUBMITTED in transitions
+            rec.can_under_review = (
+                STATE_UNDER_REVIEW in transitions
+            ) and not rec.is_assigned
+            rec.can_complete = (
+                STATE_COMPLETED in transitions
+                and bool(rec.reviewer_ids)
+                and all(r.state == STATE_COMPLETED for r in rec.reviewer_ids)
+            )
+            rec.can_reject = STATE_REJECTED in transitions
+            rec.can_approve = STATE_APPROVED in transitions
+            rec.can_cancel = STATE_CANCELLED in transitions
+            rec.can_draft = STATE_DRAFT in transitions
+            rec.can_sign = STATE_SIGNED in transitions
+
+    def _compute_show_assign_reviewer_btn(self):
+        for rec in self:
+            rec.is_assigned = not bool(rec.reviewer_ids)
+
+    @api.depends("state", "reviewer_ids.state")
+    def _compute_can_complete(self):
+        for rec in self:
+            rec.can_complete = (
+                STATE_COMPLETED in rec.STATE_TRANSITIONS.get(rec.state, [])
+                and bool(rec.reviewer_ids)
+                and not rec.review_incomplete
+            )
+
+    @api.depends("state", "reviewer_ids.state")
+    def _compute_review_incomplete(self):
+        for rec in self:
+            rec.review_incomplete = (
+                rec.state == STATE_UNDER_REVIEW
+                and bool(rec.reviewer_ids)
+                and any(r.state != "completed" for r in rec.reviewer_ids)
+            )
+
+    # ---------- HELPER METHODS ----------
+    def _check_transition(self, target_state, text=None):
+        self.ensure_one()
+        allowed = self.STATE_TRANSITIONS.get(self.state, [])
+        if target_state not in allowed:
+            raise UserError(
+                text or f"You cannot move from '{self.state}' to '{target_state}'."
+            )
 
     def _get_signature_type(self):
         signature_type = self.env["sign.item.type"].search(
@@ -36,12 +169,54 @@ class FormBase(models.AbstractModel):
             raise UserError(_("Signature type is not configured."))
         return signature_type
 
-    # ---------- FUNCTIONS ----------
+    # ---------- GENERIC STATE TRANSITION ----------
+    def action_set_state(self, target_state, **extra_vals):
+        """
+        Generic function to change the state of the form.
+        Optional extra_vals can include dates, user fields, etc.
+        """
+        self.ensure_one()
+        self._check_transition(target_state)
+        vals = {"state": target_state}
+        vals.update(extra_vals)
+        self.write(vals)
+
+    # ---------- SPECIFIC STATE ACTIONS ----------
+    def action_submit(self):
+        self.action_set_state(STATE_SUBMITTED)
+
+    def action_approve(self):
+        self.action_set_state(STATE_APPROVED)
+
+    def action_cancel(self):
+        self.action_set_state(STATE_CANCELLED)
+
+    def action_draft(self):
+        self.action_set_state(STATE_DRAFT)
+
+    def action_sign(self):
+        self.action_set_state(STATE_SIGNED)
+
+    def action_under_review(self):
+        self.action_set_state(
+            STATE_UNDER_REVIEW,
+        )
+
+    def action_complete(self):
+        self.action_set_state(
+            STATE_COMPLETED,
+        )
+
+    def action_reject(self):
+        self.action_set_state(
+            STATE_REJECTED,
+        )
+
+    # ---------- OPEN SIGN REQUEST ----------
     def action_open_sign_request(self):
         self.ensure_one()
         if not self.sign_request_id:
             raise UserError("No signature request linked to this form.")
-
         return {
             "type": "ir.actions.act_window",
             "name": "Signature Request",
@@ -50,27 +225,6 @@ class FormBase(models.AbstractModel):
             "view_mode": "form",
             "target": "current",
         }
-
-    def action_submit(self):
-        self.write({"state": "submitted"})
-
-    def action_approve(self):
-        self.write(
-            {
-                "state": "approved",
-                "approval_date": fields.Datetime.now(),
-                "approved_by": self.env.user.id,
-            }
-        )
-
-    def action_cancel(self):
-        self.write({"state": "cancelled"})
-
-    def action_draft(self):
-        self.write({"state": "draft"})
-
-    def action_sign(self):
-        self.write({"state": "signed"})
 
 
 class PersonBase(models.AbstractModel):
@@ -115,7 +269,7 @@ class UnitOwnerInfoForm(models.AbstractModel):
     _name = "form.unit_owner_info.base"
     _description = "Unit Owner Information Form"
 
-    unit_id = fields.Many2one(comodel_name="building.unit", string="Assigned Unit")
+    unit_id = fields.Many2one(comodel_name="property.unit", string="Assigned Unit")
 
     spouse_info_id = fields.Many2one(
         comodel_name="form.spouse_info", string="Spouse Info"

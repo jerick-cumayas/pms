@@ -5,8 +5,6 @@ pms.access_amenities_form,Amenities Form,model_form_amenities,base.group_user,1,
 pms.access_pet_registration,Pet Registration Form,model_form_pet_registration,base.group_user,1,1,1,1
 pms.access_pet_details,Pet Details,model_pet_details,base.group_user,1,1,1,1
 
-pms.access_building,access_building,pms.model_building,base.group_user,1,1,1,1
-pms.access_building_unit,access_building_unit,pms.model_building_unit,base.group_user,1,1,1,1
 pms.access_form_vehicle_info,access_form_vehicle_info,pms.model_form_vehicle_info,base.group_user,1,1,1,1
 pms.access_form_spouse_info,access_form_spouse_info,pms.model_form_spouse_info,base.group_user,1,1,1,1
 pms.access_form_unit_owner_info,access_form_unit_owner_info,pms.model_form_unit_owner_info,base.group_user,1,1,1,1
@@ -16,3 +14,23 @@ pms.access_incident_details,access_incident_details,pms.model_incident_details,b
 pms.access_forms_cctv,access_forms_cctv,pms.model_forms_cctv,base.group_user,1,1,1,1
 pms.access_forms_gate_pass_item,access_forms_gate_pass_item,pms.model_forms_gate_pass_item,base.group_user,1,1,1,1
 pms.access_forms_gate_pass,access_forms_gate_pass,pms.model_forms_gate_pass,base.group_user,1,1,1,1
+pms.access_forms_vehicle_pass,access_forms_vehicle_pass,pms.model_forms_vehicle_pass,base.group_user,1,1,1,1
+
+pms.access_form_work_permit,access_form_work_permit,pms.model_form_work_permit,base.group_user,1,1,1,1
+pms.access_form_work_types,access_form_work_types,pms.model_form_work_types,base.group_user,1,1,1,1
+pms.access_form_work_scopes,access_form_work_scopes,pms.model_form_work_scopes,base.group_user,1,1,1,1
+pms.access_form_work_permit_checklist_item,access_form_work_permit_checklist_item,pms.model_form_work_permit_checklist_item,base.group_user,1,1,1,1
+pms.access_form_work_permit_checklist_line,access_form_work_permit_checklist_line,pms.model_form_work_permit_checklist_line,base.group_user,1,1,1,1
+pms.access_form_work_permit_personnels,access_form_work_permit_personnels,pms.model_form_work_permit_personnels,base.group_user,1,1,1,1
+pms.access_form_user_info,access_form_user_info,pms.model_form_user_info,base.group_user,1,1,1,1
+
+pms.access_property_owner,access_property_owner,pms.model_property_ownership,base.group_user,1,1,1,1
+pms.access_property_tenant,access_property_tenant,pms.model_property_tenancy,base.group_user,1,1,1,1
+pms.access_property_building,access_property_building,pms.model_property_building,base.group_user,1,1,1,1
+pms.access_property_unit,access_property_unit,pms.model_property_unit,base.group_user,1,1,1,1
+pms.access_property_ownership_history,access_property_ownership_history,pms.model_property_ownership_history,base.group_user,1,1,1,1
+pms.access_property_tenancy_history,access_property_tenancy_history,pms.model_property_tenancy_history,base.group_user,1,1,1,1
+pms.access_form_base,access_form_base,pms.model_form_base,base.group_user,1,1,1,1
+
+pms.access_form_reviewer,access_form_reviewer,pms.model_form_reviewer,base.group_user,1,1,1,1
+pms.access_assign_reviewers_wizard,access_assign_reviewers_wizard,pms.model_assign_reviewers_wizard,base.group_user,1,1,1,1

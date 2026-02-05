@@ -6,4 +6,9 @@ from . import (
     form_pet_registration,
     form_tenant_info,
     form_unit_owner_info,
+    form_user_info,
+    form_vehicle_pass,
+    form_wizards,
+    form_work_permit,
+    helpdesk,
 )

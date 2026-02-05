@@ -1,91 +1,148 @@
 <odoo>
     <template id="website_form_amenities" name="Amenities Request Form">
         <t t-call="website.layout">
-            <div class="container mt-4 mb-4">
-                <h2 class="mb-4">Amenities Reservation Form</h2>
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-10">
 
-                <form t-att-action="'/forms/amenities/submit'"
-                      method="post"
-                      class="o_website_form"
-                      data-model_name="form.amenities"
-                      data-success_page="/forms/thank-you">
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
 
-                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <h3 class="card-title text-center mb-2">
+                                    Amenities Reservation Form
+                                </h3>
 
-                    <!-- Requestor -->
-                    <!-- Requestor -->
-                    <div class="form-group mb-3">
-                        <label>Requestor</label>
-                        <!-- Hidden field for submission -->
-                        <input type="hidden" name="requestor_id" t-att-value="user.id"/>
-                        <!-- Visible readonly field -->
-                        <input type="text" class="form-control" t-att-value="user.name" readonly="readonly"/>
-                    </div>
+                                <p class="text-muted text-center mb-4">
+                                    Please complete the form below to request an amenities reservation.
+                                </p>
 
+                                <form t-att-action="'/forms/amenities-reservation/submit'"
+                                      method="post"
+                                      class="o_website_form"
+                                      data-model_name="form.amenities"
+                                      data-success_page="/forms/thank-you">
 
-                    <!-- Sponsor -->
-                    <div class="form-group mb-3">
-                        <label for="sponsor_id">Sponsor (if any)</label>
-                        <select name="sponsor_id" id="sponsor_id" class="form-control">
-                            <option value="">-- None --</option>
-                            <t t-foreach="requestors" t-as="partner">
-                                <option t-att-value="partner.id"><t t-esc="partner.name"/></option>
-                            </t>
-                        </select>
-                    </div>
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
 
-                    <!-- Type of Activity -->
-                    <div class="form-group mb-3">
-                        <label for="activity_type">Type of Activity</label>
-                        <textarea name="activity_type" id="activity_type" class="form-control" rows="3" required="required"></textarea>
-                    </div>
+                                    <!-- Requestor -->
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            Requestor
+                                        </label>
+                                        <input type="hidden"
+                                               name="requestor_id"
+                                               t-att-value="user.id"/>
+                                        <input type="text"
+                                               class="form-control"
+                                               t-att-value="user.name"
+                                               readonly="readonly"/>
+                                    </div>
 
-                    <!-- Relation -->
-                    <div class="form-group mb-3">
-                        <label for="relation">Relation to Member/Resident</label>
-                        <input type="text" name="relation" id="relation" class="form-control" required="required"/>
-                    </div>
+                                    <!-- Sponsor -->
+                                    <div class="mb-3">
+                                        <label for="sponsor_id" class="form-label fw-semibold">
+                                            Sponsor (optional)
+                                        </label>
+                                        <select name="sponsor_id"
+                                                id="sponsor_id"
+                                                class="form-select">
+                                            <option value="">None</option>
+                                            <t t-foreach="requestors" t-as="partner">
+                                                <option t-att-value="partner.id">
+                                                    <t t-esc="partner.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
 
-                    <!-- Date Range -->
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date_from">Date From</label>
-                                <input type="date" name="date_from" id="date_from" class="form-control" required="required"/>
+                                    <!-- Type of Activity -->
+                                    <div class="mb-3">
+                                        <label for="activity_type" class="form-label fw-semibold">
+                                            Type of Activity
+                                        </label>
+                                        <textarea name="activity_type"
+                                                  id="activity_type"
+                                                  class="form-control"
+                                                  rows="3"
+                                                  placeholder="e.g. Birthday party, meeting, family gathering"
+                                                  required="required"></textarea>
+                                    </div>
+
+                                    <!-- Relation -->
+                                    <div class="mb-3">
+                                        <label for="relation" class="form-label fw-semibold">
+                                            Relation to Member / Resident
+                                        </label>
+                                        <input type="text"
+                                               name="relation"
+                                               id="relation"
+                                               class="form-control"
+                                               placeholder="e.g. Family member, guest, friend"
+                                               required="required"/>
+                                    </div>
+
+                                    <!-- Date Range -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="date_from" class="form-label fw-semibold">
+                                                Date From
+                                            </label>
+                                            <input type="date"
+                                                   name="date_from"
+                                                   id="date_from"
+                                                   class="form-control"
+                                                   required="required"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="date_to" class="form-label fw-semibold">
+                                                Date To
+                                            </label>
+                                            <input type="date"
+                                                   name="date_to"
+                                                   id="date_to"
+                                                   class="form-control"
+                                                   required="required"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Guest List -->
+                                    <div class="mb-4">
+                                        <label for="guest_ids" class="form-label fw-semibold">
+                                            Guest List
+                                        </label>
+                                        <select name="guest_ids"
+                                                id="guest_ids"
+                                                class="form-select"
+                                                multiple="multiple">
+                                            <t t-foreach="requestors" t-as="partner">
+                                                <option t-att-value="partner.id">
+                                                    <t t-esc="partner.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                        <div class="form-text">
+                                            Hold Ctrl (Cmd on Mac) to select multiple guests.
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit -->
+                                    <div class="d-grid">
+                                        <button type="submit"
+                                                class="btn btn-primary btn-lg">
+                                            Submit Request
+                                        </button>
+                                    </div>
+
+                                </form>
+
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date_to">Date To</label>
-                                <input type="date" name="date_to" id="date_to" class="form-control" required="required"/>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Guest List -->
-                    <div class="form-group mb-3">
-                        <label for="guest_ids">Guest List</label>
-                        <select name="guest_ids" id="guest_ids" class="form-control" multiple="multiple">
-                            <t t-foreach="requestors" t-as="partner">
-                                <option t-att-value="partner.id"><t t-esc="partner.name"/></option>
-                            </t>
-                        </select>
-                        <small class="form-text text-muted">Hold Ctrl (Cmd on Mac) to select multiple guests.</small>
                     </div>
-                    <!-- <div class="form-group"> -->
-                    <!--     <label for="guest_ids">Guest List</label> -->
-                    <!--     <select name="guest_ids[]" id="guest_ids" class="form-control" multiple="multiple"> -->
-                    <!--         <t t-foreach="requestors" t-as="partner"> -->
-                    <!--             <option t-att-value="partner.id"><t t-esc="partner.name"/></option> -->
-                    <!--         </t> -->
-                    <!--     </select> -->
-                    <!--     <small class="form-text text-muted">Hold Ctrl (Cmd on Mac) to select multiple guests.</small> -->
-                    <!-- </div> -->
-
-                    <button type="submit" class="btn btn-primary mt-3">Submit Request</button>
-                </form>
+                </div>
             </div>
         </t>
     </template>
 </odoo>
-

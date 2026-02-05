@@ -6,4 +6,13 @@
         <xpath expr="//a[@href='/my/account']" position="replace"/>
         <xpath expr="//div[@name='portal_contact']" position="replace"/>
     </template>
+    <template id="portal_helpdesk_ticket_inherit" inherit_id="helpdesk.portal_helpdesk_ticket">
+        <xpath expr="//thead/tr" position="before">
+            <div style="text-align: right; margin-bottom: 10px;">
+                <a t-att-href="'/tickets'" class="btn btn-primary">
+                    Add Ticket
+                </a>
+            </div>
+        </xpath>
+    </template>
 </odoo>

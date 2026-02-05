@@ -1,0 +1,180 @@
+<odoo>
+  <template id="website_work_permit" name="Work Permit Form">
+    <t t-call="website.layout">
+      <div class="container my-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-10 col-md-12">
+
+            <div class="card shadow-sm">
+              <div class="card-body p-4">
+
+                <h2 class="card-title text-center mb-2">
+                  Work Permit Application
+                </h2>
+                <p class="text-muted text-center mb-4">
+                  Complete all applicable sections below and check all required safety measures.
+                </p>
+
+                <form action="/forms/work-permit/submit"
+                      method="post"
+                      class="oe_website_form d-flex flex-column gap-4">
+
+                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                  <!-- ================= -->
+                  <!-- Basic Information -->
+                  <!-- ================= -->
+                  <section class="border rounded p-3">
+                    <h4 class="mb-2">Basic Information</h4>
+                    <hr class="mt-0"/>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Contractor</label>
+                        <input type="text" name="contractor" class="form-control" required="required"/>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Contact Number</label>
+                        <input type="text" name="contractor_no" class="form-control"/>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Estimated Completion Date</label>
+                      <input type="date" name="estimated_completion" class="form-control"/>
+                    </div>
+                  </section>
+
+                  <!-- ================= -->
+                  <!-- Type of Work -->
+                  <!-- ================= -->
+                  <section class="border rounded p-3">
+                    <h4 class="mb-2">Type of Work</h4>
+                    <hr class="mt-0"/>
+                    <div class="row">
+                      <t t-foreach="work_types" t-as="wt">
+                        <div class="col-md-4 mb-2">
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="work_type_ids" t-att-value="wt.id"/>
+                            <label class="form-check-label"><t t-esc="wt.name"/></label>
+                          </div>
+                        </div>
+                      </t>
+                    </div>
+                  </section>
+
+                  <!-- ================= -->
+                  <!-- Work Scope -->
+                  <!-- ================= -->
+                  <section class="border rounded p-3">
+                    <h4 class="mb-2">Scope of Work</h4>
+                    <hr class="mt-0"/>
+                    <div class="row">
+                      <t t-foreach="work_scopes" t-as="ws">
+                        <div class="col-md-4 mb-2">
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="work_scope_ids" t-att-value="ws.id"/>
+                            <label class="form-check-label"><t t-esc="ws.name"/></label>
+                          </div>
+                        </div>
+                      </t>
+                    </div>
+                  </section>
+
+                  <!-- ================= -->
+                  <!-- Work Details -->
+                  <!-- ================= -->
+                  <section class="border rounded p-3">
+                    <h4 class="mb-2">Work Details</h4>
+                    <hr class="mt-0"/>
+                    <div class="mb-3">
+                      <label class="form-label">Specify Details</label>
+                      <textarea name="work_details" class="form-control" rows="3"/>
+                    </div>
+                  </section>
+
+                  <!-- ======================== -->
+                  <!-- SAFETY CHECKLISTS -->
+                  <!-- ======================== -->
+                  <section class="border rounded p-3">
+                    <h4 class="mb-2">Hot Work Checklist</h4>
+                    <hr class="mt-0"/>
+                    <t t-foreach="checklist_items.filtered(lambda i: i.checklist_type == 'hot_work')" t-as="item">
+                      <div class="border rounded p-3 mb-2">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" name="checklist_done" t-att-value="item.id"/>
+                          <label class="form-check-label"><strong><t t-esc="item.name"/></strong></label>
+                        </div>
+                        <textarea class="form-control mt-2" t-att-name="'remarks_%s' % item.id" placeholder="Remarks (if any)"/>
+                      </div>
+                    </t>
+                  </section>
+
+                  <!-- Confined Space -->
+                  <section class="border rounded p-3">
+                    <h4 class="mb-2">Confined Space Checklist</h4>
+                    <hr class="mt-0"/>
+                    <h5>Hazards</h5>
+                    <t t-foreach="checklist_items.filtered(lambda i: i.checklist_type == 'confined_hazard')" t-as="item">
+                      <div class="form-check mb-1">
+                        <input type="checkbox" class="form-check-input" name="checklist_done" t-att-value="item.id"/>
+                        <label class="form-check-label"><t t-esc="item.name"/></label>
+                      </div>
+                    </t>
+
+                    <h5 class="mt-3">Precautions</h5>
+                    <t t-foreach="checklist_items.filtered(lambda i: i.checklist_type == 'confined_precaution')" t-as="item">
+                      <div class="form-check mb-1">
+                        <input type="checkbox" class="form-check-input" name="checklist_done" t-att-value="item.id"/>
+                        <label class="form-check-label"><t t-esc="item.name"/></label>
+                      </div>
+                    </t>
+
+                    <h5 class="mt-3">Safety Equipment</h5>
+                    <t t-foreach="checklist_items.filtered(lambda i: i.checklist_type == 'confined_safety')" t-as="item">
+                      <div class="form-check mb-1">
+                        <input type="checkbox" class="form-check-input" name="checklist_done" t-att-value="item.id"/>
+                        <label class="form-check-label"><t t-esc="item.name"/></label>
+                      </div>
+                    </t>
+                  </section>
+
+                  <!-- Work at Height -->
+                  <section class="border rounded p-3">
+                    <h4 class="mb-2">Work at Height Checklist</h4>
+                    <hr class="mt-0"/>
+                    <h5>Prevention Measures</h5>
+                    <t t-foreach="checklist_items.filtered(lambda i: i.checklist_type == 'height_prevention')" t-as="item">
+                      <div class="form-check mb-1">
+                        <input type="checkbox" class="form-check-input" name="checklist_done" t-att-value="item.id"/>
+                        <label class="form-check-label"><t t-esc="item.name"/></label>
+                      </div>
+                    </t>
+
+                    <h5 class="mt-3">Procedures</h5>
+                    <t t-foreach="checklist_items.filtered(lambda i: i.checklist_type == 'height_procedure')" t-as="item">
+                      <div class="form-check mb-1">
+                        <input type="checkbox" class="form-check-input" name="checklist_done" t-att-value="item.id"/>
+                        <label class="form-check-label"><t t-esc="item.name"/></label>
+                      </div>
+                    </t>
+                  </section>
+
+                  <!-- ================= -->
+                  <!-- SUBMIT -->
+                  <!-- ================= -->
+                  <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                      Submit Work Permit
+                    </button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+</odoo>

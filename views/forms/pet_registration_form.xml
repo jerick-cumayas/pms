@@ -19,65 +19,116 @@
         <field name="model">form.pet_registration</field>
         <field name="arch" type="xml">
             <form string="Pet Registration">
-                <header>
-                    <button name="action_submit" string="Submit" type="object" 
-                            class="btn-primary"/>
-                    <button name="action_approve" string="Approve" type="object" 
-                            class="btn-primary"/>
-                    <button name="action_sign" string="Sign Document" type="object" 
-                            class="btn-primary"/>
-                    <button name="action_cancel" string="Cancel" type="object" 
-                            class="btn-secondary"/>
-                    <button name="action_draft" string="Reset to Draft" type="object" 
-                            class="btn-secondary"/>
-                    <field name="state" widget="statusbar" clickable="1"/>
-                </header>
+            <header>
+                <button name="action_submit"
+                    string="Submit"
+                    type="object"
+                    class="btn-primary"
+                    invisible="not can_submit"/>
+
+                <button name="action_under_review"
+                        string="Under Review"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not can_under_review"/>
+
+                <button name="%(action_assign_reviewers_wizard)d"
+                        type="action"
+                        string="Assign Reviewer"
+                        class="oe_highlight"
+                        context="{'default_form_model': 'forms.pet_registration', 'default_form_id': id}"
+                        invisible="state not in ('submitted')"/>
+
+                <button name="action_complete"
+                        string="Complete"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not can_complete"/>
+
+
+                <button name="action_reject"
+                        string="Reject"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not can_reject"/>
+
+                <button name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not can_cancel"/>
+
+                <button name="action_draft"
+                        string="Reset to Draft"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not can_draft"/>
+                <field name="state" widget="statusbar" clickable="1" statusbar_visible="draft,submitted,under_review,completed,rejected,cancelled"/>
+            </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="action_open_sign_request"
-                                type="object"
-                                class="oe_stat_button"
-                                icon="fa-pencil-square-o"
-                                invisible="sign_request_id == False">
-                            <field name="sign_request_id" invisible="1"/>
-                            <div class="o_stat_info o_stat_info_with_icon">
-                                <span class="o_stat_text">Signature Request</span>
-                            </div>
-                        </button>
+                    <widget name="web_ribbon" invisible="not state in ('draft')" title="Draft" bg_color="text-bg-secondary"/>
+                    <widget name="web_ribbon" invisible="not state in ('submitted')" title="Submitted" bg_color="text-bg-primary"/>
+                    <widget name="web_ribbon" invisible="not state in ('under_review')" title="Under Review" bg_color="text-bg-warning"/>
+                    <widget name="web_ribbon" invisible="not state in ('completed')" title="Completed" bg_color="text-bg-success"/>
+                    <widget name="web_ribbon" invisible="not state in ('rejected')" title="Rejected" bg_color="text-bg-dark"/>
+                    <widget name="web_ribbon" invisible="not state in ('cancelled')" title="Cancelled" bg_color="text-bg-danger"/>
+                    <div class="alert alert-warning"
+                        role="alert"
+                        invisible="state in ('draft', 'completed', 'rejected', 'cancelled') or reviewer_ids">
+                        ⚠ Please assign at least one reviewer before moving to next phase.
                     </div>
-                    <group>
-                        <field name="requestor_id"/>
-                    </group>
-                    <notebook>
-                        <page string="Pet Details">
-                            <field name="pet_ids">
-                                <list editable="bottom">
-                                    <field name="name"/>
-                                    <field name="species"/>
-                                    <field name="breed"/>
-                                    <field name="age"/>
-                                    <field name="gender"/>
-                                    <field name="is_vaccinated"/>
-                                </list>
-                                <form>
-                                    <group>
-                                        <field name="name"/>
-                                        <field name="species"/>
-                                        <field name="breed"/>
-                                        <field name="age"/>
-                                        <field name="gender"/>
-                                        <field name="details"/>
-                                        <field name="is_vaccinated"/>
-                                    </group>
-                                </form>
-                            </field>
-                        </page>
-                        <page string="Approver">
-                            <group>
-                                <field name="approver_id" />
-                            </group>
-                        </page>
-                    </notebook>
+                    <div class="alert alert-info"
+                         role="alert"
+                         invisible="not review_incomplete">
+                        ℹ All assigned reviewers should complete their review before marking this form as Completed.
+                    </div>
+                    <div class="alert alert-success"
+                         role="alert"
+                         invisible="not can_complete">
+                        ✅ All reviewers have completed their review. You may now mark this form as Completed.
+                    </div>
+                        <group>
+                            <h1>
+                                <field name="requestor_id" readonly="is_locked"/>
+                            </h1>
+                        </group>
+
+                        <notebook>
+                            <page string="Pet Details">
+                                <field name="pet_ids">
+                                    <list editable="bottom">
+                                        <field name="name" readonly="parent.is_locked"/>
+                                        <field name="species" readonly="parent.is_locked"/>
+                                        <field name="breed" readonly="parent.is_locked"/>
+                                        <field name="age" readonly="parent.is_locked"/>
+                                        <field name="gender" readonly="parent.is_locked"/>
+                                        <field name="is_vaccinated" readonly="parent.is_locked"/>
+                                    </list>
+                                    <form>
+                                        <group>
+                                            <field name="name" readonly="parent.is_locked"/>
+                                            <field name="species" readonly="parent.is_locked"/>
+                                            <field name="breed" readonly="parent.is_locked"/>
+                                            <field name="age" readonly="parent.is_locked"/>
+                                            <field name="gender" readonly="parent.is_locked"/>
+                                            <field name="details" readonly="parent.is_locked"/>
+                                            <field name="is_vaccinated" readonly="parent.is_locked"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="Reviews / Remarks">
+                                <group>
+                                <field name="reviewer_ids"
+                                        nolabel="1"
+                                       context="{'default_res_model': 'form.pet_registration', 'default_res_id': id}"
+                                       mode="list,form"
+                                       options="{'list_view_ref': 'pms.view_reviewers_list'}"
+                                       readonly="review_section_locked"/>
+                                </group>
+                            </page>
+                        </notebook>
                 </sheet>
             </form>
         </field>

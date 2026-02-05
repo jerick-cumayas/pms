@@ -1,10 +1,9 @@
 <odoo>
-    <template id="website_request_thankyou" name="Website Request Thank You">
+    <!-- <template id="website_request_thankyou" name="Website Request Thank You">
         <t t-call="website.layout">
             <div class="container mt16 mb16">
                 <h2>Thank you for your message!</h2>
-                <!-- <a href="/contact-us">Back</a> -->
             </div>
         </t>
-    </template>
+    </template> -->
 </odoo>
