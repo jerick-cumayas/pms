@@ -50,6 +50,23 @@ class TenantInfoForm(models.Model):
         string="House Members",
     )
 
+    reviewer_ids = fields.One2many(
+        "form.reviewer",
+        "form_id",
+        string="Reviewers",
+        compute="_compute_reviewers",
+        store=True,
+    )
+
+    def _compute_reviewers(self):
+        for rec in self:
+            rec.reviewer_ids = self.env["form.reviewer"].search(
+                [
+                    ("form_model", "=", rec._name),
+                    ("form_id", "=", rec.id),
+                ]
+            )
+
     def _get_template(self):
         template_name = f"Tenant Information - {self.id} - {self.create_date}.pdf"
         template = self.env["sign.template"].search(

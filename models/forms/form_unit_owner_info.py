@@ -33,6 +33,22 @@ class UnitOwnerInfoForm(models.Model):
     _inherit = ["form.person.base", "form.base", "form.unit_owner_info.base"]
 
     owner_id = fields.Many2one("res.partner", string="Owner's name")
+    reviewer_ids = fields.One2many(
+        "form.reviewer",
+        "form_id",
+        string="Reviewers",
+        compute="_compute_reviewers",
+        store=True,
+    )
+
+    def _compute_reviewers(self):
+        for rec in self:
+            rec.reviewer_ids = self.env["form.reviewer"].search(
+                [
+                    ("form_model", "=", rec._name),
+                    ("form_id", "=", rec.id),
+                ]
+            )
 
     def _get_template(self):
         template_name = f"Unit Owner Information - {self.id} - {self.create_date}.pdf"

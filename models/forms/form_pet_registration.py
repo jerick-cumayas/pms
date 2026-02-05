@@ -37,7 +37,14 @@ class PetRegistrationForm(models.Model):
         "pet.details",  # related model
         "registration_id",  # field in pet.details linking back
         string="Pet Details",
-        context=lambda self: {"parent_is_locked": self.is_locked},
+    )
+
+    reviewer_ids = fields.One2many(
+        "form.reviewer",
+        "form_id",
+        string="Reviewers",
+        compute="_compute_reviewers",
+        store=True,
     )
 
     def _get_template(self):

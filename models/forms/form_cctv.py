@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class IncidentDetails(models.Model):
@@ -23,3 +23,20 @@ class CCTVRequestForm(models.Model):
 
     footage_provided = fields.Date(string="Footage Provided")
     remarks = fields.Text(string="Comments/Remarks")
+
+    reviewer_ids = fields.One2many(
+        "form.reviewer",
+        "form_id",
+        string="Reviewers",
+        compute="_compute_reviewers",
+        store=True,
+    )
+
+    def _compute_reviewers(self):
+        for rec in self:
+            rec.reviewer_ids = self.env["form.reviewer"].search(
+                [
+                    ("form_model", "=", rec._name),
+                    ("form_id", "=", rec.id),
+                ]
+            )

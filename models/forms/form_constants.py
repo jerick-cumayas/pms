@@ -1,0 +1,12 @@
+STATE_DRAFT = "draft"
+STATE_SUBMITTED = "submitted"
+STATE_UNDER_REVIEW = "under_review"
+STATE_APPROVED = "approved"
+STATE_SIGNED = "signed"
+STATE_COMPLETED = "completed"
+STATE_REJECTED = "rejected"
+STATE_CANCELLED = "cancelled"
+
+STATE_PENDING = "pending"
+STATE_IN_PROGRESS = "in_progress"
+STATE_COMPLETED = "completed"
