@@ -1,13 +1,13 @@
 <odoo>
     <template id="footer_custom_new" inherit_id="website.layout" name="Default" active="True">
         <!-- Removes footer -->
-        <xpath expr="//div[@id='footer']" position="replace">
-            
-        </xpath>
-        
+        <!-- <xpath expr="//div[@id='footer']" position="replace">
+
+        </xpath> -->
+
         <!-- Removes copyright -->
-        <xpath expr="//div[contains(@class, 'o_footer_copyright') 
-                      and contains(@class, 'o_colored_level') 
+        <xpath expr="//div[contains(@class, 'o_footer_copyright')
+                      and contains(@class, 'o_colored_level')
                       and contains(@class, 'o_cc')]" position="replace">
         </xpath>
     </template>
