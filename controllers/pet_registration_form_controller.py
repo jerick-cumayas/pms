@@ -50,9 +50,10 @@ class PetRegistrationFormController(http.Controller):
         pet_details = request.httprequest.form.getlist("pet_details[]")
         pet_is_vaccinated = request.httprequest.form.getlist("pet_is_vaccinated[]")
 
+        pet_list_for_ticket = []
         pet_model = request.env["pet.details"].sudo()
         for i in range(len(pet_names)):
-            pet_model.create(
+            pet = pet_model.create(
                 {
                     "registration_id": registration.id,
                     "name": pet_names[i],
@@ -66,6 +67,41 @@ class PetRegistrationFormController(http.Controller):
                     else False,
                 }
             )
+            pet_list_for_ticket.append(
+                f"Name: {pet.name}, Species: {pet.species}, Breed: {pet.breed}, "
+                f"Age: {pet.age}, Gender: {pet.gender}, "
+                f"Vaccinated: {'Yes' if pet.is_vaccinated else 'No'}, "
+                f"Details: {pet.details}"
+            )
+
+        team = (
+            request.env["helpdesk.team"]
+            .sudo()
+            .search([("name", "ilike", "Pet Registrations")], limit=1)
+        )
+
+        # Create helpdesk ticket (STORE the record!)
+        ticket = (
+            request.env["helpdesk.ticket"]
+            .sudo()
+            .create(
+                {
+                    "name": f"New Pet Registration for Owner {requestor_id}",
+                    "description": "\n".join(pet_list_for_ticket),
+                    "partner_id": int(requestor_id),
+                    "team_id": team.id if team else False,
+                    "form_id": registration.id,
+                    "form_model": registration._name,
+                }
+            )
+        )
+
+        # Link ticket back to the form
+        registration.write(
+            {
+                "helpdesk_ticket_id": ticket.id,
+            }
+        )
 
         return request.redirect(f"{FORM_THANK_YOU_PATH}")
 

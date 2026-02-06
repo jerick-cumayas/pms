@@ -21,14 +21,14 @@
     </record>
 
     <record id="helpdesk_team_pet_registration" model="helpdesk.team">
-        <field name="name">Pet Registration</field>
+        <field name="name">Pet Registrations</field>
         <field name="use_sla">True</field>
         <field name="use_rating">True</field>
         <field name="company_id" ref="base.main_company"/>
     </record>
 
     <record id="helpdesk_team_cctv" model="helpdesk.team">
-        <field name="name">CCTV</field>
+        <field name="name">CCTV Requests</field>
         <field name="use_sla">True</field>
         <field name="use_rating">True</field>
         <field name="company_id" ref="base.main_company"/>
@@ -55,4 +55,3 @@
         <field name="company_id" ref="base.main_company"/>
     </record>
 </odoo>
-

@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_helpdesk_ticket_form_inherit_pet" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit.pet</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Insert button in the header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_open_form"
+                    type="object"
+                    string="View Form"
+                    class="btn btn-secondary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

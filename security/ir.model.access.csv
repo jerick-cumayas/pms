@@ -34,3 +34,4 @@ pms.access_form_base,access_form_base,pms.model_form_base,base.group_user,1,1,1,
 
 pms.access_form_reviewer,access_form_reviewer,pms.model_form_reviewer,base.group_user,1,1,1,1
 pms.access_assign_reviewers_wizard,access_assign_reviewers_wizard,pms.model_assign_reviewers_wizard,base.group_user,1,1,1,1
+pms.access_forms_concern_slip,access_forms_concern_slip,pms.model_forms_concern_slip,base.group_user,1,1,1,1

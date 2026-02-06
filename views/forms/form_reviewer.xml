@@ -1,21 +1,41 @@
 <odoo>
-    <record id="view_form_reviewer_form" model="ir.ui.view">
-        <field name="name">form.reviewer.form</field>
+    <!-- Form view for reviewer -->
+    <record id="view_reviewer_form" model="ir.ui.view">
+        <field name="name">reviewer.form</field>
         <field name="model">form.reviewer</field>
         <field name="arch" type="xml">
-            <form string="Reviewers">
+            <form string="Reviewer" options="{'no_open': True}">
                 <sheet>
                     <group>
-                        <field name="form_model" readonly="1"/>
-                        <field name="form_id" readonly="1"/>
-                        <field name="reviewer_id" readonly="1"/>
                         <field name="review_for" readonly="1"/>
+                        <field name="reviewer_id" readonly="1"/>
                         <field name="state"/>
-                        <field name="review_date"/>
                         <field name="remarks"/>
                     </group>
                 </sheet>
             </form>
         </field>
+    </record>
+
+    <!-- Tree (List) view -->
+    <record id="view_reviewers_list" model="ir.ui.view">
+        <field name="name">reviewers.list</field>
+        <field name="model">form.reviewer</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="review_for"/>
+                <field name="reviewer_id" widget="many2one_avatar"/>
+                <field name="state"/>
+                <field name="remarks"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_reviewers" model="ir.actions.act_window">
+        <field name="name">Reviewers</field>
+        <field name="res_model">form.reviewer</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_reviewers_list"/>
     </record>
 </odoo>
