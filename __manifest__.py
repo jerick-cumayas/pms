@@ -13,6 +13,7 @@
         "web",
         "sign",
         "portal",
+        "event",
     ],
     "data": [
         "security/ir.model.access.csv",
