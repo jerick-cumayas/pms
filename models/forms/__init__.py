@@ -2,6 +2,7 @@ from . import (
     base_form,
     form_amenities,
     form_cctv,
+    form_concern_slip,
     form_gate_pass,
     form_pet_registration,
     form_tenant_info,

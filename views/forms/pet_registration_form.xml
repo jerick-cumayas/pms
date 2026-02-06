@@ -63,6 +63,13 @@
                         type="object"
                         class="btn-secondary"
                         invisible="not can_draft"/>
+
+                <button name="action_open_helpdesk_ticket"
+                    type="object"
+                    string="View Ticket"
+                    class="btn btn-secondary"
+                    icon="fa-life-ring"
+                    invisible="not helpdesk_ticket_id"/>
                 <field name="state" widget="statusbar" clickable="1" statusbar_visible="draft,submitted,under_review,completed,rejected,cancelled"/>
             </header>
                 <sheet>

@@ -1,0 +1,140 @@
+<odoo>
+    <!-- List View -->
+    <record id="view_concern_slip_tree" model="ir.ui.view">
+        <field name="name">concern.slip.tree</field>
+        <field name="model">forms.concern_slip</field>
+        <field name="arch" type="xml">
+            <list string="Concern Slips" create="1" edit="1" delete="1">
+                <field name="requester_id"/>
+                <field name="concern_type"/>
+                <field name="state"/>
+                <field name="helpdesk_ticket_id"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_concern_slip_form" model="ir.ui.view">
+        <field name="name">concern.slip.form</field>
+        <field name="model">forms.concern_slip</field>
+        <field name="arch" type="xml">
+            <form string="Concern Slip Form">
+            <header>
+                <button name="action_submit"
+                    string="Submit"
+                    type="object"
+                    class="btn-primary"
+                    invisible="not can_submit"/>
+
+                <button name="action_under_review"
+                        string="Under Review"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not can_under_review"/>
+
+                <button name="%(action_assign_reviewers_wizard)d"
+                        type="action"
+                        string="Assign Reviewer"
+                        class="oe_highlight"
+                        context="{'default_form_model': 'forms.pet_registration', 'default_form_id': id}"
+                        invisible="state not in ('submitted')"/>
+
+                <button name="action_complete"
+                        string="Complete"
+                        type="object"
+                        class="btn-primary"
+                        invisible="not can_complete"/>
+
+
+                <button name="action_reject"
+                        string="Reject"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not can_reject"/>
+
+                <button name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not can_cancel"/>
+
+                <button name="action_draft"
+                        string="Reset to Draft"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not can_draft"/>
+
+                <button name="action_open_helpdesk_ticket"
+                    type="object"
+                    string="View Ticket"
+                    class="btn btn-secondary"
+                    icon="fa-life-ring"
+                    invisible="not helpdesk_ticket_id"/>
+                <field name="state" widget="statusbar" clickable="1" statusbar_visible="draft,submitted,under_review,completed,rejected,cancelled"/>
+            </header>
+                <sheet>
+                    <widget name="web_ribbon" invisible="not state in ('draft')" title="Draft" bg_color="text-bg-secondary"/>
+                    <widget name="web_ribbon" invisible="not state in ('submitted')" title="Submitted" bg_color="text-bg-primary"/>
+                    <widget name="web_ribbon" invisible="not state in ('under_review')" title="Under Review" bg_color="text-bg-warning"/>
+                    <widget name="web_ribbon" invisible="not state in ('completed')" title="Completed" bg_color="text-bg-success"/>
+                    <widget name="web_ribbon" invisible="not state in ('rejected')" title="Rejected" bg_color="text-bg-dark"/>
+                    <widget name="web_ribbon" invisible="not state in ('cancelled')" title="Cancelled" bg_color="text-bg-danger"/>
+                    <div class="alert alert-warning"
+                        role="alert"
+                        invisible="state in ('draft', 'completed', 'rejected', 'cancelled') or reviewer_ids">
+                        ⚠ Please assign at least one reviewer before moving to next phase.
+                    </div>
+                    <div class="alert alert-info"
+                        role="alert"
+                        invisible="not review_incomplete">
+                        ℹ All assigned reviewers should complete their review before marking this form as Completed.
+                    </div>
+                    <div class="alert alert-success"
+                        role="alert"
+                        invisible="not can_complete">
+                        ✅ All reviewers have completed their review. You may now mark this form as Completed.
+                    </div>
+                    <group>
+                        <field name="requester_id" readonly="is_locked"/>
+                        <field name="subject" readonly="is_locked"/>
+                        <field name="concern_type" readonly="is_locked"/>
+                    </group>
+                    <group>
+                        <field name="description" readonly="is_locked"/>
+                        <field name="attachment_ids" widget="many2many_binary" readonly="is_locked"/>
+                    </group>
+                    <notebook>
+                        <page string="Reviews / Remarks">
+                            <group>
+                            <field name="reviewer_ids"
+                                    nolabel="1"
+                                   context="{'default_res_model': 'form.pet_registration', 'default_res_id': id}"
+                                   mode="list,form"
+                                   options="{'list_view_ref': 'pms.view_reviewers_list', 'form_view_ref': 'pms.view_reviewer_form', 'no_open':1}"
+                                   readonly="review_section_locked"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button string="Submit" type="object" name="action_submit"
+                                invisible="state != 'draft'" class="btn-primary"/>
+                        <button string="Mark Completed" type="object" name="action_complete"
+                                invisible="state != 'under_review'" class="btn-success"/>
+                        <button string="Cancel" type="object" name="action_cancel"
+                                invisible="state in ('cancelled','completed')" class="btn-warning"/>
+                        <button string="Set to Draft" type="object" name="action_draft"
+                                invisible="state != 'cancelled'" class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_concern_slip" model="ir.actions.act_window">
+        <field name="name">Concern Slips</field>
+        <field name="res_model">forms.concern_slip</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

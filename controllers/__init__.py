@@ -2,6 +2,7 @@
 from . import (
     amenities_form_controller,
     cctv_form_controller,
+    concern_slip_controller,
     form_controller,
     gate_pass_controller,
     page_controller,

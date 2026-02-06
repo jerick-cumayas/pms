@@ -6,8 +6,6 @@ from .form_constants import (
     STATE_CANCELLED,
     STATE_COMPLETED,
     STATE_DRAFT,
-    STATE_IN_PROGRESS,
-    STATE_PENDING,
     STATE_REJECTED,
     STATE_SIGNED,
     STATE_SUBMITTED,
@@ -74,6 +72,13 @@ class FormBase(models.AbstractModel):
         "form_id",
         string="Reviewers",
         store=False,  # Must be stored so other computed fields can track changes
+    )
+
+    helpdesk_ticket_id = fields.Many2one(
+        "helpdesk.ticket",
+        string="Helpdesk Ticket",
+        readonly=True,
+        store=True,
     )
 
     # ---------- COMPUTED PERMISSIONS FOR BUTTONS ----------
@@ -180,6 +185,24 @@ class FormBase(models.AbstractModel):
         vals = {"state": target_state}
         vals.update(extra_vals)
         self.write(vals)
+
+    def action_open_helpdesk_ticket(self):
+        self.ensure_one()
+
+        if not self.helpdesk_ticket_id:
+            return False
+
+        if not self.helpdesk_ticket_id.exists():
+            return False
+
+        return {
+            "name": "Helpdesk Ticket",
+            "type": "ir.actions.act_window",
+            "res_model": "helpdesk.ticket",
+            "res_id": self.helpdesk_ticket_id.id,
+            "view_mode": "form",
+            "target": "current",
+        }
 
     # ---------- SPECIFIC STATE ACTIONS ----------
     def action_submit(self):

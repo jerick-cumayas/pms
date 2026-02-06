@@ -1,0 +1,96 @@
+<odoo>
+    <template id="website_concern_slip" name="Concern Slip Form">
+        <t t-call="website.layout">
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-9 col-md-10">
+
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4">
+
+                                <h3 class="card-title text-center mb-2">
+                                    Concern Slip Form
+                                </h3>
+
+                                <p class="text-muted text-center mb-4">
+                                    Submit your concern by filling out the details below.
+                                </p>
+
+                                <form t-att-action="'/forms/concern-slip'"
+                                      method="post"
+                                      enctype="multipart/form-data"
+                                      class="concern-slip-form">
+
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+
+                                    <!-- Subject -->
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            Subject
+                                        </label>
+                                        <input type="text"
+                                               name="subject"
+                                               class="form-control"
+                                               required="required"/>
+                                    </div>
+
+                                    <!-- Concern Type -->
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            Concern Type
+                                        </label>
+                                        <select name="concern_type"
+                                                class="form-select"
+                                                required="required">
+                                            <option value="">Select</option>
+                                            <option value="complaint">Complaint</option>
+                                            <option value="request">Request</option>
+                                            <option value="suggestion">Suggestion</option>
+                                            <option value="incident">Incident</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            Concern Details
+                                        </label>
+                                        <textarea name="description"
+                                                  class="form-control"
+                                                  rows="5"
+                                                  placeholder="Provide details about your concern"
+                                                  required="required"></textarea>
+                                    </div>
+
+                                    <!-- Attachments -->
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">
+                                            Attachments
+                                        </label>
+                                        <input type="file"
+                                               name="attachment_ids"
+                                               class="form-control"
+                                               multiple="multiple"/>
+                                    </div>
+
+                                    <!-- Submit -->
+                                    <div class="d-grid mt-4">
+                                        <button type="submit"
+                                                class="btn btn-primary btn-lg">
+                                            Submit Concern
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
