@@ -12,4 +12,5 @@ from . import (
     form_wizards,
     form_work_permit,
     helpdesk,
+    res_users,
 )

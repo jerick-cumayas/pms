@@ -1,0 +1,160 @@
+<odoo>
+    <template id="website_partner_profile_details" name="Partner Profile">
+
+        <t t-call="website.layout">
+            <div class="container mt-4 mb-5">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h2 class="mb-0">
+                        <t t-esc="partner.full_name or partner.name"/>
+                    </h2>
+                    <a href="/my/update-details" class="btn btn-secondary">Update</a>
+                </div>
+
+                <!-- PERSONAL INFORMATION -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Personal Information</h5>
+                    </div>
+                    <div class="card-body row">
+
+                        <div class="col-md-4">
+                            <strong>First Name:</strong>
+                            <p t-esc="partner.first_name"/>
+                        </div>
+
+                        <div class="col-md-4">
+                            <strong>Middle Name:</strong>
+                            <p t-esc="partner.middle_name"/>
+                        </div>
+
+                        <div class="col-md-4">
+                            <strong>Last Name:</strong>
+                            <p t-esc="partner.last_name"/>
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <strong>Gender:</strong>
+                            <p t-esc="partner.gender"/>
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <strong>Civil Status:</strong>
+                            <p t-esc="partner.civil_status"/>
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <strong>Birthday:</strong>
+                            <p t-esc="partner.birthday"/>
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <strong>Age:</strong>
+                            <p t-esc="partner.age"/>
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <strong>Nationality:</strong>
+                            <p t-esc="partner.nationality"/>
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <strong>Religion:</strong>
+                            <p t-esc="partner.religion"/>
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <strong>Occupation:</strong>
+                            <p t-esc="partner.occupation"/>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ADDRESSES -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Addresses</h5>
+                    </div>
+                    <div class="card-body row">
+
+                        <div class="col-md-4">
+                            <strong>Home Address</strong>
+                            <p t-esc="partner.home_mailing_address"/>
+                            <small>
+                                Tel:
+                                <t t-esc="partner.home_mailing_address_tel_no"/>
+                            </small>
+                        </div>
+
+                        <div class="col-md-4">
+                            <strong>Office Address</strong>
+                            <p t-esc="partner.office_address"/>
+                            <small>
+                                Tel:
+                                <t t-esc="partner.office_address_tel_no"/>
+                            </small>
+                        </div>
+
+                        <div class="col-md-4">
+                            <strong>Abroad Address</strong>
+                            <p t-esc="partner.abroad_address"/>
+                            <small>
+                                Tel:
+                                <t t-esc="partner.abroad_address_tel_no"/>
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- PROPERTIES -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Property Information</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <strong>Owned Units</strong>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Unit</th>
+                                    <th>Building</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="partner.current_owned_unit_ids" t-as="unit">
+                                    <tr>
+                                        <td t-esc="unit.name"/>
+                                        <td t-esc="unit.building_id.name"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <strong class="mt-4">Rented Units</strong>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Unit</th>
+                                    <th>Building</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="partner.current_tenant_unit_ids" t-as="unit">
+                                    <tr>
+                                        <td t-esc="unit.name"/>
+                                        <td t-esc="unit.building_id.name"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </t>
+
+    </template>
+</odoo>

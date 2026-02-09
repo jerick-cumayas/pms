@@ -1,7 +1,16 @@
+import logging
+
 from odoo import http
 from odoo.http import request
 
-from .routes import FORM_THANK_YOU_PATH, FORM_USER_INFO_PATH
+from .routes import (
+    FORM_THANK_YOU_PATH,
+    FORM_USER_DETAILS_PATH,
+    FORM_USER_INFO_PATH,
+    PORTAL_USER_DETAILS_PATH,
+)
+
+_logger = logging.getLogger(__name__)
 
 
 class UserInfoController(http.Controller):
@@ -96,3 +105,78 @@ class UserInfoController(http.Controller):
                 # 4. Redirect on success
                 # -----------------------------
                 return request.redirect(f"{FORM_THANK_YOU_PATH}")
+
+    @http.route(
+        [PORTAL_USER_DETAILS_PATH],
+        type="http",
+        auth="user",
+        website=True,
+    )
+    def partner_profile(self, **kwargs):
+        match request.httprequest.method:
+            case "GET":
+                partner = request.env.user.partner_id.sudo()
+
+                if not partner.exists():
+                    return request.not_found()
+
+                data = partner.read()[0]
+                _logger.info("PARTNER DATA: %s", data)
+
+                return request.render(
+                    "pms.website_partner_profile_details",
+                    {
+                        "partner": partner,
+                    },
+                )
+
+    @http.route(
+        [FORM_USER_DETAILS_PATH],
+        type="http",
+        auth="user",
+        website=True,
+    )
+    def update_partner_profile(self, **kwargs):
+        partner = request.env.user.partner_id.sudo()
+        match request.httprequest.method:
+            case "GET":
+                partner = request.env.user.partner_id.sudo()
+
+                if not partner.exists():
+                    return request.not_found()
+
+                data = partner.read()[0]
+                _logger.info("PARTNER DATA: %s", data)
+
+                return request.render(
+                    "pms.website_partner_profile_update",
+                    {
+                        "partner": partner,
+                    },
+                )
+            case "POST":
+                allowed_fields = [
+                    "first_name",
+                    "middle_name",
+                    "last_name",
+                    "gender",
+                    "civil_status",
+                    "birthday",
+                    "age",
+                    "nationality",
+                    "religion",
+                    "occupation",
+                    "home_mailing_address",
+                    "home_mailing_address_tel_no",
+                    "office_address",
+                    "office_address_tel_no",
+                    "abroad_address",
+                    "abroad_address_tel_no",
+                ]
+
+                values = {
+                    f: kwargs.get(f) or False for f in allowed_fields if f in kwargs
+                }
+                partner.write(values)
+
+                return request.redirect("/my/details")

@@ -71,6 +71,8 @@
         "views/website/ticket_submission_web.xml",
         "views/website/user_info_form_web.xml",
         "views/website/concern_slip_form_web.xml",
+        "views/website/res_partner_details.xml",
+        "views/website/res_partner_update.xml",
         # "views/website/thank_you.xml",
         "views/menu.xml",
     ],
