@@ -178,5 +178,6 @@ class UserInfoController(http.Controller):
                     f: kwargs.get(f) or False for f in allowed_fields if f in kwargs
                 }
                 partner.write(values)
+                partner.write({"signup_done": True})
 
                 return request.redirect("/my/details")

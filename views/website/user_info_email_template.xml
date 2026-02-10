@@ -1,0 +1,29 @@
+<odoo>
+    <record id="email_template_account_created" model="mail.template">
+        <field name="name">Account Created Notification</field>
+        <field name="email_from"><t t-esc="object.company_id.email or 'no-reply@example.com'"/></field>
+        <field name="subject">Your Account Has Been Created</field>
+        <field name="model_id" ref="model_res_users"/> <!-- Sending to Users -->
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html">
+            <div style="font-family:Arial, sans-serif; font-size:14px; color:#333;">
+                <p>Dear <t t-esc="object.name"/>,</p>
+
+                <p>We are pleased to inform you that your account has been successfully created with <t t-esc="object.company_id.name"/>.</p>
+
+                <p>To get started, please visit the following link to log in and fill out the necessary fields for your account update:</p>
+
+                <p style="text-align:center; margin:20px 0;">
+                    <a t-att-href="object.signup_url" style="background-color:#1a73e8; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">
+                        Access Your Account
+                    </a>
+                </p>
+
+                <p>If you did not request this account or believe this email was sent in error, please contact us immediately.</p>
+
+                <p>Best regards,<br/>
+                The <t t-esc="object.company_id.name"/> Team</p>
+            </div>
+        </field>
+    </record>
+</odoo>

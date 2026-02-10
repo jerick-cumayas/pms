@@ -11,6 +11,10 @@ class WebsiteHomeRedirect(http.Controller):
         page = kwargs.get("page", "home")
         partner = request.env.user.partner_id
 
+        redirect_url = request.params.get("redirect")
+        if redirect_url:
+            return request.redirect(redirect_url)
+
         # Always fetch counts for sidebar
         invoice_count = request.env["account.move"].search_count(
             [
@@ -75,6 +79,7 @@ class WebsiteHomeRedirect(http.Controller):
                 "signature_count": signature_count,
                 "events": events,
                 "blogs": blogs,
+                "signup_done": partner.signup_done,
             },
         )
 
