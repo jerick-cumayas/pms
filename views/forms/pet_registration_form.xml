@@ -9,8 +9,9 @@
         <field name="model">form.pet_registration</field>
         <field name="arch" type="xml">
             <list>
-                <field name="create_date"/>
                 <field name="requestor_id"/>
+                <field name="state"/>
+                <field name="create_date"/>
             </list>
         </field>
     </record>
@@ -72,68 +73,69 @@
                     invisible="not helpdesk_ticket_id"/>
                 <field name="state" widget="statusbar" clickable="1" statusbar_visible="draft,submitted,under_review,completed,rejected,cancelled"/>
             </header>
-                <sheet>
-                    <widget name="web_ribbon" invisible="not state in ('draft')" title="Draft" bg_color="text-bg-secondary"/>
-                    <widget name="web_ribbon" invisible="not state in ('submitted')" title="Submitted" bg_color="text-bg-primary"/>
-                    <widget name="web_ribbon" invisible="not state in ('under_review')" title="Under Review" bg_color="text-bg-warning"/>
-                    <widget name="web_ribbon" invisible="not state in ('completed')" title="Completed" bg_color="text-bg-success"/>
-                    <widget name="web_ribbon" invisible="not state in ('rejected')" title="Rejected" bg_color="text-bg-dark"/>
-                    <widget name="web_ribbon" invisible="not state in ('cancelled')" title="Cancelled" bg_color="text-bg-danger"/>
-                    <div class="alert alert-warning"
-                        role="alert"
-                        invisible="state in ('draft', 'completed', 'rejected', 'cancelled') or reviewer_ids">
-                        ⚠ Please assign at least one reviewer before moving to next phase.
-                    </div>
-                    <div class="alert alert-info"
-                         role="alert"
-                         invisible="not review_incomplete">
-                        ℹ All assigned reviewers should complete their review before marking this form as Completed.
-                    </div>
-                    <div class="alert alert-success"
-                         role="alert"
-                         invisible="not can_complete">
-                        ✅ All reviewers have completed their review. You may now mark this form as Completed.
-                    </div>
-                        <group>
-                            <h1>
-                                <field name="requestor_id" readonly="is_locked"/>
-                            </h1>
-                        </group>
+                <div class="alert alert-warning"
+                    role="alert"
+                    invisible="state in ('draft', 'completed', 'rejected', 'cancelled') or reviewer_ids">
+                    ⚠ Please assign at least one reviewer before moving to next phase.
+                </div>
+                <div class="alert alert-info"
+                    role="alert"
+                    invisible="not review_incomplete">
+                    ℹ All assigned reviewers should complete their review before marking this form as Completed.
+                </div>
+                <div class="alert alert-success"
+                    role="alert"
+                    invisible="not can_complete">
+                    ✅ All reviewers have completed their review. You may now mark this form as Completed.
+                </div>
+            <sheet>
+                <widget name="web_ribbon" invisible="not state in ('draft')" title="Draft" bg_color="text-bg-secondary"/>
+                <widget name="web_ribbon" invisible="not state in ('submitted')" title="Submitted" bg_color="text-bg-primary"/>
+                <widget name="web_ribbon" invisible="not state in ('under_review')" title="Under Review" bg_color="text-bg-warning"/>
+                <widget name="web_ribbon" invisible="not state in ('completed')" title="Completed" bg_color="text-bg-success"/>
+                <widget name="web_ribbon" invisible="not state in ('rejected')" title="Rejected" bg_color="text-bg-dark"/>
+                <widget name="web_ribbon" invisible="not state in ('cancelled')" title="Cancelled" bg_color="text-bg-danger"/>
 
-                        <notebook>
-                            <page string="Pet Details">
-                                <field name="pet_ids">
-                                    <list editable="bottom">
+                    <group>
+                        <h1>
+                            <field name="requestor_id" readonly="is_locked"/>
+                        </h1>
+                    </group>
+
+                    <notebook>
+                        <page string="Pet Details">
+                            <field name="pet_ids">
+                                <list editable="bottom">
+                                    <field name="name" readonly="parent.is_locked"/>
+                                    <field name="species" readonly="parent.is_locked"/>
+                                    <field name="breed" readonly="parent.is_locked"/>
+                                    <field name="age" readonly="parent.is_locked"/>
+                                    <field name="gender" readonly="parent.is_locked"/>
+                                    <field name="is_vaccinated" readonly="parent.is_locked"/>
+                                </list>
+                                <form>
+                                    <group>
                                         <field name="name" readonly="parent.is_locked"/>
                                         <field name="species" readonly="parent.is_locked"/>
                                         <field name="breed" readonly="parent.is_locked"/>
                                         <field name="age" readonly="parent.is_locked"/>
                                         <field name="gender" readonly="parent.is_locked"/>
+                                        <field name="details" readonly="parent.is_locked"/>
                                         <field name="is_vaccinated" readonly="parent.is_locked"/>
-                                    </list>
-                                    <form>
-                                        <group>
-                                            <field name="name" readonly="parent.is_locked"/>
-                                            <field name="species" readonly="parent.is_locked"/>
-                                            <field name="breed" readonly="parent.is_locked"/>
-                                            <field name="age" readonly="parent.is_locked"/>
-                                            <field name="gender" readonly="parent.is_locked"/>
-                                            <field name="details" readonly="parent.is_locked"/>
-                                            <field name="is_vaccinated" readonly="parent.is_locked"/>
-                                        </group>
-                                    </form>
-                                </field>
-                            </page>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
 
-                            <page string="Reviews / Remarks">
-                                <group>
-                                <field name="reviewer_ids"
-                                        nolabel="1"
-                                       mode="list,form"
-                                       readonly="review_section_locked"/>
-                                </group>
-                            </page>
-                        </notebook>
+                        <page string="Reviews / Remarks">
+                            <group>
+                            <field name="reviewer_ids"
+                                    nolabel="1"
+                                    mode="list,form"
+                                    readonly="review_section_locked"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
