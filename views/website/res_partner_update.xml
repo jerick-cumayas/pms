@@ -1,0 +1,137 @@
+<odoo>
+    <template id="website_partner_profile_update" name="Partner Profile Update">
+
+        <t t-call="website.layout">
+            <div class="container mt-4 mb-5">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Update Your Profile</h2>
+                </div>
+
+                <!-- FORM: POST to update route -->
+                <form id="partner-update-form" action="/my/update-details" method="post">
+                    <!-- CSRF token -->
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <!-- PERSONAL INFORMATION -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Personal Information</h5>
+                        </div>
+                        <div class="card-body row">
+
+                            <div class="col-md-4 mb-2">
+                                <label>First Name</label>
+                                <input type="text" name="first_name" class="form-control"
+                                       t-att-value="partner.first_name"/>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Middle Name</label>
+                                <input type="text" name="middle_name" class="form-control"
+                                       t-att-value="partner.middle_name"/>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Last Name</label>
+                                <input type="text" name="last_name" class="form-control"
+                                       t-att-value="partner.last_name"/>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Gender</label>
+                                <select name="gender" class="form-select">
+                                    <option value="">Select</option>
+                                    <option value="male" t-att-selected="partner.gender == 'male'">Male</option>
+                                    <option value="female" t-att-selected="partner.gender == 'female'">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Civil Status</label>
+                                <select name="civil_status" class="form-select">
+                                    <option value="">Select</option>
+                                    <option value="single" t-att-selected="partner.civil_status == 'single'">Single</option>
+                                    <option value="married" t-att-selected="partner.civil_status == 'married'">Married</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Birthday</label>
+                                <input type="date" name="birthday" class="form-control"
+                                       t-att-value="partner.birthday"/>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Age</label>
+                                <input type="number" name="age" class="form-control"
+                                       t-att-value="partner.age"/>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Nationality</label>
+                                <input type="text" name="nationality" class="form-control"
+                                       t-att-value="partner.nationality"/>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Religion</label>
+                                <input type="text" name="religion" class="form-control"
+                                       t-att-value="partner.religion"/>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Occupation</label>
+                                <input type="text" name="occupation" class="form-control"
+                                       t-att-value="partner.occupation"/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ADDRESSES -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Addresses</h5>
+                        </div>
+                        <div class="card-body row">
+
+                            <div class="col-md-4 mb-2">
+                                <label>Home Address</label>
+                                <textarea name="home_mailing_address" class="form-control"><t t-esc="partner.home_mailing_address"/></textarea>
+                                <label>Tel (Home)</label>
+                                <input type="text" name="home_mailing_address_tel_no" class="form-control"
+                                       t-att-value="partner.home_mailing_address_tel_no"/>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Office Address</label>
+                                <textarea name="office_address" class="form-control"><t t-esc="partner.office_address"/></textarea>
+                                <label>Tel (Office)</label>
+                                <input type="text" name="office_address_tel_no" class="form-control"
+                                       t-att-value="partner.office_address_tel_no"/>
+                            </div>
+
+                            <div class="col-md-4 mb-2">
+                                <label>Abroad Address</label>
+                                <textarea name="abroad_address" class="form-control"><t t-esc="partner.abroad_address"/></textarea>
+                                <label>Tel (Abroad)</label>
+                                <input type="text" name="abroad_address_tel_no" class="form-control"
+                                       t-att-value="partner.abroad_address_tel_no"/>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="text-end mb-5">
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                        <a href="/my/details" class="btn btn-secondary">Cancel</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </t>
+    </template>
+</odoo>

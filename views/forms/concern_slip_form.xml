@@ -107,12 +107,16 @@
                     <notebook>
                         <page string="Reviews / Remarks">
                             <group>
-                            <field name="reviewer_ids"
+                            <!-- <field name="reviewer_ids"
                                     nolabel="1"
-                                   context="{'default_res_model': 'form.pet_registration', 'default_res_id': id}"
+                                   context="{'default_res_model': 'form.concern_slip', 'default_res_id': id}"
                                    mode="list,form"
                                    options="{'list_view_ref': 'pms.view_reviewers_list', 'form_view_ref': 'pms.view_reviewer_form', 'no_open':1}"
-                                   readonly="review_section_locked"/>
+                                   readonly="review_section_locked"/> -->
+                                <field name="reviewer_ids"
+                                        nolabel="1"
+                                        mode="list,form"
+                                        readonly="review_section_locked"/>
                             </group>
                         </page>
                     </notebook>

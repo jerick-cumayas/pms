@@ -1,78 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="website_vehicle_pass_form" name="Vehicle Pass Request Form">
+    <template id="website_vehicle_pass_form" name="Vehicle Pass Form - Card Style">
         <t t-call="website.layout">
             <div class="container my-5">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8 col-md-12">
+                    <div class="col-lg-8 col-md-10">
 
                         <div class="card shadow-sm">
                             <div class="card-body p-4">
 
-                                <h2 class="card-title text-center mb-3">
-                                    Vehicle Pass Request Form
-                                </h2>
-
+                                <h3 class="card-title text-center mb-3">
+                                    Vehicle Sticker Pass Form
+                                </h3>
                                 <p class="text-muted text-center mb-4">
-                                    Please fill out the details below and attach all necessary documents.
+                                    Apply for a vehicle pass sticker application by providing the required fields below.
                                 </p>
 
-                                <form t-att-action="'/forms/vehicle-pass/submit'"
-                                      method="post"
-                                      enctype="multipart/form-data"
-                                      class="o_website_form d-flex flex-column gap-3">
+                                <t t-if="request.params.get('error')">
+                                    <div class="alert alert-danger">
+                                        <t t-esc="request.params.get('error')"/>
+                                    </div>
+                                </t>
 
-                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <form t-att-action="'/forms/vehicle-pass/submit'" method="post" enctype="multipart/form-data" class="o_website_form">
+                                    <input type="hidden"
+                                        name="csrf_token"
+                                        t-att-value="request.csrf_token()"/>
 
-                                    <!-- Application Type -->
-                                    <section class="border rounded p-3">
-                                        <h4 class="mb-2">Application Details</h4>
-                                        <hr class="mt-0"/>
+                                    <!-- Vehicle Pass Information -->
+                                    <div class="p-3 mb-4">
+                                        <!-- <h5 class="mb-3">Vehicle Pass Information</h5> -->
+
+                                        <!-- <div class="mb-3">
+                                            <label for="requestor_id" class="form-label fw-semibold">Requestor</label>
+                                            <select name="requestor_id" class="form-control" required="required">
+                                                <t t-foreach="request.env['res.partner'].sudo().search([])" t-as="partner">
+                                                    <option t-att-value="partner.id" t-esc="partner.name"/>
+                                                </t>
+                                            </select>
+                                        </div>
+
                                         <div class="mb-3">
-                                            <label class="form-label">Type of Application</label>
-                                            <select name="application_type" class="form-control">
+                                            <label for="application_no" class="form-label fw-semibold">Application Number</label>
+                                            <input type="text" name="application_no" class="form-control" required="required"/>
+                                        </div> -->
+
+                                        <div class="mb-3">
+                                            <label for="application_type" class="form-label fw-semibold">Application Type</label>
+                                            <select name="application_type" class="form-select" required="required">
                                                 <option value="new">New</option>
                                                 <option value="renewal">Renewal</option>
                                             </select>
                                         </div>
+
                                         <div class="mb-3">
-                                            <label class="form-label">Ownership of Vehicle</label>
-                                            <select name="vehicle_ownership" class="form-control">
+                                            <label for="vehicle_ownership" class="form-label fw-semibold">Vehicle Ownership</label>
+                                            <select id="vehicle_ownership" name="vehicle_ownership" class="form-select" required="required">
                                                 <option value="owned">Owned</option>
                                                 <option value="company">Company</option>
                                             </select>
                                         </div>
-                                    </section>
 
-                                    <!-- Attachments -->
-                                    <section class="border rounded p-3">
-                                        <h4 class="mb-2">Attachments</h4>
-                                        <hr class="mt-0"/>
-                                        <div class="mb-3">
-                                            <label class="form-label">LTO OR / Certificate of Registration</label>
-                                            <input type="file" name="lto_cr_attachment_ids" class="form-control"/>
+                                        <div class="mb-3" id="company_cert_container" style="display:none;">
+                                            <label class="form-label fw-semibold">Company Certification</label>
+                                            <input type="file" name="company_cert" class="form-control"/>
                                         </div>
+
                                         <div class="mb-3">
-                                            <label class="form-label">Plate Number</label>
-                                            <input type="file" name="plate_no_attachment_ids" class="form-control"/>
+                                            <label class="form-label fw-semibold">Accomplished Application Form</label>
+                                            <input type="file" name="accomplished_form" class="form-control" required="required"/>
                                         </div>
+
                                         <div class="mb-3">
-                                            <label class="form-label">Driver’s License</label>
-                                            <input type="file" name="driver_license_attachment_ids" class="form-control"/>
+                                            <label class="form-label fw-semibold">Driver's License</label>
+                                            <input type="file" name="driver_license" class="form-control" required="required"/>
                                         </div>
+
+                                        <t t-if="is_homeowner">
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Copy of Duly Notarized DOS</label>
+                                                <input type="file" name="notarized_dos" class="form-control" required="required"/>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Endorsed by Homeowner</label>
+                                                <input type="file" name="endorsed_homeowner" class="form-control" required="required"/>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold">Photocopy of Lease Contract</label>
+                                                <input type="file" name="lease_contract" class="form-control" required="required"/>
+                                            </div>
+                                        </t>
+                                    </div>
+
+                                    <!-- Vehicle Documents -->
+                                    <div class="border rounded p-3 mb-4">
+                                        <h5 class="mb-3">Vehicle Details</h5>
+
                                         <div class="mb-3">
-                                            <label class="form-label">Duly Notarized Deed of Sale</label>
-                                            <input type="file" name="deed_of_sale_attachment_ids" class="form-control"/>
+                                            <label for="vehicle_type" class="form-label fw-semibold">Vehicle Type / Model</label>
+                                            <input type="text" name="vehicle_type" class="form-control" required="required"/>
                                         </div>
+
                                         <div class="mb-3">
-                                            <label class="form-label">Homeowner Endorsement</label>
-                                            <input type="file" name="homeowner_endorsement_attachment_ids" class="form-control"/>
+                                            <label for="vehicle_color" class="form-label fw-semibold">Vehicle Color</label>
+                                            <select name="vehicle_color" class="form-select" required="required">
+                                                <option value="red">Red</option>
+                                                <option value="orange">Orange</option>
+                                                <option value="yellow">Yellow</option>
+                                                <option value="green">Green</option>
+                                                <option value="blue">Blue</option>
+                                                <option value="purple">Purple</option>
+                                                <option value="black">Black</option>
+                                                <option value="white">White</option>
+                                                <option value="gray">Gray</option>
+                                            </select>
                                         </div>
-                                    </section>
+
+                                        <div class="mb-3">
+                                            <label for="vehicle_plate_no" class="form-label fw-semibold">Plate Number</label>
+                                            <input type="text" name="vehicle_plate_no" class="form-control" required="required"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">LTO Official Receipt</label>
+                                            <input type="file" name="lto_or" class="form-control" required="required"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Certificate of Registration (CR)</label>
+                                            <input type="file" name="cr" class="form-control" required="required"/>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Vehicle Photo with Plate Number</label>
+                                            <input type="file" name="vehicle_photo" class="form-control" required="required"/>
+                                        </div>
+                                    </div>
 
                                     <!-- Submit Button -->
-                                    <div class="d-grid mt-3">
+                                    <div class="d-grid">
                                         <button type="submit" class="btn btn-primary btn-lg">
-                                            Submit Request
+                                            Submit Form
                                         </button>
                                     </div>
 
@@ -84,6 +155,26 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var ownershipSelect = document.getElementById('vehicle_ownership');
+                    var companyCertContainer = document.getElementById('company_cert_container');
+
+                    function toggleCompanyCert() {
+                        if (ownershipSelect.value === 'company') {
+                            companyCertContainer.style.display = 'block';
+                            companyCertContainer.querySelector('input').setAttribute('required', 'required');
+                        } else {
+                            companyCertContainer.style.display = 'none';
+                            companyCertContainer.querySelector('input').removeAttribute('required');
+                        }
+                    }
+
+                    ownershipSelect.addEventListener('change', toggleCompanyCert);
+                    toggleCompanyCert();
+                });
+            </script>
         </t>
     </template>
 </odoo>

@@ -1,3 +1,6 @@
+import base64
+import mimetypes
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -6,11 +9,54 @@ from .form_constants import (
     STATE_CANCELLED,
     STATE_COMPLETED,
     STATE_DRAFT,
+    STATE_INVOICE,
+    STATE_QUOTATION,
     STATE_REJECTED,
     STATE_SIGNED,
     STATE_SUBMITTED,
     STATE_UNDER_REVIEW,
 )
+
+
+class FormDocumentType(models.Model):
+    _name = "form.document.type"
+    _description = "Document Type"
+    _order = "sequence, id"
+
+    name = fields.Char(
+        string="Document Type",
+        required=True,
+        translate=True,
+    )
+
+    code = fields.Char(
+        required=True,
+        index=True,
+    )
+
+    sequence = fields.Integer(
+        default=10,
+        help="Controls the display order of document types.",
+    )
+
+    applies_to = fields.Selection(
+        [
+            ("vehicle_details", "Vehicle Details"),
+            ("vehicle_pass", "Vehicle Pass"),
+        ],
+        string="Applies To",
+        required=True,
+    )
+
+    active = fields.Boolean(default=True)
+
+    _sql_constraints = [
+        (
+            "unique_document_type_code",
+            "unique(code)",
+            "The document type code must be unique.",
+        )
+    ]
 
 
 class FormReviewer(models.Model):
@@ -45,7 +91,9 @@ class FormBase(models.AbstractModel):
         STATE_DRAFT: [STATE_SUBMITTED, STATE_CANCELLED],
         STATE_SUBMITTED: [STATE_APPROVED, STATE_UNDER_REVIEW, STATE_REJECTED],
         STATE_APPROVED: [STATE_SIGNED, STATE_REJECTED],
-        STATE_UNDER_REVIEW: [STATE_COMPLETED, STATE_CANCELLED],
+        STATE_UNDER_REVIEW: [STATE_COMPLETED, STATE_QUOTATION, STATE_CANCELLED],
+        STATE_QUOTATION: [STATE_INVOICE, STATE_CANCELLED],
+        STATE_INVOICE: [STATE_COMPLETED, STATE_CANCELLED],
         STATE_COMPLETED: [STATE_DRAFT],
         STATE_SIGNED: [],
         STATE_REJECTED: [STATE_DRAFT],
@@ -57,6 +105,8 @@ class FormBase(models.AbstractModel):
             (STATE_DRAFT, "Draft"),
             (STATE_SUBMITTED, "Submitted"),
             (STATE_UNDER_REVIEW, "Under Review"),
+            (STATE_QUOTATION, "Quotation"),
+            (STATE_INVOICE, "Invoice"),
             (STATE_APPROVED, "Approved"),
             (STATE_SIGNED, "Signed"),
             (STATE_COMPLETED, "Completed"),
@@ -124,11 +174,6 @@ class FormBase(models.AbstractModel):
             rec.can_under_review = (
                 STATE_UNDER_REVIEW in transitions
             ) and not rec.is_assigned
-            rec.can_complete = (
-                STATE_COMPLETED in transitions
-                and bool(rec.reviewer_ids)
-                and all(r.state == STATE_COMPLETED for r in rec.reviewer_ids)
-            )
             rec.can_reject = STATE_REJECTED in transitions
             rec.can_approve = STATE_APPROVED in transitions
             rec.can_cancel = STATE_CANCELLED in transitions
@@ -154,7 +199,7 @@ class FormBase(models.AbstractModel):
             rec.review_incomplete = (
                 rec.state == STATE_UNDER_REVIEW
                 and bool(rec.reviewer_ids)
-                and any(r.state != "completed" for r in rec.reviewer_ids)
+                and any(r.state != STATE_COMPLETED for r in rec.reviewer_ids)
             )
 
     # ---------- HELPER METHODS ----------

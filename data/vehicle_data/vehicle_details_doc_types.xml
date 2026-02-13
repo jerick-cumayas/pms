@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vehicle Details Documents -->
+
+    <record id="doc_type_vehicle_lto_or" model="form.document.type">
+        <field name="name">LTO Official Receipt</field>
+        <field name="code">lto_or</field>
+        <field name="applies_to">vehicle_details</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="doc_type_vehicle_cr" model="form.document.type">
+        <field name="name">Certificate of Registration</field>
+        <field name="code">cr</field>
+        <field name="applies_to">vehicle_details</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="doc_type_vehicle_photo" model="form.document.type">
+        <field name="name">Vehicle Photo with Plate Number</field>
+        <field name="code">vehicle_photo</field>
+        <field name="applies_to">vehicle_details</field>
+        <field name="sequence">3</field>
+    </record>
+
+</odoo>

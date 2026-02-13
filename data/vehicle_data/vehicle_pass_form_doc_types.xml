@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vehicle Pass Form Documents -->
+
+    <record id="doc_type_pass_accomplished_form" model="form.document.type">
+        <field name="name">Accomplished Application Form</field>
+        <field name="code">accomplished_form</field>
+        <field name="applies_to">vehicle_pass</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="doc_type_pass_driver_license" model="form.document.type">
+        <field name="name">Driver's License</field>
+        <field name="code">driver_license</field>
+        <field name="applies_to">vehicle_pass</field>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="doc_type_pass_notarized_dos" model="form.document.type">
+        <field name="name">Duly Notarized Deed of Sale</field>
+        <field name="code">notarized_dos</field>
+        <field name="applies_to">vehicle_pass</field>
+        <field name="sequence">3</field>
+    </record>
+
+    <record id="doc_type_pass_lease_contract" model="form.document.type">
+        <field name="name">Photocopy of Lease Contract</field>
+        <field name="code">lease_contract</field>
+        <field name="applies_to">vehicle_pass</field>
+        <field name="sequence">4</field>
+    </record>
+
+    <record id="doc_type_pass_endorsed_homeowner" model="form.document.type">
+        <field name="name">Endorsed by Homeowner</field>
+        <field name="code">endorsed_homeowner</field>
+        <field name="applies_to">vehicle_pass</field>
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="doc_type_pass_company_cert" model="form.document.type">
+        <field name="name">Company Certification</field>
+        <field name="code">company_cert</field>
+        <field name="applies_to">vehicle_pass</field>
+        <field name="sequence">6</field>
+    </record>
+
+</odoo>

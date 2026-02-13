@@ -1,6 +1,8 @@
 STATE_DRAFT = "draft"
 STATE_SUBMITTED = "submitted"
 STATE_UNDER_REVIEW = "under_review"
+STATE_QUOTATION = "quotation"
+STATE_INVOICE = "invoice"
 STATE_APPROVED = "approved"
 STATE_SIGNED = "signed"
 STATE_COMPLETED = "completed"
@@ -10,3 +12,8 @@ STATE_CANCELLED = "cancelled"
 STATE_PENDING = "pending"
 STATE_IN_PROGRESS = "in_progress"
 STATE_COMPLETED = "completed"
+
+# Products
+PRODUCT_VEHICLE_STICKER = "Vehicle Sticker Pass Application"
+
+PRODUCT_TYPE_SERVICE = "service"

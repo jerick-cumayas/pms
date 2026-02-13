@@ -11,11 +11,11 @@ class UserInfoForm(models.Model):
 
     user_id = fields.Many2one("res.users", string="User", readonly=True)
     partner_id = fields.Many2one("res.partner", string="Contact", readonly=True)
-    user_info_id = fields.Many2one(
-        comodel_name="form.user_info",
-        string="User Info Form",
-        readonly=True,
-    )
+    # user_info_id = fields.Many2one(
+    #     comodel_name="form.user_info",
+    #     string="User Info Form",
+    #     readonly=True,
+    # )
     reviewer_ids = fields.One2many(
         "form.reviewer",
         "form_id",

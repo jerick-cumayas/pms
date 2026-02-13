@@ -107,9 +107,7 @@
                             <group>
                                 <field name="reviewer_ids"
                                     nolabel="1"
-                                    context="{'default_res_model': 'form.pet_registration', 'default_res_id': id}"
                                     mode="list,form"
-                                    options="{'list_view_ref': 'pms.view_reviewers_list'}"
                                     readonly="review_section_locked"/>
                             </group>
                         </page>

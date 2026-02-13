@@ -13,7 +13,7 @@ class VehiclePassFormController(http.Controller):
         website=True,
         name="vehicle_pass_form",
     )
-    def vehicle_pass_form(self, **kwargs):
+    def get_vehicle_pass_form(self, **kwargs):
         return request.render("pms.website_vehicle_pass_form", {})
 
     @http.route(
@@ -24,47 +24,63 @@ class VehiclePassFormController(http.Controller):
         csrf=True,
         name="vehicle_pass_form_submit",
     )
-    def vehicle_pass_form_submit(self, **post):
-        logged_user = request.env.user.partner_id
+    def submit_vehicle_pass_form(self, **post):
+        partner = request.env.user.partner_id
 
-        vals = {
-            "requestor_id": logged_user.id,
-            "application_type": post.get("application_type"),
-            "vehicle_ownership": post.get("vehicle_ownership"),
-        }
+        # 1️⃣ Create Vehicle Pass record
+        vehicle_pass = (
+            request.env["forms.vehicle_pass"]
+            .sudo()
+            .create(
+                {
+                    "requestor_id": partner.id,
+                    "application_type": post.get("application_type"),
+                    "vehicle_ownership": post.get("vehicle_ownership"),
+                    "type": post.get("vehicle_type"),
+                    "color": post.get("vehicle_color"),
+                    "plate_no": post.get("vehicle_plate_no"),
+                }
+            )
+        )
 
-        # Create the record
-        vehicle_pass = request.env["forms.vehicle_pass"].sudo().create(vals)
+        # 3️⃣ Vehicle attachments
+        self._create_attachment(vehicle_pass, "lto_or", "LTO Official Receipt")
+        self._create_attachment(vehicle_pass, "cr", "Certificate of Registration")
+        self._create_attachment(
+            vehicle_pass, "vehicle_photo", "Vehicle Photo with Plate Number"
+        )
 
-        # Handle attachments
-        attachment_fields = [
-            "lto_cr_attachment_ids",
-            "plate_no_attachment_ids",
-            "driver_license_attachment_ids",
-            "deed_of_sale_attachment_ids",
-            "homeowner_endorsement_attachment_ids",
-        ]
+        # 4️⃣ Form attachments
+        self._create_attachment(
+            vehicle_pass, "accomplished_form", "Accomplished Application Form"
+        )
+        self._create_attachment(vehicle_pass, "driver_license", "Driver's License")
 
-        for field in attachment_fields:
-            files = request.httprequest.files.getlist(field)
-            attachments = []
-            for file in files:
-                data = file.read()
-                attachment = (
-                    request.env["ir.attachment"]
-                    .sudo()
-                    .create(
-                        {
-                            "name": file.filename,
-                            "datas": base64.b64encode(data),
-                            "res_model": "forms.vehicle_pass",
-                            "res_id": vehicle_pass.id,
-                            "type": "binary",
-                        }
-                    )
-                )
-                attachments.append(attachment.id)
-            if attachments:
-                vehicle_pass.write({field: [(6, 0, attachments)]})
+        # Optional attachments
+        self._create_attachment(
+            vehicle_pass, "notarized_dos", "Copy of Duly Notarized DOS"
+        )
+        self._create_attachment(
+            vehicle_pass, "endorsed_homeowner", "Endorsed by Homeowner"
+        )
+        self._create_attachment(
+            vehicle_pass, "lease_contract", "Photocopy of Lease Contract"
+        )
+        self._create_attachment(vehicle_pass, "company_cert", "Company Certification")
 
-        return request.redirect(f"{FORM_THANK_YOU_PATH}")
+        return request.redirect(FORM_THANK_YOU_PATH)
+
+    def _create_attachment(self, record, field_name, attachment_name):
+        """Create an ir.attachment for the given record."""
+        file = request.httprequest.files.get(field_name)
+        if file:
+            request.env["ir.attachment"].sudo().create(
+                {
+                    "name": attachment_name or file.filename,
+                    "type": "binary",
+                    "datas": base64.b64encode(file.read()),
+                    "res_model": record._name,
+                    "res_id": record.id,
+                    "mimetype": file.content_type,
+                }
+            )

@@ -49,6 +49,11 @@ class ResPartner(models.Model):
         string="Units Rented",
         readonly=True,  # Important
     )
+    signup_done = fields.Boolean(
+        string="Account Updated",
+        default=False,
+        help="Indicates if the user has completed their account setup",
+    )
 
     @api.depends("property_ownership_ids.state", "property_tenancy_ids.state")
     def _compute_current_units(self):
@@ -71,3 +76,17 @@ class ResPartner(models.Model):
             rec.full_name = " ".join(
                 filter(None, [rec.first_name, rec.middle_name, rec.last_name])
             )
+
+    def send_account_created_email(self):
+        self.ensure_one()  # Send to a single user at a time
+
+        # Get the email template
+        template = self.env.ref(
+            "pms.email_template_account_created"
+        )  # Replace with your module name
+
+        # Optionally, pass dynamic context like signup URL
+        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+        signup_url = f"{base_url}/web/login?redirect=/my/update-details"
+
+        template.with_context(signup_url=signup_url).send_mail(self.id, force_send=True)

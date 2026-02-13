@@ -7,8 +7,8 @@
             <form string="Reviewer" options="{'no_open': True}">
                 <sheet>
                     <group>
-                        <field name="review_for" readonly="1"/>
-                        <field name="reviewer_id" readonly="1"/>
+                        <field name="review_for" readonly="parent.is_locked"/>
+                        <field name="reviewer_id" readonly="parent.is_locked"/>
                         <field name="state"/>
                         <field name="remarks"/>
                     </group>

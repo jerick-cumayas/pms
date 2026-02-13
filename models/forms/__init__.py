@@ -1,4 +1,5 @@
 from . import (
+    abstract_models,
     base_form,
     form_amenities,
     form_cctv,
@@ -12,4 +13,5 @@ from . import (
     form_wizards,
     form_work_permit,
     helpdesk,
+    res_users,
 )
