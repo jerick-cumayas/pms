@@ -14,6 +14,7 @@
         "sign",
         "portal",
         "event",
+        "sale_management",
     ],
     "data": [
         "security/ir.model.access.csv",
