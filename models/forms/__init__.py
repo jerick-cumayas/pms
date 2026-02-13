@@ -1,4 +1,5 @@
 from . import (
+    abstract_models,
     base_form,
     form_amenities,
     form_cctv,

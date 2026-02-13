@@ -15,7 +15,10 @@ class AccountMove(models.Model):
             sale_line = line.sale_line_ids[:1]  # take the first linked sale order line
             if sale_line:
                 sale_order = sale_line.order_id
-                if sale_order.property_unit_id:
+                if (
+                    hasattr(sale_order, "property_unit_id")
+                    and sale_order.property_unit_id
+                ):
                     unit = sale_order.property_unit_id
 
                     # Only create ownership if not already sold
