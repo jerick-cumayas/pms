@@ -100,6 +100,10 @@ class FormBase(models.AbstractModel):
         STATE_CANCELLED: [STATE_DRAFT],
     }
 
+    requestor_id = fields.Many2one(
+        "res.partner", string="Name of Requestor", required=True
+    )
+
     state = fields.Selection(
         [
             (STATE_DRAFT, "Draft"),

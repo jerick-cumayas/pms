@@ -4,10 +4,15 @@
         <field name="model">forms.cctv</field>
         <field name="arch" type="xml">
             <list>
+                <field name="requestor_id"/>
+                <field name="purpose"/>
                 <field name="incident_datetime"/>
                 <field name="location"/>
                 <field name="camera_number"/>
                 <field name="footage_provided"/>
+                <field name="remarks"/>
+                <field name="state"/>
+                <field name="create_date"/>
             </list>
         </field>
     </record>
@@ -64,6 +69,21 @@
                             invisible="not can_draft"/>
                     <field name="state" widget="statusbar" clickable="1" statusbar_visible="draft,submitted,under_review,completed,rejected,cancelled"/>
                 </header>
+                <div class="alert alert-warning"
+                        role="alert"
+                        invisible="state in ('draft', 'completed', 'rejected', 'cancelled') or reviewer_ids">
+                    ⚠ Please assign at least one reviewer before moving to next phase.
+                </div>
+                <div class="alert alert-info"
+                        role="alert"
+                        invisible="not review_incomplete">
+                    ℹ All assigned reviewers should complete their review before marking this form as Completed.
+                </div>
+                <div class="alert alert-success"
+                        role="alert"
+                        invisible="not can_complete">
+                    ✅ All reviewers have completed their review. You may now mark this form as Completed.
+                </div>
                 <sheet>
                     <widget name="web_ribbon" invisible="not state in ('draft')" title="Draft" bg_color="text-bg-secondary"/>
                     <widget name="web_ribbon" invisible="not state in ('submitted')" title="Submitted" bg_color="text-bg-primary"/>
@@ -71,22 +91,6 @@
                     <widget name="web_ribbon" invisible="not state in ('completed')" title="Completed" bg_color="text-bg-success"/>
                     <widget name="web_ribbon" invisible="not state in ('rejected')" title="Rejected" bg_color="text-bg-dark"/>
                     <widget name="web_ribbon" invisible="not state in ('cancelled')" title="Cancelled" bg_color="text-bg-danger"/>
-                    <div class="alert alert-warning"
-                         role="alert"
-                         invisible="state in ('draft', 'completed', 'rejected', 'cancelled') or reviewer_ids">
-                        ⚠ Please assign at least one reviewer before moving to next phase.
-                    </div>
-                    <div class="alert alert-info"
-                         role="alert"
-                         invisible="not review_incomplete">
-                        ℹ All assigned reviewers should complete their review before marking this form as Completed.
-                    </div>
-                    <div class="alert alert-success"
-                         role="alert"
-                         invisible="not can_complete">
-                        ✅ All reviewers have completed their review. You may now mark this form as Completed.
-                    </div>
-
                     <group>
                         <group>
                             <field name="incident_datetime" readonly="is_locked"/>

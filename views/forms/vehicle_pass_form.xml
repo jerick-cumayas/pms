@@ -17,8 +17,13 @@
         <field name="model">forms.vehicle_pass</field>
         <field name="arch" type="xml">
             <list string="Vehicle Passes">
+                <field name="requestor_id"/>
                 <field name="application_type"/>
                 <field name="vehicle_ownership"/>
+                <field name="type"/>
+                <field name="color"/>
+                <field name="plate_no"/>
+                <field name="state"/>
             </list>
         </field>
     </record>
@@ -92,6 +97,21 @@
                             invisible="not can_draft"/>
                     <field name="state" widget="statusbar" clickable="1" statusbar_visible="draft,submitted,under_review,quotation,invoice,completed,rejected,cancelled"/>
                 </header>
+                <div class="alert alert-warning"
+                    role="alert"
+                    invisible="state in ('draft', 'completed', 'rejected', 'cancelled') or reviewer_ids">
+                    ⚠ Please assign at least one reviewer before moving to next phase.
+                </div>
+                <div class="alert alert-info"
+                    role="alert"
+                    invisible="not review_incomplete">
+                    ℹ All assigned reviewers should complete their review before marking this form as Completed.
+                </div>
+                <div class="alert alert-success"
+                    role="alert"
+                    invisible="not can_complete">
+                    ✅ All reviewers have completed their review. You may now mark this form as Completed.
+                </div>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_open_quotation"
@@ -110,21 +130,6 @@
                     <widget name="web_ribbon" invisible="not state in ('completed')" title="Completed" bg_color="text-bg-success"/>
                     <widget name="web_ribbon" invisible="not state in ('rejected')" title="Rejected" bg_color="text-bg-dark"/>
                     <widget name="web_ribbon" invisible="not state in ('cancelled')" title="Cancelled" bg_color="text-bg-danger"/>
-                    <div class="alert alert-warning"
-                        role="alert"
-                        invisible="state in ('draft', 'completed', 'rejected', 'cancelled') or reviewer_ids">
-                        ⚠ Please assign at least one reviewer before moving to next phase.
-                    </div>
-                    <div class="alert alert-info"
-                        role="alert"
-                        invisible="not review_incomplete">
-                        ℹ All assigned reviewers should complete their review before marking this form as Completed.
-                    </div>
-                    <div class="alert alert-success"
-                        role="alert"
-                        invisible="not can_complete">
-                        ✅ All reviewers have completed their review. You may now mark this form as Completed.
-                    </div>
                     <group>
                         <field name="requestor_id" readonly="is_locked"/>
                         <field name="application_type" readonly="is_locked"/>

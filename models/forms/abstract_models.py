@@ -20,11 +20,6 @@ class FormQuotationAbstract(models.AbstractModel):
         readonly=True,
     )
 
-    invoice_count = fields.Integer(
-        related="quotation_id.invoice_count",
-        readonly=True,
-    )
-
     invoice_created = fields.Boolean(
         compute="_compute_invoice_created",
         store=True,
@@ -48,39 +43,39 @@ class FormQuotationAbstract(models.AbstractModel):
     # ------------------------------
     # PERMISSIONS
     # ------------------------------
+    @api.depends("state", "reviewer_ids.state", "quotation_id")
     def _compute_quotation_permissions(self):
         for rec in self:
             transitions = rec.STATE_TRANSITIONS.get(rec.state, [])
 
-            rec.can_quotation = STATE_QUOTATION in transitions
-
-            rec.can_invoice = (
-                rec.state == STATE_QUOTATION
-                and STATE_INVOICE in transitions
-                and bool(rec.quotation_id)
+            self.write(
+                {
+                    "can_quotation": (
+                        STATE_QUOTATION in transitions and not rec.review_incomplete
+                    ),
+                    "can_invoice": (
+                        rec.state == STATE_QUOTATION
+                        and STATE_INVOICE in transitions
+                        and bool(rec.quotation_id)
+                    ),
+                }
             )
 
-    @api.depends("quotation_id.invoice_ids.payment_state")
+    @api.depends("invoice_ids.payment_state", "invoice_ids.state")
     def _compute_invoice_status(self):
         for rec in self:
-            rec.invoice_created = False
-            rec.invoice_paid = False
+            invoices = rec.invoice_ids
 
-            if rec.quotation_id and rec.quotation_id.invoice_ids:
-                # Only consider the first invoice
-                invoice = rec.quotation_id.invoice_ids[0]
+            rec.invoice_created = any(inv.state == "posted" for inv in invoices)
+            rec.invoice_paid = any(inv.payment_state == "paid" for inv in invoices)
 
-                # Invoice exists → move to STATE_INVOICE
-                rec.invoice_created = True
-                if rec.state == STATE_QUOTATION:
-                    rec.write({"state": STATE_INVOICE})
-                    print("quotations")
+            if rec.invoice_created and rec.state == STATE_QUOTATION:
+                self.write({"state": STATE_INVOICE})
+                # rec.state = STATE_INVOICE
 
-                # Check if that invoice is paid → move to STATE_COMPLETED
-                if invoice.payment_state == "paid" and rec.state == STATE_INVOICE:
-                    rec.invoice_paid = True
-                    print("You paid")
-                    rec.write({"state": STATE_COMPLETED})
+            if rec.invoice_paid and rec.state == STATE_INVOICE:
+                self.write({"state": STATE_COMPLETED})
+                # rec.state = STATE_COMPLETED
 
     # ------------------------------
     # EXTENSION HOOKS
